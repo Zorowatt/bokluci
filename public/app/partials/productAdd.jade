@@ -1,0 +1,54 @@
+.container
+    .row
+        .col-md-6
+            form.form-horizontal(role="form")
+                .form-group
+                    label.col-sm-4.control-label Наименование:
+                    .col-sm-8
+                        input.form-control.input-lg(autofocus="autofocus", type="text", placeholder="Найменование на продукта", ng-model="product.name")
+                .form-group
+                    label.col-sm-4.control-label Модел:
+                    .col-sm-8
+                        input.form-control(type="text", ng-model="product.productModel")
+                .form-group
+                    label.col-sm-4.control-label Производител:
+                    .col-sm-8
+                        input.form-control(type="text", ng-model="product.maker")
+                .form-group
+                    label.col-sm-4.control-label Произход:
+                    .col-sm-8
+                        input.form-control(type="text" ng-model="product.origin")
+                .form-group
+                    label.col-sm-4.control-label Продавач:
+                    .col-sm-8
+                        span Магазин
+                        input.form-control(type="text", ng-model="product.reseller.name")
+                        span Град
+                        input.form-control(type="text" ng-model="product.reseller.town")
+                        span Цена
+                        input.form-control(type="text" ng-model="product.reseller.price")
+                        span Дата на покупката
+                        input.form-control(type="text", ng-model="product.reseller.dateBought")
+                .form-group
+                    label.col-sm-4.control-label За:
+                    .col-sm-8
+                        textarea.form-control(cols=40 ,rows=5 , name="defect", ng-model="proscon")
+                .form-group
+                    label.col-sm-4.control-label Против:
+                    .col-sm-8
+                        textarea.form-control(cols=40 ,rows=5 , name="defect", ng-model="conscon")
+        .col-md-6
+
+            .fileUpload.btn.btn-primary
+                span Select File
+                input.upload(type="file" ng-file-select="onFileSelect($files)" accept="image/*")
+            p {{error}}
+
+            .thumbnail(ng-show="myThumbnail")
+                img.prevImg(src='', id='zozo')
+                .caption
+                    button.btn.btn-primary(ng-click="removeImage()") Remove
+    hr
+    button.btn.btn-primary(ng-click="addProduct(product)") Create
+    hr
+

@@ -1,0 +1,38 @@
+.container
+    .row
+        .col-lg-6
+            a.btn.btn-primary(href='/addProduct') Add Product
+            br
+            br
+            .input-group
+                input.form-control(type="text", ng-model='search', ng-change='press()')
+                //#the-basics
+                //     input.typeahead(type="text" placeholder="Find products")
+                //
+                span.input-group-btn
+                    button.btn.btn-danger(type="button", ng-click='goSearch()') Go!
+
+            ul(ng-show='search').search
+                li(ng-repeat='item in searchBuffer')
+                    a(href='', ng-click='select(item)') {{item}}
+
+    br
+    .container
+        .row
+            ul.list-inline
+                li(ng-repeat='item in products')
+                    .col-lg-12.col-md-12.col-sm-12
+                        a.thumbnail(href='/productShow/{{item._id}}')
+                            p.fix-text-length Наименование:  {{item.name}}
+                            img.home-image(ng-src='/get_image/{{item.picture[0].filename}}')
+                            p Za:
+                                span.badge {{getNumber(item.pros)}}
+                            p Protiv:
+                                span.badge {{getNumber(item.cons)}}
+                            p Date:
+                                span {{item.dateAdded | limitTo: 10}}
+    ul.pager
+        li
+            a.btn.btn-default(href="", ng-click="prev()") Prew
+        li
+            a.btn.btn-default(href="", ng-click="next()") Next

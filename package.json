@@ -1,0 +1,26 @@
+{
+  "name": "bokluci-bg",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.4.x"
+  },
+  "author": "Zorro",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.6.5",
+    "busboy": "^0.2.9",
+    "express": "^4.8.5",
+    "formidable": "^1.0.15",
+    "fs": "0.0.2",
+    "gridfs-stream": "^0.5.1",
+    "jade": "^1.5.0",
+    "mongoose": "^3.8.15"
+  }
+}

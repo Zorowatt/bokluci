@@ -1,0 +1,73 @@
+.container
+    .row
+        .col-md-3
+            img.fromShow(ng-src='/get_image/{{Product.picture[0].filename}}')
+        .col-md-9
+            p Наименование: {{Product.name}}
+            p Производител: {{Product.maker}}
+            p Модел: {{Product.productModel}}
+            p Произход: {{Product.origin}}
+            p Магазин: {{Product.reseller.name}}
+            h5 Закупен в град: {{Product.reseller.town}}
+            h5 Цена: {{Product.reseller.price}}
+            h5 Дата на Покупката: {{Product.reseller.dateBought}}
+    br
+    hr
+    .row
+        .col-md-6
+            button.btn.btn-primary(data-toggle='modal' data-target="#prosModal") Add Comment
+            div.modal.fade(id='prosModal', tabindex="-1", role="dialog", aria-labelledby="prosModalLabel" aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-body
+                            .form-group
+                                label.col-sm-4.control-label Напишете коментар:
+                                .col-sm-8
+                                    textarea.form-control(cols=40 ,rows=5 , ng-model="commentPros", maxlength='100')
+                        .modal-footer
+                            hr
+                            a.btn.btn-primary(href='', ng-click='addCommentPros()', data-dismiss='modal') Save
+                            a.btn.btn-primary(href='', data-dismiss='modal') Cancel
+            p
+            .panel.panel-warning
+                .panel-heading ЗА:
+                .panel-body
+                    ul.list-unstyled
+                        li.panel.panel-default(ng-repeat='item in Product.pros', ng-show='!item.flagIsNew')
+                            .panel-body
+                                textarea.form-control(rows = 4 , readonly) {{item.content}}
+                            .panel-footer.pros-color
+                                | user:
+                                span &nbsp{{item.userAdded}}
+                                br
+                                | date:
+                                span &nbsp{{item.dateAdded | limitTo : 10}}
+
+        .col-md-6
+            button.btn.btn-primary(data-toggle='modal' data-target="#consModal") Add Comment
+            div.modal.fade(id='consModal', tabindex="-1", role="dialog", aria-labelledby="consModalLabel" aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-body
+                            .form-group
+                                label.col-sm-4.control-label Напишете коментар:
+                                .col-sm-8
+                                    textarea.form-control(cols=40 ,rows=5 , ng-model="commentCons", maxlength='100')
+                        .modal-footer
+                            hr
+                            a.btn.btn-primary(href='', ng-click='addCommentCons()', data-dismiss='modal') Save
+                            a.btn.btn-primary(href='', data-dismiss='modal') Cancel
+            p
+            .panel.panel-warning
+                .panel-heading ПРОТИВ:
+                .panel-body
+                    ul.list-unstyled
+                        li.panel.panel-danger(ng-repeat='item in Product.cons', ng-show='!item.flagIsNew')
+                            .panel-body
+                                textarea.form-control(rows = 4 , readonly) {{item.content}}
+                            .panel-footer.cons-color
+                                | user:
+                                span &nbsp{{item.userAdded}}
+                                br
+                                | date:
+                                span &nbsp{{item.dateAdded | limitTo:10}}
