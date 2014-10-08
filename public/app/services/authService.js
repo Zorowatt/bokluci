@@ -1,5 +1,5 @@
 //this service will make the AJAX requests related with the user authentication
-app.factory('auth',['$http', function ($http) {
+app.factory('auth',['$http','$q','identity', function ($http,$q, identity) {
     return{
         login: function (user) {
             return  $http.post('/login', user);
@@ -24,6 +24,14 @@ app.factory('auth',['$http', function ($http) {
         },
         logout: function () {
             return  $http.post('/logout');
+        },
+        isAuthenticated: function() {
+            if (identity.isAuthenticated()) {
+                return true;
+            }
+            else {
+                return $q.reject('not authorized');
+            }
         }
     }
 }]);

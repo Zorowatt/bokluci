@@ -1,6 +1,5 @@
 var mongoose = require('mongoose')
-    //uncomment below only for initial adding of users in mongodb
-//    ,crypto = require('crypto') //this is an encryption module included in node.js
+    ,crypto = require('crypto') //this is an encryption module included in node.js
     ;
 
 var userSchema = mongoose.Schema ({
@@ -58,7 +57,7 @@ var user = mongoose.model('Users',userSchema);
 //    return crypto.randomBytes(128).toString('base64');
 //}
 //
-//function generateHashedPassword(salt,pwd) {
-//    var hmac = crypto.createHmac('sha1', salt); //zadavame SHA-1 encryption algorithm to be used
-//    return hmac.update(pwd).digest('hex'); //converts the password by SHA-1 and the salt, then converts the result in hex number
-//}
+function generateHashedPassword(salt,pwd) {
+    var hmac = crypto.createHmac('sha1', salt); //zadavame SHA-1 encryption algorithm to be used
+    return hmac.update(pwd).digest('hex'); //converts the password by SHA-1 and the salt, then converts the result in hex number
+}

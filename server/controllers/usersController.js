@@ -4,13 +4,14 @@ var Users = require('mongoose').model('Users')
     ,crypto = require('crypto')//this is an encryption module included in node.js
     ;
 
-passport.use(new localPassport(function (username ,passport ,done) {
+passport.use(new localPassport(function (username ,password ,done) {
     Users.findOne({username: username}).exec(function (err, user) {
         if (err){
             console.log('Error loading user: '+ err);
             return;
         }
-        if (user){
+         //tuk veche se izvikva metoda, koito e dobaven kam Usershema na userite
+        if (user && user.authenticate(password)){
             return done(null, user);
         }
         else{

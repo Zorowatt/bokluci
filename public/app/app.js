@@ -3,6 +3,20 @@ var app = angular.module('app',['ngResource','ngRoute','angularFileUpload']);
 
 app.config(function($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
+
+    var routeUserChecks = {
+//        adminRole: {
+//            authenticate: function(auth) {
+//                return auth.isAuthorizedForRole('admin');
+//            }
+//        },
+        authenticated: {
+            authenticate: function(auth) {
+                return auth.isAuthenticated();
+            }
+        }
+    };
+
     $routeProvider
         .when('/productShow/:id',{
             templateUrl: '/p/partials/productShow',
@@ -10,13 +24,22 @@ app.config(function($locationProvider, $routeProvider) {
         })
         .when('/addProduct', {
             templateUrl: 'p/partials/productAdd',
-            controller: 'ProductCtrl'
+            controller: 'ProductCtrl',
+            resolve: routeUserChecks.authenticated
         })
         .when('/', {
             templateUrl: '/home',
             controller: 'HomeCtrl'
         })
 
+});
+
+app.run(function($rootScope, $location) {
+    $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
+        if (rejection === 'not authorized') {
+            $location.path('/');
+        }
+    })
 });
 
 
