@@ -54,7 +54,7 @@ module.exports = {
             //asks the passport module to log the user in
             req.logIn(user, function (err) {
                 if (err) return next(err);
-                res.send({success: true, user: user});
+                res.send({success: true, user: {username: user.username}});
             })
         });
         auth(req, res, next);

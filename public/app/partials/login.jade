@@ -6,5 +6,5 @@
         button.btn.btn-primary(ng-click='login(user)') Login
     form.navbar-form(ng-show = 'identity.isAuthenticated()')
         .form-group
-            h4 user: {{identity.currentUser.firstName}}{{identity.currentUser.lastName}}
+            h4 user: {{identity.currentUser.username}}
         button.logout.btn.btn-primary(ng-click='logout()') Logout

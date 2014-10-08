@@ -40,7 +40,22 @@ module.exports = function(app){
 
     app.get('*',function(req,res){
         //the second part is added if refresh the page the browser to know that the user is all ready logged in
-        res.render('index', {currentUser: req.user});
+        if (req.user) {
+
+            //TODO send only user name, not the entire user
+            // this is to hide user credentials
+            req.user.hashPass = 'n/a';
+            req.user.salt = 'n/a';
+            req.user.firstName = 'n/a';
+            req.user.lastName = 'n/a';
+            req.user._id = 23; //not working
+
+
+            res.render('index',{currentUser: req.user} );
+        }
+        else{
+            res.render('index');
+        }
 
     });
 };
