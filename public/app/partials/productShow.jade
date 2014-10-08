@@ -15,7 +15,7 @@
     hr
     .row
         .col-md-6
-            button.btn.btn-primary(data-toggle='modal' data-target="#prosModal") Add Comment
+            button.btn.btn-primary(data-toggle='modal' data-target="#prosModal", ng-show = 'identity.isAuthenticated()') Add Comment
             div.modal.fade(id='prosModal', tabindex="-1", role="dialog", aria-labelledby="prosModalLabel" aria-hidden="true")
                 .modal-dialog
                     .modal-content
@@ -44,7 +44,7 @@
                                 span &nbsp{{item.dateAdded | limitTo : 10}}
 
         .col-md-6
-            button.btn.btn-primary(data-toggle='modal' data-target="#consModal") Add Comment
+            button.btn.btn-primary(data-toggle='modal' data-target="#consModal", ng-show = 'identity.isAuthenticated()') Add Comment
             div.modal.fade(id='consModal', tabindex="-1", role="dialog", aria-labelledby="consModalLabel" aria-hidden="true")
                 .modal-dialog
                     .modal-content

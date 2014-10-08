@@ -1,8 +1,12 @@
-var controllers = require('../controllers');
+var controllers = require('../controllers')
+    ;
 
 module.exports = function(app){
-    //add product to mongoDB
-    //app.post('/api/products/', controllers.products.createProduct);
+
+    //user login
+    app.post('/login', controllers.users.userAuth);
+    //user logout
+    app.post('/logout', controllers.users.userLogout);
 
     //add product to mongoDB and save image to the gridFS
     app.post('/upload_image', controllers.products.createProduct);
@@ -35,7 +39,8 @@ module.exports = function(app){
     });
 
     app.get('*',function(req,res){
-        res.render('index');
+        //the second part is added if refresh the page the browser to know that the user is all ready logged in
+        res.render('index', {currentUser: req.user});
 
     });
 };

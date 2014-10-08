@@ -7,6 +7,7 @@ var Busboy = require('busboy');
 var fs = require('fs');
 
 var randomFileName;
+//creates randome string for the image name
 function randomString() {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz{}[]$^*";
     var string_length = 15;

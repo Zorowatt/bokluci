@@ -7,6 +7,15 @@ body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizelegibility;
 }
+/*Login fields*/
+.navbar-right .navbar-form input {
+    margin-right: 10px;
+}
+.logout{
+    margin-left: 5px;
+}
+
+
 footer {
     background: #333;
     color: #eee;
@@ -34,7 +43,7 @@ footer {
 }
 /*blur the thumbnails*/
 a.thumbnail{
-    opacity: 0.5;
+    opacity: 0.9;
 }
 /*contrast the thumbnails and remove the underlines*/
 a.thumbnail:hover{

@@ -1,0 +1,10 @@
+.navbar-right(ng-controller='LoginCtrl')
+    form.navbar-form(ng-hide='identity.isAuthenticated()')
+        .form-group
+            input.form-control(type='text', placeholder='username', ng-model='user.username')
+            input.form-control(type='password', placeholder='password', ng-model='user.password')
+        button.btn.btn-primary(ng-click='login(user)') Login
+    form.navbar-form(ng-show = 'identity.isAuthenticated()')
+        .form-group
+            h4 user: {{identity.currentUser.firstName}}{{identity.currentUser.lastName}}
+        button.logout.btn.btn-primary(ng-click='logout()') Logout

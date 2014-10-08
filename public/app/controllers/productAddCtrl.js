@@ -1,4 +1,4 @@
-app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload' , function($scope, $http,  productsCRUD, $upload) {
+app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','identity' , function($scope, $http,  productsCRUD, $upload, identity) {
 
 
     var fff = [];
@@ -79,23 +79,23 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload' , fun
                                 price: $scope.product.reseller.price || '--',
                                 dateBought: $scope.product.reseller.dateBought || '--'
                             },
-                            pros: [{userAdded: 'TODO userAdded',
+                            pros: [{userAdded: identity.currentUser.username,
                                 dateAdded: new Date(),
                                 content: $scope.proscon || '--',
                                 flagIsNew: true}],
-                            cons: [{userAdded: 'TODO userAdded',
+                            cons: [{userAdded: identity.currentUser.username,
                                 dateAdded: new Date(),
                                 content: $scope.conscon || '--',
                                 flagIsNew: true}],
                             id : 99,
-                            userAdded : 'TODO userAdded',
+                            userAdded : identity.currentUser.username,
                             dateAdded : new Date(),
                             flagIsNew : true,
                             flagNewCommentAdded : true,
                             picture:[{
                                 filename : $scope.product.filename,
                                 dateAdded: new Date(),
-                                userAdded: 'TODO userAdded'
+                                userAdded: identity.currentUser.username
                             }],
                             keyWords: ['n/a'],
                             category: ['n/a']
@@ -153,21 +153,21 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload' , fun
                             price: $scope.product.reseller.price || '--',
                             dateBought: $scope.product.reseller.dateBought || '--'
                         },
-                        pros: [{userAdded: 'TODO userAdded',
+                        pros: [{userAdded: identity.currentUser.username,
                             dateAdded: new Date(),
                             content: $scope.proscon || '--',
                             flagIsNew: true}],
-                        cons: [{userAdded: 'TODO userAdded',
+                        cons: [{userAdded: identity.currentUser.username,
                             dateAdded: new Date(),
                             content: $scope.conscon || '--',
                             flagIsNew: true}],
                         picture:[{
                             filename : 'noPicture',
                             dateAdded: new Date(),
-                            userAdded: 'TODO userAdded'
+                            userAdded: identity.currentUser.username
                         }],
                         id : 99,
-                        userAdded : 'TODO userAdded',
+                        userAdded : identity.currentUser.username,
                         dateAdded : new Date(),
                         flagIsNew : true,
                         flagNewCommentAdded : true,

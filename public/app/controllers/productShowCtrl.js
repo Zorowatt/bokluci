@@ -1,5 +1,8 @@
-app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD',
-    function($scope, $routeParams, $resource, productsCRUD ) {
+app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD','identity',
+    function($scope, $routeParams, $resource, productsCRUD, identity ) {
+
+    $scope.identity = identity; //this is only to show Add Product button if logged user exists
+
 
     var p = $resource('/api/product/:id',{id: $routeParams.id});
     p.get().$promise.then(function(product) {
@@ -11,7 +14,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
             var comment = {
                 id: $scope.Product._id,
                 pros: {
-                    userAdded: 'TODO userAdded',
+                    userAdded: identity.currentUser.username,
                     content: $scope.commentPros,
                     flagIsNew: true
                 }
@@ -26,7 +29,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
             var comment = {
                 id: $scope.Product._id,
                 cons: {
-                    userAdded: 'TODO userAdded',
+                    userAdded: identity.currentUser.username,
                     content: $scope.commentCons,
                     flagIsNew: true
                 }

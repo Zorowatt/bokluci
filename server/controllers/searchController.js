@@ -1,11 +1,4 @@
-//var Products = require('mongoose').model('Product');
 var Search = require('mongoose').model('SearchBuffer');
-var mongoose = require('mongoose');
-//var Grid = require('gridfs-stream');
-var db = mongoose.connection;
-//var gfs = Grid(db.db, mongoose.mongo);
-//var Busboy = require('busboy');
-//var fs = require('fs');
 
 module.exports = {
 

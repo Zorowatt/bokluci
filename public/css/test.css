@@ -202,6 +202,7 @@ ul.search {
 ul.search li {
     /*display: block;*/
     /*position: absolute;*/
+    font-size: 1.2em;
     list-style: none;
     padding-left: 0px;
 }
