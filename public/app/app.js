@@ -1,4 +1,4 @@
-var app = angular.module('app',['ngResource','ngRoute','angularFileUpload']);
+var app = angular.module('app',['ngResource','ngRoute','angularFileUpload','ui.bootstrap']);
 
 
 app.config(function($locationProvider, $routeProvider) {
@@ -25,6 +25,7 @@ app.config(function($locationProvider, $routeProvider) {
         .when('/addProduct', {
             templateUrl: 'p/partials/productAdd',
             controller: 'ProductCtrl',
+              //can not show this view if user not logged
             resolve: routeUserChecks.authenticated
         })
         .when('/', {

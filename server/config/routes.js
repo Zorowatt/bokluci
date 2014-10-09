@@ -7,11 +7,21 @@ module.exports = function(app){
     app.post('/login', controllers.users.userAuth);
     //user logout
     app.post('/logout', controllers.users.userLogout);
+    //user signUp
+    app.post('/signup', controllers.users.createUser);
 
     //add product to mongoDB and save image to the gridFS
     app.post('/upload_image', controllers.products.createProduct);
 
-
+//    ,
+//    function (req,res,next) {
+//        if (!req.isAuthenticated()) {
+////            res.status(403);
+////            res.end();
+//        }else{
+//            next();
+//        }
+//    }
 
     //TODO hints during search
     app.get('/api/search', controllers.search.searchSuggestions);
@@ -28,7 +38,7 @@ module.exports = function(app){
     //shows selected product
     app.get('/api/product/:id', controllers.products.getProductById);
 
-    //Servicing Angular Routs
+    //Servicing Angular Routes
     app.get('/home',function(req,res){
         res.render('../../public/app/home');
     });
@@ -41,17 +51,8 @@ module.exports = function(app){
     app.get('*',function(req,res){
         //the second part is added if refresh the page the browser to know that the user is all ready logged in
         if (req.user) {
-
-            //TODO send only user name, not the entire user
-            // this is to hide user credentials
-            req.user.hashPass = 'n/a';
-            req.user.salt = 'n/a';
-            req.user.firstName = 'n/a';
-            req.user.lastName = 'n/a';
-            req.user._id = 23; //not working
-
-
-            res.render('index',{currentUser: req.user} );
+            //sends only username, not the entire user
+            res.render('index',{currentUser: {username: req.user.username} } );
         }
         else{
             res.render('index');

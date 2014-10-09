@@ -1,0 +1,11 @@
+.modal-header
+    p Enter your credentials:
+.modal-body
+    .form-group
+        input.form-control(autofocus="autofocus", ng-click='clear()', type='text', placeholder='username', ng-model='user.username')
+        br
+        input.form-control(ng-click='clear()', type='password', placeholder='password', ng-model='user.password')
+.modal-footer
+    #redAlert
+    button.btn.btn-primary(ng-click="ok()") OK
+    button.btn.btn-warning(ng-click="cancel()") Cancel

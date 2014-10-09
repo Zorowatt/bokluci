@@ -1,0 +1,31 @@
+.modal-body
+    .well
+        form.form-horizontal(name='signUpForm')
+            fieldset
+                legend Create User :
+                .form-group
+                    label.col-md-3.control-label(for='first-name') Username
+                    .col-md-9
+                        input.form-control(autofocus="autofocus", type='text', placeholder='username', ng-model='user.username', required)
+                .form-group
+                    label.col-md-3.control-label(for='first-name') Password
+                    .col-md-9
+                        input.form-control(type='password', placeholder='password', ng-model='user.password', required)
+                br
+                .form-group
+                    label.col-md-3.control-label(for='first-name') First Name
+                    .col-md-9
+                        input.form-control(type='text', placeholder='First name', ng-model='user.firstName', required)
+                .form-group
+                    label.col-md-3.control-label(for='first-name') Last Name
+                    .col-md-9
+                        input.form-control(type='text', placeholder='Last Name', ng-model='user.lastName', required)
+                .form-group
+                    label.col-md-3.control-label(for='first-name') E-mail
+                    .col-md-9
+                        input.form-control(type='email', placeholder='e-mail', ng-model='user.email', required)
+
+.modal-footer
+    #redAlert
+    button.btn.btn-primary(ng-disabled='signUpForm.$invalid', ng-click="signUp(user)") Save
+    button.btn.btn-warning(ng-click="cancel()") Cancel

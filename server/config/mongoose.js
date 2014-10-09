@@ -19,5 +19,6 @@ module.exports = function(){
     });
 
 //    products.seedInitialProducts();
+    //TODO CAUTION uncomment will cause: 1. remove all user from DB; 2. add initial users
 //    users.seedInitialUsers();
 };

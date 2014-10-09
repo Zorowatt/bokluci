@@ -1,10 +1,31 @@
 .navbar-right(ng-controller='LoginCtrl')
-    form.navbar-form(ng-hide='identity.isAuthenticated()')
+    //form.navbar-form(ng-hide='identity.isAuthenticated()')
         .form-group
             input.form-control(type='text', placeholder='username', ng-model='user.username')
             input.form-control(type='password', placeholder='password', ng-model='user.password')
-        button.btn.btn-primary(ng-click='login(user)') Login
-    form.navbar-form(ng-show = 'identity.isAuthenticated()')
-        .form-group
-            h4 user: {{identity.currentUser.username}}
-        button.logout.btn.btn-primary(ng-click='logout()') Logout
+        a(href='/', ng-click='login(user)') Login
+        a.logout(href='/', ng-click='sugnup()') New user
+    ul.nav.navbar-nav.pull-right(ng-hide="identity.isAuthenticated()")
+        li.dropdown
+            a.dropdown-toggle(href="", data-toggle="dropdown") Logging
+                span.caret
+            ul.dropdown-menu
+                li
+                    a(href="" ng-click="oldUser('sm')") Old user
+                    a(href="" ng-click="newUser()") New user
+    ul.nav.navbar-nav.pull-right(ng-show="identity.isAuthenticated()")
+        li.dropdown
+            a.dropdown-toggle(href="", data-toggle="dropdown")
+                | {{identity.currentUser.username}}
+                span.caret
+            ul.dropdown-menu
+                li
+                    a(href="") My products
+                li
+                    a(href="") My comments
+                li.divider
+                li
+                    a(href="") My account
+                li.divider
+                li
+                    a(href="" ng-click="logout()") Sign Out

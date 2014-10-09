@@ -10,7 +10,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
     });
 
     $scope.addCommentPros = function (){
-        if($scope.commentPros) {
+        if($scope.commentPros && identity.currentUser) {
             var comment = {
                 id: $scope.Product._id,
                 pros: {
@@ -25,7 +25,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
     };
 
     $scope.addCommentCons = function (){
-        if($scope.commentCons) {
+        if($scope.commentCons && identity.currentUser) {
             var comment = {
                 id: $scope.Product._id,
                 cons: {

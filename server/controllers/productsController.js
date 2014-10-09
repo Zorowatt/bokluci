@@ -22,23 +22,30 @@ function randomString() {
 module.exports = {
 
     getAllProducts: function(req, res, next) {
-        if (req.query.search.length == 0) {
-            Products.find({flagIsNew: false}).sort({ id: 1 }).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
-                if (err) {
-                    console.log('Products can not be loaded: ' + err);
-                }
-                res.send(collection);
-            })
-        }
-        else {
-            var findOptions = {flagIsNew: false, keyWords :{$in: [req.query.search]}};
-            Products.find(findOptions).sort({ id: 1 }).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
-                if (err) {
-                    console.log('Products can not be loaded: ' + err);
-                }
-                res.send(collection);
-            })
+        if (req.query.l && req.query.s) {
 
+
+            if (req.query.search.length == 0) {
+                Products.find({flagIsNew: false}).sort({ id: 1 }).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
+                    if (err) {
+                        console.log('Products can not be loaded: ' + err);
+                    }
+                    res.send(collection);
+                })
+            }
+            else {
+                var findOptions = {flagIsNew: false, keyWords: {$in: [req.query.search]}};
+                Products.find(findOptions).sort({ id: 1 }).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
+                    if (err) {
+                        console.log('Products can not be loaded: ' + err);
+                    }
+                    res.send(collection);
+                })
+
+            }
+        }
+        else{
+            res.redirect('/');
         }
     },
     getImage: function(req, res, next) {

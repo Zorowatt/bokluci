@@ -99,6 +99,14 @@ a.thumbnail:hover{
     max-width:200px;
 }
 
+/*------------------------------------------for modals----------------------------------------*/
+#redAlert{
+    color: red;
+    margin-bottom: 10px;
+}
+
+
+
 /*Настройка на падащите менюта*/
 /*.dropdown-submenu {*/
     /*position: relative;*/

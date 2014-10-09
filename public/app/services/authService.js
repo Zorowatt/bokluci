@@ -25,6 +25,9 @@ app.factory('auth',['$http','$q','identity', function ($http,$q, identity) {
         logout: function () {
             return  $http.post('/logout');
         },
+        signUp: function (user) {
+            return  $http.post('/signup', user);
+        },
         isAuthenticated: function() {
             if (identity.isAuthenticated()) {
                 return true;

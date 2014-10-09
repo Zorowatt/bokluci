@@ -61,8 +61,29 @@ module.exports = {
         auth(req, res, next);
     },
     userLogout: function (req, res, next) {
-        req.logOut() //asks the passport module to log the user out
+        req.logOut(); //asks the passport module to log the user out
         res.send({success: true});
+
+    },
+    createUser: function (req, res, next) {
+        var newUser = req.body;
+        newUser.salt = generateSalt();
+        newUser.hashPass = generateHashedPassword(newUser.salt, newUser.password);
+        Users.create(newUser, function (err, user) {
+            if (err){
+                //res.status(400);
+                return res.send({success: false, reason: err.toString()})
+            }
+            req.logIn(user, function (err) {
+                if (err){
+                    return next(err);
+                }
+                res.send({success: true, user: {username: user.username}});
+            })
+
+        });
+
+
 
     }
 
