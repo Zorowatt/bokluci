@@ -25,6 +25,7 @@
     "jade": "^1.5.0",
     "mongoose": "^3.8.15",
     "passport": "^0.2.1",
+    "passport-google": "^0.3.0",
     "passport-local": "^1.0.0"
   }
 }

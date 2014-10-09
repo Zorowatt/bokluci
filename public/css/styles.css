@@ -105,7 +105,10 @@ a.thumbnail:hover{
     margin-bottom: 10px;
 }
 
-
+.redAlertEmail{
+    color: red;
+    margin-bottom: 10px;
+}
 
 /*Настройка на падащите менюта*/
 /*.dropdown-submenu {*/

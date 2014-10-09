@@ -2,6 +2,7 @@ var Users = require('mongoose').model('Users')
     ,passport = require('passport') //JS module which adds an user property to each request message
     ,localPassport = require('passport-local')
     ,crypto = require('crypto')//this is an encryption module included in node.js
+   // ,googleStrategy = require('passport-google').Strategy;
     ;
 
 passport.use(new localPassport(function (username ,password ,done) {
@@ -19,6 +20,19 @@ passport.use(new localPassport(function (username ,password ,done) {
         }
     })
 }));
+
+
+//passport.use(new GoogleStrategy({
+//        returnURL: 'http://localhost:3030/auth/google/return',
+//        realm: 'http://localhost:3030/'
+//    },
+//    function(identifier, profile, done) {
+//        User.findOrCreate({ openId: identifier }, function(err, user) {
+//            done(err, user);
+//        });
+//    }
+//));
+
 
 passport.serializeUser(function (user, done) {
     if (user){
