@@ -3,6 +3,7 @@ app.controller('ModalSignupCtrl',['$scope','$modalInstance','auth', function ($s
 
     $scope.signUp = function (user) {
 
+        //TODO user validation, e-mail explicitly
         auth.signUp($scope.user).then(
             //if POST payload has been received
             function (payload) {
