@@ -4,30 +4,34 @@
             fieldset
                 legend Create User :
                 .form-group
-                    label.col-md-3.control-label(for='first-name') Username
+                    label.col-md-3.control-label(for='username') Username
                     .col-md-9
-                        input.form-control(autofocus="autofocus", type='text', placeholder='username', ng-model='user.username', required)
+                        input.form-control(id='username', autofocus="autofocus", type='text', placeholder='username', ng-model='user.username', ng-click='clearUsernameError()', required)
                 .form-group
-                    label.col-md-3.control-label(for='first-name') Password
+                    label.col-md-3.control-label(for='pass') Password
                     .col-md-9
-                        input.form-control(type='password', placeholder='password', ng-model='user.password', required)
+                        input.form-control(id='pass', type='password', placeholder='password', ng-model='user.password', required)
 
                 br
                 .form-group
-                    label.col-md-3.control-label(for='first-name') First Name
+                    label.col-md-3.control-label(for='fname') First Name
                     .col-md-9
-                        input.form-control(type='text', placeholder='First name', ng-model='user.firstName', required)
+                        input.form-control(id='fname', type='text', placeholder='First name', ng-model='user.firstName', required)
                 .form-group
-                    label.col-md-3.control-label(for='first-name') Last Name
+                    label.col-md-3.control-label(for='lname') Last Name
                     .col-md-9
-                        input.form-control(type='text', placeholder='Last Name', ng-model='user.lastName', required)
+                        input.form-control(id='lname', type='text', placeholder='Last Name', ng-model='user.lastName', required)
                 .form-group
-                    label.col-md-3.control-label(for='first-name') E-mail
+                    label.col-md-3.control-label(for='email') E-mail
                     .col-md-9
-                        input.form-control(type='text', placeholder='e-mail', ng-model='user.email', required)
+                        input.form-control(id='email', type='text', placeholder='e-mail', ng-model='user.email', ng-click='clearEmail()', required)
                         div.redAlertEmail
+                .form-group
+                    .col-md-8
+                        label.control-label(id='redAlert', for='allert')
+                        button.sinupMargin.btn.btn-warning.pull-right(ng-click="cancel()") Cancel
+                        button.btn.btn-primary.pull-right(ng-disabled='signUpForm.$invalid', ng-click="signUp(user)") Save
 
-.modal-footer
-    #redAlert
-    button.btn.btn-primary(ng-disabled='signUpForm.$invalid', ng-click="signUp(user)") Save
-    button.btn.btn-warning(ng-click="cancel()") Cancel
+
+
+

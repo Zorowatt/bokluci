@@ -1,7 +1,7 @@
 var app = angular.module('app',['ngResource','ngRoute','angularFileUpload','ui.bootstrap']);
 
 
-app.config(function($locationProvider, $routeProvider) {
+app.config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
 
     var routeUserChecks = {
@@ -33,15 +33,15 @@ app.config(function($locationProvider, $routeProvider) {
             controller: 'HomeCtrl'
         })
 
-});
+}]);
 
-app.run(function($rootScope, $location) {
+app.run(['$rootScope', '$location', function($rootScope, $location) {
     $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
         if (rejection === 'not authorized') {
             $location.path('/');
         }
     })
-});
+}]);
 
 
 //app.directive('ngFileSelect', [ '$parse', '$timeout', function($parse, $timeout) {

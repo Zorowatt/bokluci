@@ -109,6 +109,9 @@ a.thumbnail:hover{
     color: red;
     margin-bottom: 10px;
 }
+.sinupMargin{
+    margin-left: 5px;
+}
 
 /*Настройка на падащите менюта*/
 /*.dropdown-submenu {*/

@@ -1,5 +1,45 @@
 app.controller('ModalSignupCtrl',['$scope','$modalInstance','auth', function ($scope, $modalInstance, auth) {
 
+// one good way for validation
+
+    //should be converted for my app
+//    $('form').validate({
+//        rules: {
+//            firstname: {
+//                minlength: 3,
+//                maxlength: 15,
+//                required: true
+//            },
+//            lastname: {
+//                minlength: 3,
+//                maxlength: 15,
+//                required: true
+//            }
+//        },
+//        highlight: function(element) {
+//            $(element).closest('.form-group').addClass('has-error');
+//        },
+//        unhighlight: function(element) {
+//            $(element).closest('.form-group').removeClass('has-error');
+//        },
+//        errorElement: 'span',
+//        errorClass: 'help-block',
+//        errorPlacement: function(error, element) {
+//            if(element.parent('.input-group').length) {
+//                error.insertAfter(element.parent());
+//            } else {
+//                error.insertAfter(element);
+//            }
+//        }
+//    });
+
+    $scope.clearEmail = function () {
+        $('.redAlertEmail').text('');
+    };
+    $scope.clearUsernameError = function () {
+        $('#redAlert').text('');
+    };
+
     function ValidateEmail(inputText)
     {
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -20,12 +60,13 @@ app.controller('ModalSignupCtrl',['$scope','$modalInstance','auth', function ($s
     $scope.signUp = function (user) {
         //simple validation of Email
         //TODO confirmation Email
+        $('.redAlertEmail').text('');
         if (!ValidateEmail($scope.user.email)){
-            console.log('not valid');
+            //console.log('not valid');
             $('.redAlertEmail').text('Invalid E-mail!');
             return;
         }
-        $('.redAlert').text('');
+
 
 
 
