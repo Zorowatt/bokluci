@@ -1,6 +1,6 @@
 .container
     .row
-        .col-lg-6
+        .col-xs-12.col-sm-10.col-md-6.col-lg-6
             a.btn.btn-primary.pull-right(href='/addProduct', ng-show = 'identity.isAuthenticated()') Add Product
             br
             br
@@ -15,7 +15,7 @@
             ul.search(ng-show='search')
                 li(ng-repeat='item in searchBuffer')
                     a(href='', ng-click='select(item)') {{item}}
-        .col-lg-6
+        .col-xs-12.col-sm-10.col-md-6.col-lg-6
             #location-element
 
     br
@@ -23,7 +23,7 @@
         .row
             ul.list-inline
                 li(ng-repeat='item in products')
-                    .col-lg-12.col-md-12.col-sm-12
+                    .col-lg-12.col-md-12.col-sm-12.col-xs-12
                         a.thumbnail(href='/productShow/{{item._id}}')
                             p.fix-text-length Наименование:  {{item.name}}
                             img.home-image(ng-src='/get_image/{{item.picture[0].filename}}')
