@@ -180,7 +180,7 @@ module.exports = {
 
                     //confirm date for confiration
                     var t = new Date();
-                    if (t > user.expirationConfirmationTime) {
+                    if (t > user.expirationConfirmationTime && !user.confirmedEmail) {
 
                         Users.remove({_id: user._id},
                             function (err, success) {
