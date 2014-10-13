@@ -4,13 +4,13 @@
 
 body {
     padding-top: 70px; /*body to be below the navbar*/
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizelegibility;
+    /*-webkit-font-smoothing: antialiased;*/
+    /*text-rendering: optimizelegibility;*/
 }
 /*Login fields*/
-.navbar-right .navbar-form input {
-    margin-right: 10px;
-}
+/*.navbar-right .navbar-form input {*/
+    /*margin-right: 10px;*/
+/*}*/
 .logout{
     margin-left: 5px;
 }

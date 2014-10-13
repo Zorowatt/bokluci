@@ -76,7 +76,7 @@ app.controller('ModalSignupCtrl',['$scope','$modalInstance','auth', function ($s
             function (payload) {
                 if (payload.data.success) {
 
-                    $modalInstance.close(payload.data.user);
+                    $modalInstance.close(payload.data);
                 }
                 else {
                     $scope.user.username = '';

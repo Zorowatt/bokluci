@@ -9,6 +9,7 @@ module.exports = function(app){
     app.post('/logout', controllers.users.userLogout);
     //user signUp
     app.post('/signup', controllers.users.createUser);
+    app.get('/verify',controllers.users.verifyUser);
 
     //add product to mongoDB and save image to the gridFS
     app.post('/upload_image', controllers.products.createProduct);

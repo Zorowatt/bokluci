@@ -8,68 +8,70 @@ block main-content
                         .container
                             a.navigate-top-logo.navbar-brand(href='/')
                                 img(src='../../images/logo.png', alt='Your Logo')
-
                             //button.btn.navbar-toggle(type='button', ng-init='isCollapsed=false', ng-click="isCollapsed=!isCollapsed")
-                                span.sr-only Toggle navigation
-                                span.icon-bar
-                                span.icon-bar
-                                span.icon-bar
+                            //    span.sr-only Toggle navigation
+                            //    span.icon-bar
+                            //    span.icon-bar
+                            //    span.icon-bar
                             //.navbar-collapse(collapse="!isCollapsed")
+
                             ul.nav.navbar-nav
                                 li
                                     a.skrii(href='/') Home
-                                    //li.dropdown
-                                        a.dropdown-toggle(href='', data-toggle='dropdown') Who We Are
-                                            span.caret
-                                        ul.dropdown-menu(role="menu")
-                                            li(role="presentation")
-                                                a.skrii(href='/whoWeAre') Us
-                                            li.divider
-                                            li
-                                                a.skrii(href='/teachers') Teachers
-                                    //li.dropdown
-                                        a.dropdown-toggle(href='', data-toggle='dropdown') Courses
-                                            span.caret
-                                        ul.dropdown-menu
-                                            li
-                                                a.skrii(href='/cocktail_barman') Курс за коктей-бармани
-                                            li
-                                                a.skrii(href='') Курс за баристи
-                                            li
-                                                a.skrii(href='') Курс за бармани - Майсторски клас
-                                            li
-                                                a.skrii(href='') Курс за флеър
-                                            li
-                                                a.skrii(href='') Курс за управител на заведение
-                                //ul.nav.navbar-nav.pull-right
-                                    li.dropdown
-                                        a.dropdown-toggle(href='', data-toggle='dropdown') Services
-                                            span.caret
-                                        ul.dropdown-menu
-                                            li
-                                                a.skrii(href='') Коктейлни сиропи
-                                            li
-                                                a.skrii(href='') Консумативи
-                                            li.divider
-                                            li
-                                                a.skrii(href='') Управление на бар
-                                            li
-                                                a.skrii(href='') Съдействие за работа
-                                            li
-                                                a.skrii(href='') Индивидуална консултация
-                                    li
-                                        a.skrii(href='') News & Events
-                                    li.dropdown
-                                        a.dropdown-toggle(href='', data-toggle='dropdown') Contacts
-                                            span.caret
-                                        ul.dropdown-menu
-                                            li
-                                                a.skrii(href='/addresses') Адреси
-                                            li.divider
-                                            li
-                                                a.skrii(href='/contacts') Свържете се с нас
+                                    //    //li.dropdown
+                                    //        a.dropdown-toggle(href='', data-toggle='dropdown') Who We Are
+                                    //            span.caret
+                                    //        ul.dropdown-menu(role="menu")
+                                    //            li(role="presentation")
+                                    //                a.skrii(href='/whoWeAre') Us
+                                    //            li.divider
+                                    //            li
+                                    //                a.skrii(href='/teachers') Teachers
+                                    //    //li.dropdown
+                                    //        a.dropdown-toggle(href='', data-toggle='dropdown') Courses
+                                    //            span.caret
+                                    //        ul.dropdown-menu
+                                    //            li
+                                    //                a.skrii(href='/cocktail_barman') Курс за коктей-бармани
+                                    //            li
+                                    //                a.skrii(href='') Курс за баристи
+                                    //            li
+                                    //                a.skrii(href='') Курс за бармани - Майсторски клас
+                                    //            li
+                                    //                a.skrii(href='') Курс за флеър
+                                    //            li
+                                    //                a.skrii(href='') Курс за управител на заведение
+                                    ////ul.nav.navbar-nav.pull-right
+                                    //    li.dropdown
+                                    //        a.dropdown-toggle(href='', data-toggle='dropdown') Services
+                                    //            span.caret
+                                    //        ul.dropdown-menu
+                                    //            li
+                                    //                a.skrii(href='') Коктейлни сиропи
+                                    //            li
+                                    //                a.skrii(href='') Консумативи
+                                    //            li.divider
+                                    //            li
+                                    //                a.skrii(href='') Управление на бар
+                                    //            li
+                                    //                a.skrii(href='') Съдействие за работа
+                                    //            li
+                                    //                a.skrii(href='') Индивидуална консултация
+                                    //    li
+                                    //        a.skrii(href='') News & Events
+                                    //    li.dropdown
+                                    //        a.dropdown-toggle(href='', data-toggle='dropdown') Contacts
+                                    //            span.caret
+                                    //        ul.dropdown-menu
+                                    //            li
+                                    //                a.skrii(href='/addresses') Адреси
+                                    //            li.divider
+                                    //            li
+                                    //                a.skrii(href='/contacts') Свържете се с нас
+
 
                             div(ng-include="'/p/partials/login'")
+
 
         section
             #main(ng-view)

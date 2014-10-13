@@ -1,10 +1,4 @@
-.navbar-right(ng-controller='LoginCtrl')
-    //form.navbar-form(ng-hide='identity.isAuthenticated()')
-        .form-group
-            input.form-control(type='text', placeholder='username', ng-model='user.username')
-            input.form-control(type='password', placeholder='password', ng-model='user.password')
-        a(href='/', ng-click='login(user)') Login
-        a.logout(href='/', ng-click='sugnup()') New user
+div(ng-controller='LoginCtrl')
     ul.nav.navbar-nav.pull-right(ng-hide="identity.isAuthenticated()")
         li.dropdown
             a.dropdown-toggle(href="", data-toggle="dropdown") Logging

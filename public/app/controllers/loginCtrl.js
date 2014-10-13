@@ -70,7 +70,8 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
             });
 
 
-    }
+    };
+
     $scope.oldUser = function (size) {
         var modalInstance = $modal.open({
             templateUrl: '/p/partials/modalLogin',
@@ -84,7 +85,7 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
                 identity.currentUser = user;
             }
         }, function () {
-            console.log('Something wrong with user logIn!')
+            //console.log('Something wrong with user logIn!')
             //$log.info('Modal dismissed at: ' + new Date());
         });
     };
@@ -96,15 +97,22 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
             size: size
         });
 
-        modalInstance.result.then(function (userReceived) {
-            if (userReceived) {
-                angular.extend($scope.user,userReceived);
-                identity.currentUser = userReceived;
-                $location.path('/');
+        modalInstance.result.then(function (payload) {
+            if(payload.success){
+                alert(payload.reason);
+
             }
-        }, function () {
-            console.log('Something wrong with user signUp!')
-            //$log.info('Modal dismissed at: ' + new Date());
-        });
+            $location.path('/');
+        })
+//            if () {
+//
+////                angular.extend($scope.user,userReceived);
+////                identity.currentUser = userReceived;
+//
+//            }
+//        }, function () {
+//            console.log('Something wrong with user signUp!')
+//            //$log.info('Modal dismissed at: ' + new Date());
+//        });
     };
 }]);

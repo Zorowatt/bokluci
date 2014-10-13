@@ -9,7 +9,14 @@ var userSchema = mongoose.Schema ({
     lastName: String,
     salt: String,
     hashPass: String,
-    roles: [String]
+    roles: [String],
+    host: String,
+    confirmedEmail: Boolean,
+    randomIdForEmailConfirmation: {type: String, unique: true},
+    expirationConfirmationTime: Date,
+
+    //TODO get the user IP address after sign up
+    userIP: String
 });
     //proveriava dali podadenata parola otgovaria na parolat zapisana v bazata
 userSchema.method({
