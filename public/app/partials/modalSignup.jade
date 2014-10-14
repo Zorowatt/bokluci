@@ -27,8 +27,9 @@
                         input.form-control(id='email', type='text', placeholder='e-mail', ng-model='user.email', ng-click='clearEmail()', required)
                         div.redAlertEmail
                 .form-group
+                    label.control-label(id='redAlert', for='allert')
                     .col-md-8
-                        label.control-label(id='redAlert', for='allert')
+
                         button.sinupMargin.btn.btn-warning.pull-right(ng-click="cancel()") Cancel
                         button.btn.btn-primary.pull-right(ng-disabled='signUpForm.$invalid', ng-click="signUp(user)") Save
 

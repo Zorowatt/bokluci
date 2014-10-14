@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 var userSchema = mongoose.Schema ({
     username: { type: String, require: '{PATH} is required', unique: true },
-    email: { type: String, require: '{PATH} is required' },
+    email: { type: String, require: '{PATH} is required', unique: true },
     firstName: { type: String, require: '{PATH} is required' },
     lastName: String,
     salt: String,

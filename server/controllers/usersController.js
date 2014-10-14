@@ -92,96 +92,97 @@ module.exports = {
 
     createUser: function (req, res, next) {
         var newUser = req.body;
-        newUser.salt = generateSalt();
-        newUser.hashPass = generateHashedPassword(newUser.salt, newUser.password);
-
-        newUser.confirmedEmail = false; //this is to verify user after it's confirmation e-mail
-        newUser.randomIdForEmailConfirmation = randomString(40); //Creates random token for user confirmation during E-mail exchange
-        var t = new Date();
-
-        newUser.expirationConfirmationTime = t.setHours(t.getHours()+24); //sets expiration Date and time
-
-
-
-        newUser.host = req.get('host');
-
-
-
-  // TODO if invalid e-mail has being sent
-
-        Users.create(newUser, function (err, user) {
-            if (err){
-                //res.status(400);
-                return res.send({success: false, reason: err.toString()})
+        //Check for unique username
+        Users.findOne({username: newUser.username}).exec(function (err, user) {
+            if (user){
+                res.send({success: false, reason: 'This username exists already!'});
+                return;
             }
-
-
-            var link = "http://"+req.get('host')+"/verify?id="+newUser.randomIdForEmailConfirmation;
-
-            //console.log(req.get('host'));
-            var transporter = nodemailer.createTransport(smtpTransport({
-                service: "Gmail",
-                auth: {
-                    user: "deffered1234@gmail.com",
-                    pass: "deffered4321"
-                },
-                //this is to jump over AVAST
-                tls: {
-                    rejectUnauthorized: false
+            //Check for unique e-mail
+            Users.findOne({email: newUser.email}).exec(function (err, user) {
+                if (user){
+                    res.send({success: false, reason: 'User with this email address exists already!'});
+                    return;
                 }
-            }));
-            var mailOptions={
-                to: newUser.email,
-                subject : 'Please confirm your Email account!',
-                html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a><br> The confirmation should be done within 24 hours!"
-            }
 
-            transporter.sendMail(mailOptions, function(err, response){
-                if(err){
-                    console.log(err);
-                    return res.send({success: false, reason: err.toString()})
-                }else{
-                    //console.log("Message sent: " + response.message);
-                    res.send({success: true, reason: 'Confirmation Message has been sent to your E-mail!'});
-                    //res.end("sent");
-                }
-            })
-//            req.logIn(user, function (err) {
-//                if (err){
-//                    return next(err);
-//                }
-//                res.send({success: true, user: {username: user.username}});
-//            })
+                newUser.salt = generateSalt();
+                newUser.hashPass = generateHashedPassword(newUser.salt, newUser.password);
+                newUser.confirmedEmail = false; //this is to verify user after it's confirmation e-mail
+                newUser.randomIdForEmailConfirmation = randomString(40); //Creates random token for user confirmation during E-mail exchange
+                var t = new Date();
+                newUser.expirationConfirmationTime = t.setHours(t.getHours()+24); //sets expiration Date and time
+                newUser.host = req.get('host');
+
+                // TODO if invalid e-mail has being sent
+
+                Users.create(newUser, function (err, user) {
+                    if (err){
+                        //res.status(400);
+                        return res.send({success: false, reason: err.toString()})
+                    }
+                    var link = "http://"+req.get('host')+"/verify?id="+newUser.randomIdForEmailConfirmation;
+                    var transporter = nodemailer.createTransport(smtpTransport({
+                        service: "Gmail",
+                        auth: {
+                            user: "deffered1234@gmail.com",
+                            pass: "deffered4321"
+                        },
+                        //this is to jump over AVAST
+                        tls: {
+                            rejectUnauthorized: false
+                        }
+                    }));
+                    var mailOptions={
+                        from: 'Bokluci.bg <deffered1234@gmail.com>',
+                        to: newUser.email,
+                        subject : 'Please confirm your Email account!',
+                        html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a><br> The confirmation should be done within 24 hours!"
+                    };
+                    transporter.sendMail(mailOptions, function(err, response){
+                        if(err){
+                            console.log(err);
+                            return res.send({success: false, reason: err.toString()})
+                        }else{
+                            res.send({success: true, reason: 'Confirmation Message has been sent to your E-mail!'});
+                        }
+                    });
+                });
+
+            });
+
 
         });
 
 
 
+
+
+
+
     },
 
-
-
     verifyUser: function (req, res, next) {
-        //console.log(req.protocol+"://"+req.get('host'));
-
-        //console.log(req.query.id);
-
-
         Users.findOne({randomIdForEmailConfirmation: req.query.id}).exec(function (err, user) {
             if (err){
                 console.log('No such user exists! ');
                 res.end("<h1>No such user exists!");
-
+                return;
             }
             if (user) {
                 if ((req.protocol + "://" + req.get('host')) == ("http://" + user.host)) {
                     console.log("Domain is matched. Information is from Authentic email");
 
+                    //if user is already confirmed. Redirect to home page
+                    if(user.confirmedEmail){
+                        res.redirect('/');
+                        return;
+                    }
 
-                    //confirm date for confiration
+                    //If user is not yet confirmed
+                    //Check the expiration date
                     var t = new Date();
-                    if (t > user.expirationConfirmationTime && !user.confirmedEmail) {
-
+                    if (t > user.expirationConfirmationTime) {
+                        //If date expired remove user and send message for new sign up
                         Users.remove({_id: user._id},
                             function (err, success) {
                                 if (err) {
@@ -193,6 +194,7 @@ module.exports = {
                         return;
                     }
 
+                    //If user confirmation is OK update the user
                     Users.update({_id: user._id}, {
                             confirmedEmail: true
                         },
@@ -203,11 +205,14 @@ module.exports = {
                             }
                         });
                 }
+
+                //if confirmation comes not from the genuine user's e-mail
                 else {
                     res.end("<h1>Request is from unknown source");
                     return;
                 }
             }
+            //if user does not exist it DB
             else{
                 res.end("<h1>No such user or confirmation is too late!");
                 return;
@@ -218,17 +223,13 @@ module.exports = {
 //                }
 //                res.send({success: true, user: {username: user.username}});
 //            })
-//TODO login after email confirmation success
-                res.redirect('/');
+//TODO login after email confirmation success. Maybe!!!
+
+            res.render('verified');
+               // res.redirect('/');
                 //res.end("<h1>Email is been Successfully verified");
-
             })
-
-
-
-
     }
-
 };
 
 

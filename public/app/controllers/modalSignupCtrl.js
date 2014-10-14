@@ -81,10 +81,6 @@ app.controller('ModalSignupCtrl',['$scope','$modalInstance','auth', function ($s
                 else {
                     $scope.user.username = '';
                     $scope.user.password = '';
-                    if (payload.data.reason.indexOf("duplicate key") !=-1) {
-                        document.getElementById('redAlert').innerHTML = 'This Username Exists!';
-                        return;
-                    }
                     document.getElementById('redAlert').innerHTML = payload.data.reason;
                 }
             },
