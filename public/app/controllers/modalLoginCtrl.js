@@ -18,6 +18,8 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                 //if POST payload has been received
                 function (payload) {
                     if (payload.data.success) {
+                        console.log(payload.data.ip);
+                        console.log(payload.data.host);
                         $modalInstance.close(payload.data.user);
                     }
                     else {

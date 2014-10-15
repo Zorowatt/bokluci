@@ -73,13 +73,19 @@ function randomString(numbers) {
 
 module.exports = {
     userAuth: function (req, res, next) {
+//        var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+//        console.log(req.headers['x-forwarded-for']);
+//        console.log(req.connection.remoteAddress);
+//        console.log(req.ip);
+
+
         var auth = passport.authenticate('local', function (err, user) {
             if (err) return next(err);
             if (!user) res.send({success: false});
             //asks the passport module to log the user in
             req.logIn(user, function (err) {
                 if (err) return next(err);
-                res.send({success: true, user: {username: user.username}});
+                res.send({success: true, user: {username: user.username},ip: req.ip, host: req.get('host')});
             })
         });
         auth(req, res, next);

@@ -3,6 +3,8 @@ var controllers = require('../controllers')
 
 module.exports = function(app){
 
+
+
     //user login
     app.post('/login', controllers.users.userAuth);
     //user logout
