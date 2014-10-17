@@ -14,8 +14,15 @@ block main-content
                             //    span.icon-bar
                             //    span.icon-bar
                             //.navbar-collapse(collapse="!isCollapsed")
-
-                            ul.nav.navbar-nav
+                            div(ng-include="'/p/partials/login'")
+                            //ul.nav.navbar-nav.pull-right
+                            //    li.dropdown
+                            //        a.dropdown-toggle(href='', data-toggle='dropdown') Services
+                            //            span.caret
+                            //        ul.dropdown-menu
+                            //            li
+                            //                a.skrii(href='') Коктейлни сиропи
+                            ul.nav.navbar-nav.pull-left
                                 li
                                     a.skrii(href='/') Home
                                     //    //li.dropdown
@@ -70,7 +77,8 @@ block main-content
                                     //                a.skrii(href='/contacts') Свържете се с нас
 
 
-                            div(ng-include="'/p/partials/login'")
+
+
 
 
         section
