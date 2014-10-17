@@ -113,6 +113,41 @@ a.thumbnail:hover{
     margin-left: 5px;
 }
 
+
+.modal-body .well {
+    margin-bottom: 0;
+    background-color: #f0f0f0
+}
+.modal-body .center-block {
+    padding-bottom: 5px;
+}
+.modal-header label {
+    margin: 0 0 1px;
+}
+.modal-header p {
+    margin: 0 0 1px;
+}
+
+/*input::-webkit-input-placeholder {*/
+    /*color: rgba(255,0,255,1);*/
+    /*opacity: 1 !important; *//* for chrome */
+/*}*/
+
+/*input:-moz-placeholder { *//* Firefox 18- */
+    /*color: #FF0000;*/
+/*}*/
+
+/*input::-moz-placeholder {  *//* Firefox 19+ */
+    /*color: #FF0000;*/
+/*}*/
+
+/*input:-ms-input-placeholder {*/
+    /*color: #FF0000;*/
+/*}*/
+
+
+
+
 /*Настройка на падащите менюта*/
 /*.dropdown-submenu {*/
     /*position: relative;*/

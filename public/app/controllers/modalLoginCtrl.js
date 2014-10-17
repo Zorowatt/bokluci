@@ -1,7 +1,11 @@
 app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($scope, $modalInstance, auth) {
-
     $scope.clear = function () {
         document.getElementById('redAlert').innerHTML = '';
+    };
+
+    $scope.forgottenPass = function () {
+        //$modalInstance.dismiss('cancel');
+        $modalInstance.close('s');
     };
 
     $scope.ok = function () {
@@ -18,8 +22,7 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                 //if POST payload has been received
                 function (payload) {
                     if (payload.data.success) {
-                        console.log(payload.data.ip);
-                        console.log(payload.data.host);
+
                         $modalInstance.close(payload.data.user);
                     }
                     else {
@@ -34,6 +37,7 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                 });
         }
     };
+
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };

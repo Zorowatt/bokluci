@@ -1,0 +1,23 @@
+.modal-header
+
+    label.text-center We'll send you an email wherefrom you can recover your password!
+
+.modal-body
+    p Enter username or E-mail:
+    .well
+        .form-group
+            label Password
+            input.form-control(autofocus="autofocus", ng-click='clear()', type='text', ng-model='user.username')
+            br
+            label E-mail address
+            input.form-control(ng-click='clear()', type='password', ng-model='user.password')
+            br
+            label Type what you see in this image
+            img.center-block(alt="" src="https://capi-na.ssl-images-amazon.com/ov96x1PLIHbOR5jbozMmkkujAXWRAmkWRckNZZXFzZrGoQmO7ApbUfGnzzRQQMGjEH1zIMnPFMOpePN,4tfnUKtIlRRrVnjPtKH7CUtX8_4" data-refresh-url="/ap/captcha?appAction=FORGOTPWD" id="auth-captcha-image")
+            input.form-control(ng-click='image()', type='text', ng-model='char')
+.modal-footer
+
+    #redAlert
+
+    button.btn.btn-primary(ng-click="ok()") OK
+    button.btn.btn-warning(ng-click="cancel()") Cancel

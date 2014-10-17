@@ -85,7 +85,7 @@ module.exports = {
             //asks the passport module to log the user in
             req.logIn(user, function (err) {
                 if (err) return next(err);
-                res.send({success: true, user: {username: user.username},ip: req.ip, host: req.get('host')});
+                res.send({success: true, user: {username: user.username}});
             })
         });
         auth(req, res, next);
@@ -153,18 +153,8 @@ module.exports = {
                         }
                     });
                 });
-
             });
-
-
         });
-
-
-
-
-
-
-
     },
 
     verifyUser: function (req, res, next) {

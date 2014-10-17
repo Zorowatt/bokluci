@@ -1,11 +1,18 @@
 .modal-header
-    p Enter your credentials:
+    label Enter your credentials:
 .modal-body
-    .form-group
-        input.form-control(autofocus="autofocus", ng-click='clear()', type='text', placeholder='username', ng-model='user.username')
-        br
-        input.form-control(ng-click='clear()', type='password', placeholder='password', ng-model='user.password')
+    .well
+        .form-group
+            label Username
+            input.form-control(autofocus="autofocus", ng-click='clear()', type='text', ng-model='user.username')
+            br
+            label Password
+            input.form-control(ng-click='clear()', type='password', ng-model='user.password')
+            a.pull-right(href='', ng-click='forgottenPass()')
+                h6 Forgot password
+
 .modal-footer
-    #redAlert
+
+    #redAlert.text-center
     button.btn.btn-primary(ng-click="ok()") OK
     button.btn.btn-warning(ng-click="cancel()") Cancel

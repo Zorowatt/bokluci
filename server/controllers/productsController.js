@@ -1,10 +1,11 @@
-var Products = require('mongoose').model('Product');
-var mongoose = require('mongoose');
-var Grid = require('gridfs-stream');
-var db = mongoose.connection;
-var gfs = Grid(db.db, mongoose.mongo);
-var Busboy = require('busboy');
-var fs = require('fs');
+var Products = require('mongoose').model('Product')
+    ,mongoose = require('mongoose')
+    ,Grid = require('gridfs-stream')
+    ,db = mongoose.connection
+    ,gfs = Grid(db.db, mongoose.mongo)
+    ,Busboy = require('busboy')
+    ,fs = require('fs')
+    ;
 
 var randomFileName;
 //creates randome string for the image name
@@ -18,6 +19,9 @@ function randomString() {
     }
     return randomstring;
 }
+
+
+
 
 module.exports = {
 
@@ -81,6 +85,7 @@ module.exports = {
                 filename: randomFileName
                 //       ,mode: 'w'
             }));
+
 //                        console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
 //                        file.on('data', function(data) {
 //                            console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
@@ -88,7 +93,7 @@ module.exports = {
 //                        file.on('end', function() {
 //                            console.log('File [' + fieldname + '] Finished');
 //                        });
-                    });
+        });
         busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
             //console.log('Field [' + fieldname + ']: value: ' + inspect(val));
 

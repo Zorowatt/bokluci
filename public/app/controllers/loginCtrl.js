@@ -80,6 +80,12 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
         });
 
         modalInstance.result.then(function (user) {
+            if(user == 's'){
+
+                forgottenPass();
+
+                return;
+            }
             if (user) {
 
                 identity.currentUser = user;
@@ -98,12 +104,13 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
         });
 
         modalInstance.result.then(function (payload) {
+
             if(payload.success){
                 alert(payload.reason);
 
             }
             $location.path('/');
-        })
+        });
 //            if () {
 //
 ////                angular.extend($scope.user,userReceived);
@@ -115,4 +122,26 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
 //            //$log.info('Modal dismissed at: ' + new Date());
 //        });
     };
+
+
+    function forgottenPass() {
+        var modalInstance = $modal.open({
+            templateUrl: '/p/partials/modalForgottenPass',
+            controller: 'ModalForgottenPassCtrl',
+            size: 'sm'
+        });
+
+        modalInstance.result.then(function (payload) {
+
+            if(payload.success){
+                alert(payload.reason);
+
+            }
+            $location.path('/');
+        });
+    }
+
+
+
+
 }]);
