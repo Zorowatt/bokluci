@@ -133,11 +133,10 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
 
         modalInstance.result.then(function (payload) {
 
-            if(payload.success){
-                alert(payload.reason);
-
+            if(payload){
+                alert(payload);
             }
-            $location.path('/');
+            //$location.path('/');
         });
     }
 

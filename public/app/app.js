@@ -17,6 +17,8 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
         }
     };
 
+
+
     $routeProvider
         .when('/productShow/:id',{
             templateUrl: '/p/partials/productShow',
@@ -32,6 +34,10 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
             templateUrl: '/home',
             controller: 'HomeCtrl'
         })
+        .when('/recover', {
+            templateUrl: '/p/partials/recover',
+            controller: 'RecoverCtrl'
+        })
 
 }]);
 
@@ -43,7 +49,15 @@ app.run(['$rootScope', '$location', function($rootScope, $location) {
     })
 }]);
 
-
+app.config(['$tooltipProvider', function($tooltipProvider){
+    $tooltipProvider.setTriggers({
+        'mouseenter': 'mouseleave',
+        'click': 'click',
+        'focus': 'blur',
+        'never': 'mouseleave',
+        'show': 'hide'
+    });
+}]);
 //app.directive('ngFileSelect', [ '$parse', '$timeout', function($parse, $timeout) {
 //    return function(scope, elem, attr) {
 //        var fn = $parse(attr['ngFileSelect']);

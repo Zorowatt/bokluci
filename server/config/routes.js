@@ -11,10 +11,12 @@ module.exports = function(app){
     app.post('/logout', controllers.users.userLogout);
     //user signUp
     app.post('/signup', controllers.users.createUser);
+    //this comes from email verification link
     app.get('/verify',controllers.users.verifyUser);
-
-
-
+    app.post('/fpass',controllers.users.forgotUser);
+    //this comes from email verification link
+    app.get('/recover',controllers.users.recoverUser);
+    app.post('/recover',controllers.users.verifyAndRecoverUser);
 
 
     //add product to mongoDB and save image to the gridFS

@@ -6,7 +6,17 @@ var Users = require('mongoose').model('Users')
     ,nodemailer = require("nodemailer")
     ,smtpTransport = require('nodemailer-smtp-transport');
     ;
-
+var transporter = nodemailer.createTransport(smtpTransport({
+    service: "Gmail",
+    auth: {
+        user: "deffered1234@gmail.com",
+        pass: "deffered4321"
+    },
+    //this is to jump over AVAST
+    tls: {
+        rejectUnauthorized: false
+    }
+}));
 
 
 passport.use(new localPassport(function (username ,password ,done) {
@@ -53,6 +63,7 @@ passport.deserializeUser(function (id, done) {
         }
     })
 });
+
 function generateSalt() {
     return crypto.randomBytes(128).toString('base64');
 }
@@ -98,6 +109,20 @@ module.exports = {
 
     createUser: function (req, res, next) {
         var newUser = req.body;
+
+        //validates pass
+        if (newUser.password != newUser.password.replace(/[^a-zA-Z0-9_<>?]/g, "")){
+            res.send({success: false, reason: 'Password contains forbidden symbols!'});
+            res.end();
+            return;
+        }
+        if (newUser.password.length>16){
+            res.send({success: false, reason: 'Password is too long!'});
+            res.end();
+            return;
+        }
+
+
         //Check for unique username
         Users.findOne({username: newUser.username}).exec(function (err, user) {
             if (user){
@@ -126,18 +151,9 @@ module.exports = {
                         //res.status(400);
                         return res.send({success: false, reason: err.toString()})
                     }
+                    res.send({success: true, reason: 'Confirmation Message has been sent to your E-mail!'});
                     var link = "http://"+req.get('host')+"/verify?id="+newUser.randomIdForEmailConfirmation;
-                    var transporter = nodemailer.createTransport(smtpTransport({
-                        service: "Gmail",
-                        auth: {
-                            user: "deffered1234@gmail.com",
-                            pass: "deffered4321"
-                        },
-                        //this is to jump over AVAST
-                        tls: {
-                            rejectUnauthorized: false
-                        }
-                    }));
+
                     var mailOptions={
                         from: 'Bokluci.bg <deffered1234@gmail.com>',
                         to: newUser.email,
@@ -146,27 +162,36 @@ module.exports = {
                     };
                     transporter.sendMail(mailOptions, function(err, response){
                         if(err){
-                            console.log(err);
-                            return res.send({success: false, reason: err.toString()})
-                        }else{
-                            res.send({success: true, reason: 'Confirmation Message has been sent to your E-mail!'});
+                            res.end('<h1>Email error: '+err)
                         }
                     });
+                    res.end();
                 });
             });
         });
     },
 
     verifyUser: function (req, res, next) {
+
+        //checks if id is valid
+        if(!req.query.id){
+            res.end('<h1>Not authorized access!');
+            return;
+        }
+        if(req.query.id !== req.query.id.replace(/[^a-zA-Z0-9]/g, "") || req.query.id.length != 40){
+            res.end('<h1>Do not try this at home!');
+            return;
+        }
+
+
         Users.findOne({randomIdForEmailConfirmation: req.query.id}).exec(function (err, user) {
             if (err){
-                console.log('No such user exists! ');
-                res.end("<h1>No such user exists!");
+                res.end("<h1>Error! Try again later");
                 return;
             }
             if (user) {
                 if ((req.protocol + "://" + req.get('host')) == ("http://" + user.host)) {
-                    console.log("Domain is matched. Information is from Authentic email");
+                    //console.log("Domain is matched. Information is from Authentic email");
 
                     //if user is already confirmed. Redirect to home page
                     if(user.confirmedEmail){
@@ -219,13 +244,181 @@ module.exports = {
 //                }
 //                res.send({success: true, user: {username: user.username}});
 //            })
-//TODO login after email confirmation success. Maybe!!!
+    //TODO login after email confirmation success. Maybe!!!
 
             res.render('verified');
                // res.redirect('/');
                 //res.end("<h1>Email is been Successfully verified");
             })
+    },
+    forgotUser: function (req, res, next) {
+        var use = req.body;
+        var t = new Date();
+        var newToken = randomString(40);
+        if (use) {
+            Users.findOneAndUpdate({username: use.username },{
+                randomIdForEmailConfirmation: newToken,
+                expirationConfirmationTime: t.setHours(t.getHours()+24),
+                passRecovered: false
+            }).exec(function (err, user) {
+                    if (err) {
+                        res.end("<h1>DB error");
+                        return;
+                    }
+
+                    if (user) {
+                        res.send({success: true, reason: 'Recovery Message has been sent to your E-mail!'});
+                        var link = "http://"+user.host+"/recover?id="+newToken;
+                        var mailOptions={
+                            from: 'Bokluci.bg <deffered1234@gmail.com>',
+                            to: user.email,
+                            subject : 'Password recovery!',
+                            html : "Hello,<br>Your username is:     "+user.username+"<br> Please Click on the link to recover your password.<br><a href="+link+">Recovery link</a>"
+                        };
+                        transporter.sendMail(mailOptions, function(err, response){
+                            if(err){
+                                res.end('<h1>Email error: '+err);
+                            }
+                        });
+                        res.end();
+                    }
+                    else {
+                        Users.findOneAndUpdate({email:  use.username},{
+                            randomIdForEmailConfirmation: newToken,
+                            expirationConfirmationTime: t.setHours(t.getHours()+24),
+                            passRecovered: false
+                        }).exec(function (err, userr) {
+                            if (err) {
+                                res.end("<h1>DB error");
+                                return;
+                            }
+                            if (userr) {
+                                res.send({success: true, reason: 'Recovery Message has been sent to your E-mail!'});
+                                var link = "http://"+userr.host+"/recover?id="+newToken;
+                                var mailOptions={
+                                    from: 'Bokluci.bg <deffered1234@gmail.com>',
+                                    to: userr.email,
+                                    subject : 'Password recovery!',
+                                    html : "Hello,<br>Your username is:     "+userr.username+"<br> Please Click on the link to recover your password.<br><a href="+link+">Recovery link</a>"
+                                };
+                                transporter.sendMail(mailOptions, function(err, response){
+                                    if(err){
+                                        res.end('<h1>Email error: '+err);
+                                    }
+                                });
+                                res.end();
+                            }
+                            else{
+                                res.send({success: false, reason: 'no such user'})
+                                res.end();
+                            }
+                        })
+                    }
+                });
+        }
+        else{
+            res.end('<h1>Do not try that!');
+        }
+    },
+
+    recoverUser: function (req, res, next) {
+
+        //checks if id is valid
+        if(!req.query.id){
+            res.end('<h1>Not authorized access!');
+            return;
+        }
+        if(req.query.id !== req.query.id.replace(/[^a-zA-Z0-9]/g, "") || req.query.id.length != 40){
+            res.end('<h1>Do not try this at home!');
+            return;
+        }
+
+
+        Users.findOne({randomIdForEmailConfirmation: req.query.id}).exec(function (err, user) {
+            if (err){
+                res.end("<h1>Error! Try again later");
+                return;
+            }
+            if (user) {
+                if ((req.protocol + "://" + req.get('host')) == ("http://" + user.host)) {
+                    //console.log("Domain is matched. Information is from Authentic email");
+
+                    //if pass is already recovered. Redirect to home page
+                    if(user.passRecovered){
+                        res.redirect('/');
+                        return;
+                    }
+
+                    //If user is not yet confirmed
+                    //Check the expiration date
+                    var t = new Date();
+                    if (t > user.expirationConfirmationTime) {
+
+                        //If date expired send message for new sign up
+                        res.end("<h1>Password recovery is too late!");
+                        return;
+                    }
+
+                    //If user confirmation is OK go to update the user
+                    res.render('index');
+                }
+
+                //if confirmation comes not from the genuine user's e-mail
+                else {
+                    res.end("<h1>Request is from unknown source");
+                    return;
+                }
+            }
+            //if user does not exist it DB
+            else{
+                res.end("<h1>No such user!");
+                return;
+            }
+        })
+    },
+
+    verifyAndRecoverUser: function (req, res, next) {
+        var newUser = req.body;
+        //validates pass
+        if (newUser.password != newUser.password.replace(/[^a-zA-Z0-9_<>?]/g, "")) {
+            res.send({success: false, reason: 'Password contains forbidden symbols!'});
+            res.end();
+            return;
+        }
+        if (newUser.password.length > 16) {
+            res.send({success: false, reason: 'Password is too long!'});
+            res.end();
+            return;
+        }
+
+
+
+        //TODO pass should not be recovered more than once
+        var s = generateSalt()
+
+        Users.findOneAndUpdate({randomIdForEmailConfirmation: newUser.id, passRecovered: false },{
+            passRecovered : true,
+            salt: s,
+            hashPass: generateHashedPassword(s, newUser.password)
+
+        }).exec(function (err, user) {
+            if (err) {
+                res.send({success: false, reason: 'Sorry, try again later!'});
+                return;
+            }
+            if (user) {
+                res.send({success: true, reason: 'OK'});
+                res.end();
+            }
+            else {
+                res.send({success: false, reason: 'Sorry, this user has been updated already!'})
+                res.end();
+            }
+        })
     }
-};
+
+
+
+  };
 
 

@@ -59,7 +59,7 @@ app.controller('ModalSignupCtrl',['$scope','$modalInstance','auth', function ($s
 
     $scope.signUp = function (user) {
         //simple validation of Email
-        //TODO confirmation Email
+
         $('.redAlertEmail').text('');
         if (!ValidateEmail($scope.user.email)){
             //console.log('not valid');
@@ -70,7 +70,8 @@ app.controller('ModalSignupCtrl',['$scope','$modalInstance','auth', function ($s
 
 
 
-        //TODO user validation, e-mail explicitly
+        //TODO password and username checks for not allowed symbols and strength
+
         auth.signUp(user).then(
             //if POST payload has been received
             function (payload) {

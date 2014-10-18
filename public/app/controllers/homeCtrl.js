@@ -1,6 +1,8 @@
 app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', function($scope, $resource, $http, $q, identity) {
     $scope.identity = identity; //this is only to show Add Product button if logged user exists
 
+
+
 // TODO gets any element on click
 
 //    function getEl(){

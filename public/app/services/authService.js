@@ -22,11 +22,18 @@ app.factory('auth',['$http','$q','identity', function ($http,$q, identity) {
 //
 //            return deferred.promise;
         },
+        forgotPass: function (user) {
+            return  $http.post('/fpass', user);
+        }
+        ,
         logout: function () {
             return  $http.post('/logout');
         },
         signUp: function (user) {
             return  $http.post('/signup', user);
+        },
+        passrecover: function (user) {
+            return  $http.post('/recover', user);
         },
         isAuthenticated: function() {
             if (identity.isAuthenticated()) {

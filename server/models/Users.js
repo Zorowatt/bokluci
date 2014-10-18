@@ -14,6 +14,7 @@ var userSchema = mongoose.Schema ({
     confirmedEmail: Boolean,
     randomIdForEmailConfirmation: {type: String, unique: true},
     expirationConfirmationTime: Date,
+    passRecovered: Boolean,
 
     //TODO get the user IP address after sign up
     userIP: String

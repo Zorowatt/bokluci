@@ -128,6 +128,30 @@ a.thumbnail:hover{
     margin: 0 0 1px;
 }
 
+
+/*---------------------------------recover pass------------------*/
+
+.recover{
+    max-height:400px;
+    max-width:300px;
+}
+.recover p{
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 700;
+
+}
+.recover .redAlert{
+    color: red;
+    margin-right: 5px;
+}
+.recover .popover-content {
+    color: red;
+    font-size: 12px;
+    font-weight: 700;
+}
 /*input::-webkit-input-placeholder {*/
     /*color: rgba(255,0,255,1);*/
     /*opacity: 1 !important; *//* for chrome */
