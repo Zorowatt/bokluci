@@ -22,7 +22,6 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                 //if POST payload has been received
                 function (payload) {
                     if (payload.data.success) {
-
                         $modalInstance.close(payload.data.user);
                     }
                     else {

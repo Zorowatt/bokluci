@@ -19,7 +19,7 @@ body {
     select:focus,
     textarea:focus,
     input:focus {
-        font-size: 14px;
+        font-size: 16px!important;
     }
 
 }
@@ -32,6 +32,22 @@ footer {
 }
 
 /*--------------------------------------- for Home page-----------------------------------------*/
+
+/*for search bar and addProd button*/
+.center-block{
+    max-width: 500px;
+}
+/*for addProd button*/
+.addProdBut{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    min-width: 150px;
+}
+.addProdSearch{
+    margin-bottom: 30px;
+}
+
+
 
 .thumbnail{
     display: block;
