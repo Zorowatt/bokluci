@@ -157,17 +157,17 @@ a.thumbnail:hover{
 
 
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    .form-control {
-        font-size: 16px;
-    }
-}
+/*@media screen and (-webkit-min-device-pixel-ratio:0) {*/
+    /*.form-control {*/
+        /*font-size: 16px;*/
+    /*}*/
+/*}*/
 
-@media (min-width: 768px) {
-    .form-control {
-        font-size: 14px;
-    }
-}
+/*@media (min-width: 768px) {*/
+    /*.form-control {*/
+        /*font-size: 14px;*/
+    /*}*/
+/*}*/
 
 
 
