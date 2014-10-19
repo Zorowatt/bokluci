@@ -1,13 +1,12 @@
 .container
-    .container.use
-        .center-block
-            .input-group
-                input.form-control.search(type="text" ng-model="search" typeahead="a for a in getProd($viewValue)")
-                span.input-group-btn
-                    button.btn.btn-danger(type="button", ng-click='goSearch()') Go!
-            br
-            a.btn.btn-primary.pull-right(href='/addProduct', ng-show = 'identity.isAuthenticated()') Add Product
-            br
+    .center-block.use
+        .input-group
+            input.form-control.search(type="text" ng-model="search" typeahead="a for a in getProd($viewValue)")
+            span.input-group-btn
+                button.btn.btn-danger(type="button", ng-click='goSearch()') Go!
+        br
+        a.btn.btn-primary.pull-right(href='/addProduct', ng-show = 'identity.isAuthenticated()') Add Product
+        br
 
     hr
     .col-xs-10.col-sm-10.col-md-6.col-lg-6
