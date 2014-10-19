@@ -1,5 +1,119 @@
 app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', function($scope, $resource, $http, $q, identity) {
+
+
     $scope.identity = identity; //this is only to show Add Product button if logged user exists
+
+// Showing the Products and dealing with the Prev and Next buttons
+    $scope.search = '';
+    var pos = 0;
+    $scope.step = 6;
+
+    function load(skip, limit, search) {
+        var res = $resource('/api');
+        return res.query({s: skip ,l: limit, search: search});
+    }
+    //initial products load
+    $scope.products =load(pos,$scope.step,$scope.search);
+//Preview and Next buttons
+    $scope.prev = function(){
+        if (pos >= $scope.step) {
+            pos = pos - $scope.step;
+            load(pos, $scope.step, $scope.search).$promise.then(function (result) {
+                $scope.products = result;
+            });
+        }
+    };
+    $scope.next = function(){
+        pos = pos + $scope.step;
+        load(pos,$scope.step,$scope.search).$promise.then(function(result){
+            if (result.length === 0) {
+                pos = pos - $scope.step;
+            }
+            else {
+                $scope.products = result;
+            }
+        });
+    };
+
+//deals with the search box typeahead
+    $scope.getLocation = function(val) {
+        return $http.get('/api/search', {
+            params: {
+                search: val
+            }
+        }).then(function(response){
+            return response.data;
+            });
+    };
+    //When Enter keyboard button been pressed
+    $('body').keyup( function (e) {
+        if(event.keyCode == 13){
+            if ($(".search").is(":focus")) {
+                $scope.goSearch();
+            }
+        }
+    });
+    //Search filter of the products
+    $scope.goSearch = function(){
+        $scope.search = $scope.search.trim();
+
+
+//        //TODO 1st way
+//        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {
+//            $scope.products = res.data;
+//        }, function(err) {
+//            console.log('Resource reading failed: '+ err);
+//        });
+
+
+        //TODO 2nd way
+        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}})
+            .success(function(data,status,error,config) { // .success(data,status,header,config)
+                $scope.products = data;
+//                //TODO for example
+//                console.log(data);
+//                console.log(status);
+//                console.log(error);
+//                console.log(config);
+            })
+            .error(function(err) { // .error(data,status,header,config)
+                console.log('Resource reading failed: '+ err);
+            });
+
+
+
+
+
+        //TODO 3rd way to load the resource
+//    var p = $resource('/api');
+//    p.query({s: pos, l: $scope.step, search: $scope.search}).$promise.then(function (product) {
+//        if (product.length > 0) {
+//            $scope.products = product;
+//            $scope.searchBuffer = '';
+//        }
+//    },
+//        function (error) {
+//            console.log('Resource reading failed: ' + error);
+//        });
+
+    };
+
+
+// Return Pros and Cons comments count
+    $scope.getNumber = function(el){
+        var i = 0;
+        el.forEach(function(ggg){
+            if (!ggg.flagIsNew){
+                i++;
+             }
+        });
+        return i;
+    };
+
+
+
+
+
 
     // disable input auto zoom in mobile devices
 //    var $viewportMeta = $('meta[name="viewport"]');
@@ -122,151 +236,4 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
 //        imgElement.setAttribute('src',imgSrc);
 //        locationElement.appendChild(imgElement);
 //    }
-
-
-
-
-
-// Search suggestions
-    $scope.searchBuffer = [];
-    $scope.enterIntoInput = function(){
-
-        //$scope.searchBuffer = loadSearchBuffer($scope.search);
-
-        $http.get('/api/search',{params: {search: $scope.search.trim()}})
-            .success(function(data,status,error,config) { // .success(data,status,header,config)
-                $scope.searchBuffer = data;
-//                //TODO for example
-//                console.log(data);
-//                console.log(status);
-//                console.log(error);
-//                console.log(config);
-            })
-            .error(function(err) { // .error(data,status,header,config)
-                console.log('Resource reading failed: '+ err);
-            });
-
-    };
-    function loadSearchBuffer(str) {
-        var res = $resource('/api/search');
-        return res.query({search: str})
-    }
-
-
-
-
-    $scope.select = function(selectedItem){
-        //console.log(section);
-        $scope.searchBuffer =[];
-        $scope.search = selectedItem;
-        $scope.goSearch();
-    };
-    //When Enter & TAB keyboard button been pressed
-    $('body').keyup( function (e) {
-        if(event.keyCode == 13){
-            if ($scope.searchBuffer.length > 0) {
-                $scope.searchBuffer = [];
-                $scope.goSearch();
-            }
-        }
-        if(event.keyCode == 9){
-            if ($scope.searchBuffer.length > 0) {
-                $scope.search = $scope.searchBuffer[0];
-                $scope.searchBuffer=[];
-                $scope.goSearch();
-            }
-        }
-    });
-
-
-    $scope.search = '';
-    var pos = 0;
-    $scope.step = 6;
-    // Showing the Products and dealing with the Prev and Next buttons
-    function load(skip, limit, search) {
-        var res = $resource('/api');
-        return res.query({s: skip ,l: limit, search: search});
-    }
-    //initial products load
-    $scope.products =load(pos,$scope.step,$scope.search);
-
-
-    //Search filter of the products
-    $scope.goSearch = function(){
-        $scope.search = $scope.search.trim();
-
-
-//        //TODO 1st way
-//        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {
-//            $scope.products = res.data;
-//        }, function(err) {
-//            console.log('Resource reading failed: '+ err);
-//        });
-
-
-        //TODO 2nd way
-        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}})
-            .success(function(data,status,error,config) { // .success(data,status,header,config)
-                $scope.products = data;
-//                //TODO for example
-//                console.log(data);
-//                console.log(status);
-//                console.log(error);
-//                console.log(config);
-              })
-            .error(function(err) { // .error(data,status,header,config)
-                console.log('Resource reading failed: '+ err);
-              });
-
-
-
-
-
-    //TODO 3rd way to load the resource
-//    var p = $resource('/api');
-//    p.query({s: pos, l: $scope.step, search: $scope.search}).$promise.then(function (product) {
-//        if (product.length > 0) {
-//            $scope.products = product;
-//            $scope.searchBuffer = '';
-//        }
-//    },
-//        function (error) {
-//            console.log('Resource reading failed: ' + error);
-//        });
-
-    };
-
-
-    // Return Pros and Cons comments count
-    $scope.getNumber = function(el){
-        var i = 0;
-        el.forEach(function(ggg){
-            if (!ggg.flagIsNew){
-                i++;
-             }
-        });
-        return i;
-    };
-
-
-    //Preview and Next buttons
-    $scope.prev = function(){
-        if (pos >= $scope.step) {
-            pos = pos - $scope.step;
-            load(pos, $scope.step, $scope.search).$promise.then(function (result) {
-                $scope.products = result;
-            });
-        }
-    };
-    $scope.next = function(){
-        pos = pos + $scope.step;
-        load(pos,$scope.step,$scope.search).$promise.then(function(result){
-            if (result.length === 0) {
-                pos = pos - $scope.step;
-            }
-            else {
-                $scope.products = result;
-            };
-        });
-    };
 }]);
