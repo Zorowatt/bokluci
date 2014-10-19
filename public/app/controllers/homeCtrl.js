@@ -1,11 +1,13 @@
 app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', function($scope, $resource, $http, $q, identity) {
     $scope.identity = identity; //this is only to show Add Product button if logged user exists
 
+    // disable input auto zoom in mobile devices
+//    var $viewportMeta = $('meta[name="viewport"]');
+//    $('input, select, textarea').bind('focus blur', function(event) {
+//        $viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=' +        (event.type == 'blur' ? 10 : 1));
+//    });
 
-    var $viewportMeta = $('meta[name="viewport"]');
-    $('input, select, textarea').bind('focus blur', function(event) {
-        $viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=' +        (event.type == 'blur' ? 10 : 1));
-    });
+
 // TODO gets any element on click
 
 //    function getEl(){
