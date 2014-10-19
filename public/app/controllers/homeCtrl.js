@@ -49,6 +49,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
     $('body').keyup( function (e) {
         if(event.keyCode == 13){
             if ($(".search").is(":focus")) {
+
                 $scope.goSearch();
             }
         }
@@ -69,7 +70,11 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
         //TODO 2nd way
         $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}})
             .success(function(data,status,error,config) { // .success(data,status,header,config)
-                $scope.products = data;
+                if (data.length>0){
+                    $scope.products = data;
+                    $( ".products" ).focus();
+                }
+
 //                //TODO for example
 //                console.log(data);
 //                console.log(status);
