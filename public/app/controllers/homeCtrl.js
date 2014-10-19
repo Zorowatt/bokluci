@@ -36,7 +36,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
     };
 
 //deals with the search box typeahead
-    $scope.getLocation = function(val) {
+    $scope.getProd = function(val) {
         return $http.get('/api/search', {
             params: {
                 search: val
@@ -57,7 +57,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
     //Search filter of the products
     $scope.goSearch = function(){
         $scope.search = $scope.search.trim();
-
+        if ($scope.search.length==0)return;
 
 //        //TODO 1st way
 //        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {
@@ -72,9 +72,11 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
             .success(function(data,status,error,config) { // .success(data,status,header,config)
                 if (data.length>0){
                     $scope.products = data;
-                    $( ".products" ).focus();
-                }
 
+                }
+                $(".search").blur();
+                //document.getElementsByClassName(".products")[0].focus();
+                $( "ul li:nth-child(1)").focus();
 //                //TODO for example
 //                console.log(data);
 //                console.log(status);

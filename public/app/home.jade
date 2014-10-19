@@ -1,7 +1,7 @@
 .container
     .center-block
         .input-group
-            input.form-control.search(type="text" ng-model="search" typeahead="a for a in getLocation($viewValue)")
+            input.form-control.search(type="text" ng-model="search" typeahead="a for a in getProd($viewValue)")
             span.input-group-btn
                 button.btn.btn-danger(type="button", ng-click='goSearch()') Go!
         br
@@ -15,8 +15,8 @@
     br
     .container
         .row
-            ul.products.list-inline
-                li(ng-repeat='item in products')
+            ul.list-inline
+                li.products(ng-repeat='item in products')
                     .col-lg-12.col-md-12.col-sm-12.col-xs-12
                         a.thumbnail(href='/productShow/{{item._id}}')
                             p.fix-text-length Наименование:  {{item.name}}
