@@ -57,7 +57,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
     //Search filter of the products
     $scope.goSearch = function(){
         $scope.search = $scope.search.trim();
-        if ($scope.search.length==0)return;
+
 
 //        //TODO 1st way
 //        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {
@@ -68,26 +68,20 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity', functio
 
 
         //TODO 2nd way
-        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}})
-            .success(function(data,status,error,config) { // .success(data,status,header,config)
-                if (data.length>0){
+        $http.get('/api', {params: {s: pos, l: $scope.step, search: $scope.search}})
+            .success(function (data, status, error, config) { // .success(data,status,header,config)
+                if (data.length > 0) {
                     $scope.products = data;
 
                 }
-                $(".search").blur();
-                //document.getElementsByClassName(".products")[0].focus();
-                $( "ul li:nth-child(1)").focus();
-//                //TODO for example
-//                console.log(data);
-//                console.log(status);
-//                console.log(error);
-//                console.log(config);
             })
-            .error(function(err) { // .error(data,status,header,config)
-                console.log('Resource reading failed: '+ err);
+            .error(function (err) { // .error(data,status,header,config)
+                console.log('Resource reading failed: ' + err);
             });
 
-
+        $(".search").blur();
+        //document.getElementsByClassName(".products")[0].focus();
+        $( "ul li:nth-child(1)").focus();
 
 
 
