@@ -81,6 +81,9 @@ module.exports = {
         var prod = {};
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
             pictureExists = true;
+
+//TODO avoid any other file than pictures
+
             file.pipe(gfs.createWriteStream({
                 filename: randomFileName
                 //       ,mode: 'w'
@@ -141,7 +144,10 @@ module.exports = {
     //updates product after comments added
     updateProduct : function(req, res, next) {
         var t = req.body;
-
+        if (t){
+            res.end();
+            return;
+        }
         if (t.pros) {
             t.pros.dateAdded = new Date();
             Products.update({_id : t.id},{

@@ -1,4 +1,5 @@
 var controllers = require('../controllers')
+    ,auth = require('./auth')
     ;
 
 module.exports = function(app){
@@ -6,9 +7,11 @@ module.exports = function(app){
 
 
     //user login
-    app.post('/login', controllers.users.userAuth);
+    app.post('/login', auth.userLogin);
     //user logout
-    app.post('/logout', controllers.users.userLogout);
+    app.post('/logout', auth.userLogout);
+
+
     //user signUp
     app.post('/signup', controllers.users.createUser);
     //this comes from email verification link
@@ -20,7 +23,7 @@ module.exports = function(app){
 
 
     //add product to mongoDB and save image to the gridFS
-    app.post('/upload_image', controllers.products.createProduct);
+    app.post('/upload_image', auth.isAuthenticated, controllers.products.createProduct);
 
 //    ,
 //    function (req,res,next) {
@@ -42,7 +45,7 @@ module.exports = function(app){
 
 
     //update after comment added
-    app.post('/api/update/', controllers.products.updateProduct);
+    app.post('/api/update/', auth.isAuthenticated, controllers.products.updateProduct);
 
     //shows selected product
     app.get('/api/product/:id', controllers.products.getProductById);

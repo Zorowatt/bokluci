@@ -38,6 +38,9 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
             templateUrl: '/p/partials/recover',
             controller: 'RecoverCtrl'
         })
+        .otherwise({
+            redirectTo: '/'
+        });
 
 }]);
 
