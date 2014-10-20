@@ -34,7 +34,7 @@ footer {
 /*--------------------------------------- for Home page-----------------------------------------*/
 
 /*for search bar and addProd button*/
-.center-block{
+.topone{
     max-width: 500px;
 }
 /*for addProd button*/
@@ -46,7 +46,6 @@ footer {
 .addProdSearch{
     margin-bottom: 30px;
 }
-
 
 
 .thumbnail{

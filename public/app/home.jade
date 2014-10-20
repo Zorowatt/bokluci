@@ -1,5 +1,5 @@
 .container
-    .center-block
+    .topone.center-block
 
         button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Add Product
         .input-group.addProdSearch
@@ -11,9 +11,8 @@
         .row
             ul.list-inline.center-block
                 li(ng-repeat='item in products')
-
                         a.thumbnail(href='/productShow/{{item._id}}')
-                            p.fix-text-length Наименование:  {{item.name}}
+                            p.fix-text-length {{item.name}}
                             img.home-image(ng-src='/get_image/{{item.picture[0].filename}}')
                             p Za:
                                 span.badge {{getNumber(item.pros)}}

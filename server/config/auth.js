@@ -40,13 +40,26 @@ passport.deserializeUser(function (id, done) {
 
 module.exports = {
     userLogin: function (req, res, next) {
+
+
         var auth = passport.authenticate('local', function (err, user) {
             if (err) return next(err);
             if (!user) res.send({success: false});
             //asks the passport module to log the user in
             req.logIn(user, function (err) {
                 if (err) return next(err);
-                res.send({success: true, user: {username: user.username}});
+
+                var ipAddr = req.headers["x-forwarded-for"];
+                if (ipAddr){
+                    var list = ipAddr.split(",");
+                    ipAddr = list[list.length-1];
+                } else {
+                    ipAddr = req.connection.remoteAddress;
+                }
+                console.log(ipAddr);
+
+
+                res.send({success: true, user: {username: user.username, ip:ipAddr}});
             })
         });
         auth(req, res, next);
