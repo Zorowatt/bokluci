@@ -15,9 +15,11 @@ var userSchema = mongoose.Schema ({
     randomIdForEmailConfirmation: {type: String, unique: true},
     expirationConfirmationTime: Date,
     passRecovered: Boolean,
-
     //TODO get the user IP address after sign up
-    userIP: String
+    registrationDetails:[{
+        ipAddress: String,
+        date: Date
+        }]
 });
     //proveriava dali podadenata parola otgovaria na parolat zapisana v bazata
 userSchema.method({

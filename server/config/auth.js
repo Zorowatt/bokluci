@@ -48,18 +48,7 @@ module.exports = {
             //asks the passport module to log the user in
             req.logIn(user, function (err) {
                 if (err) return next(err);
-
-                var ipAddr = req.headers["x-forwarded-for"];
-                if (ipAddr){
-                    var list = ipAddr.split(",");
-                    ipAddr = list[list.length-1];
-                } else {
-                    ipAddr = req.connection.remoteAddress;
-                }
-                console.log(ipAddr);
-
-
-                res.send({success: true, user: {username: user.username, ip:ipAddr}});
+                res.send({success: true, user: {username: user.username}});
             })
         });
         auth(req, res, next);

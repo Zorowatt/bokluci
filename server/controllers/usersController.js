@@ -64,7 +64,15 @@ module.exports = {
                     res.send({success: false, reason: 'User with this email address exists already!'});
                     return;
                 }
-
+                //gets client IP
+                var ipAddr = req.headers["x-forwarded-for"];
+                if (ipAddr){
+                    var list = ipAddr.split(",");
+                    ipAddr = list[list.length-1];
+                } else {
+                    ipAddr = req.connection.remoteAddress;
+                }
+                console.log(newUser);
                 newUser.salt = generateSalt();
                 newUser.hashPass = generateHashedPassword(newUser.salt, newUser.password);
                 newUser.confirmedEmail = false; //this is to verify user after it's confirmation e-mail
@@ -72,9 +80,11 @@ module.exports = {
                 var t = new Date();
                 newUser.expirationConfirmationTime = t.setHours(t.getHours()+24); //sets expiration Date and time
                 newUser.host = req.get('host');
+                newUser.passRecovered = true;
+                newUser.registrationDetails=[{date:t, ipAddress:ipAddr}];
 
                 // TODO if invalid e-mail has being sent
-
+                console.log(ipAddr);
                 Users.create(newUser, function (err, user) {
                     if (err){
                         //res.status(400);
