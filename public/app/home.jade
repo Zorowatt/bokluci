@@ -9,9 +9,9 @@
 
     .container
         .row
-            ul.list-inline
+            ul.list-inline.center-block
                 li(ng-repeat='item in products')
-                    .col-lg-12.col-md-12.col-sm-12.col-xs-12
+
                         a.thumbnail(href='/productShow/{{item._id}}')
                             p.fix-text-length Наименование:  {{item.name}}
                             img.home-image(ng-src='/get_image/{{item.picture[0].filename}}')

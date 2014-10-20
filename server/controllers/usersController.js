@@ -27,6 +27,8 @@ passport.use(new localPassport(function (username ,password ,done) {
         }
          //tuk veche se izvikva metoda, koito e dobaven kam Usershema na userite
         if (user && user.confirmedEmail && user.authenticate(password)){
+            user.passRecovered = true;
+            user.save();
             return done(null, user);
         }
         else{
@@ -325,11 +327,13 @@ module.exports = {
 
         //checks if id is valid
         if(!req.query.id){
-            res.end('<h1>Not authorized access!');
+            res.redirect('/');
+           // res.end('<h1>Not authorized access!');
             return;
         }
         if(req.query.id !== req.query.id.replace(/[^a-zA-Z0-9]/g, "") || req.query.id.length != 40){
-            res.end('<h1>Do not try this at home!');
+            res.redirect('/');
+            //res.end('<h1>Do not try this at home!');
             return;
         }
 
@@ -353,7 +357,8 @@ module.exports = {
                     //Check the expiration date
                     var t = new Date();
                     if (t > user.expirationConfirmationTime) {
-
+                        user.passRecovered = true;
+                        user.save();
                         //If date expired send message for new sign up
                         res.end("<h1>Password recovery is too late!");
                         return;
@@ -365,20 +370,43 @@ module.exports = {
 
                 //if confirmation comes not from the genuine user's e-mail
                 else {
-                    res.end("<h1>Request is from unknown source");
+                    res.redirect('/');
+                    //res.end("<h1>Request is from unknown source");
                     return;
                 }
             }
             //if user does not exist it DB
             else{
-                res.end("<h1>No such user!");
-                return;
+                res.redirect('/');
+
             }
         })
     },
 
     verifyAndRecoverUser: function (req, res, next) {
         var newUser = req.body;
+        console.log(newUser);
+        if (!newUser.password){
+            //thi is a fake OK
+            res.send({success: true, reason: 'OK'});
+            //res.send({success: false, reason: 'BAD request!'})
+            res.end();
+//            res.end('<h1>Bad Request!');
+//            return;
+        }
+        if (newUser.password.length == 0){
+            //thi is a fake OK
+            res.send({success: true, reason: 'OK'});
+            //res.send({success: false, reason: 'BAD request!'})
+            res.end();
+
+
+//            res.send({success: false, reason: 'Password contains fodden symbols!'});
+//            res.end();
+//            return;
+        }
+
+
         //validates pass
         if (newUser.password != newUser.password.replace(/[^a-zA-Z0-9_<>?]/g, "")) {
             res.send({success: false, reason: 'Password contains forbidden symbols!'});
@@ -394,7 +422,7 @@ module.exports = {
 
 
         //TODO pass should not be recovered more than once
-        var s = generateSalt()
+        var s = generateSalt();
 
         Users.findOneAndUpdate({randomIdForEmailConfirmation: newUser.id, passRecovered: false },{
             passRecovered : true,
@@ -411,7 +439,9 @@ module.exports = {
                 res.end();
             }
             else {
-                res.send({success: false, reason: 'Sorry, this user has been updated already!'})
+                //thi is a fake OK
+                res.send({success: true, reason: 'OK'});
+                //res.send({success: false, reason: 'Sorry, this user has been updated already!'})
                 res.end();
             }
         })
