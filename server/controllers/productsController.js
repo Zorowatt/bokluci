@@ -7,7 +7,7 @@ var Products = require('mongoose').model('Product')
     ,fs = require('fs')
     ,lwip = require('lwip')
     //,stream = require('stream')
-    ,stream = require('streamifier');
+    ,stream = require('streamifier')
     ;
 
 var randomFileName;
