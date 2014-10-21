@@ -42,8 +42,8 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                 // this string represents Red Dot
                 //$scope.product.filedata = "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
             }
-            if (file.size > 100000){
-                $scope.error ='File size cannot exceed 100 kB';
+            if (file.size > 2000000){
+                $scope.error ='File size cannot exceed 2000 kB';
                 f = false;
                 // this string represents Red Dot
                 //$scope.product.filedata = "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";

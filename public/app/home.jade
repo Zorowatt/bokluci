@@ -8,8 +8,8 @@
                 button.btn.btn-danger(type="button", ng-click='goSearch()') Go!
 
     .container
-        .row
-            ul.list-inline.center-block
+        .well
+            ul.list-inline.aaa
                 li(ng-repeat='item in products')
                         a.thumbnail(href='/productShow/{{item._id}}')
                             p.fix-text-length {{item.name}}

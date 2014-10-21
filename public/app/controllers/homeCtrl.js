@@ -14,7 +14,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$locati
 // Showing the Products and dealing with the Prev and Next buttons
     $scope.search = '';
     var pos = 0;
-    $scope.step = 6;
+    $scope.step = 12;
 
     function load(skip, limit, search) {
         var res = $resource('/api');

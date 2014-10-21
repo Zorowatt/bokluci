@@ -5,6 +5,9 @@ var Products = require('mongoose').model('Product')
     ,gfs = Grid(db.db, mongoose.mongo)
     ,Busboy = require('busboy')
     ,fs = require('fs')
+    ,lwip = require('lwip')
+    //,stream = require('stream')
+    ,stream = require('streamifier');
     ;
 
 var randomFileName;
@@ -81,21 +84,29 @@ module.exports = {
         var prod = {};
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
             pictureExists = true;
-
-//TODO avoid any other file than pictures
-
-            file.pipe(gfs.createWriteStream({
-                filename: randomFileName
-                //       ,mode: 'w'
-            }));
-
-//                        console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
-//                        file.on('data', function(data) {
-//                            console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
-//                        });
-//                        file.on('end', function() {
-//                            console.log('File [' + fieldname + '] Finished');
-//                        });
+            var fileExt = filename.split('.').pop();
+            if (fileExt != 'jpg' && fileExt != 'jpeg' && fileExt != 'png'){
+                pictureExists = false;
+                return;
+            }
+            var bufs = [];
+            file.on('data', function(d){ bufs.push(d); });
+            file.on('end', function() {
+                var buf = Buffer.concat(bufs);
+                lwip.open(buf,fileExt, function(err, image){
+                    image.batch()
+                       // .scale(0.75)          // scale to 75%
+                        .rotate(45, 'white')  // rotate 45degs clockwise (white fill)
+                       // .crop(200)            // crop a 200X200 square from center
+                       // .blur(5)              // Gaussian blur with SD=5
+                        .toBuffer('jpg', function(err, buffer){
+                            stream.createReadStream(buffer).pipe(gfs.createWriteStream({
+                                filename: randomFileName
+                                //       ,mode: 'w'
+                            }));
+                        });
+                });
+            });
         });
         busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
             //console.log('Field [' + fieldname + ']: value: ' + inspect(val));

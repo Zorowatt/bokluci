@@ -47,6 +47,16 @@ footer {
     margin-bottom: 30px;
 }
 
+/*centers li in ul*/
+.aaa { /* also works with ol */
+    width: 100%; /* or your desired width */
+    text-align: center; /* this will center the list items */
+}
+.aaa li {
+    display: inline-block; /* the key bit */
+    *display: inline; /* IE7 hack */
+    *zoom: 1; /* IE7 hack */
+}
 
 .thumbnail{
     display: block;
