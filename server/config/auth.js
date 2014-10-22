@@ -61,10 +61,13 @@ module.exports = {
 
     isAuthenticated: function(req, res, next){
         if (!req.isAuthenticated()) {
+            //TODO when activated from browser history it does not return back to home page
             res.redirect('/');
+            console.log('User not authenticated!');
             res.end();
         }
         else {
+            //if authenticated continue with the nex bunch/function
             next();
         }
     }

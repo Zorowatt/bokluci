@@ -25,15 +25,6 @@ module.exports = function(app){
     //add product to mongoDB and save image to the gridFS
     app.post('/upload_image', auth.isAuthenticated, controllers.products.createProduct);
 
-//    ,
-//    function (req,res,next) {
-//        if (!req.isAuthenticated()) {
-////            res.status(403);
-////            res.end();
-//        }else{
-//            next();
-//        }
-//    }
 
     //TODO hints during search
     app.get('/api/search', controllers.search.searchSuggestions);

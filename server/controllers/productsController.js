@@ -11,10 +11,10 @@ var Products = require('mongoose').model('Product')
     ;
 
 var randomFileName;
-//creates randome string for the image name
+//creates random string for the image name
 function randomString() {
-    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz{}[]$^*";
-    var string_length = 15;
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    var string_length = 20;
     var randomstring = '';
     for (var i=0; i<string_length; i++) {
         var rnum = Math.floor(Math.random() * chars.length);
@@ -22,8 +22,6 @@ function randomString() {
     }
     return randomstring;
 }
-
-
 
 
 module.exports = {
@@ -48,7 +46,6 @@ module.exports = {
                     }
                     res.send(collection);
                 })
-
             }
         }
         else{
@@ -56,7 +53,6 @@ module.exports = {
         }
     },
     getImage: function(req, res, next) {
-        //console.log(req.params.id);
         var readstream = gfs.createReadStream({
             filename: req.params.id,
             content_type: 'image/*'
@@ -90,21 +86,99 @@ module.exports = {
                 return;
             }
             var bufs = [];
-            file.on('data', function(d){ bufs.push(d); });
+            file.on('data', function(d){
+                bufs.push(d);
+                //console.log(d.length);
+            });
             file.on('end', function() {
                 var buf = Buffer.concat(bufs);
-                lwip.open(buf,fileExt, function(err, image){
-                    image.batch()
-                       // .scale(0.75)          // scale to 75%
-                        .rotate(45, 'white')  // rotate 45degs clockwise (white fill)
-                       // .crop(200)            // crop a 200X200 square from center
-                       // .blur(5)              // Gaussian blur with SD=5
-                        .toBuffer('jpg', function(err, buffer){
-                            stream.createReadStream(buffer).pipe(gfs.createWriteStream({
-                                filename: randomFileName
-                                //       ,mode: 'w'
-                            }));
-                        });
+
+
+// TODO make thumbnail
+
+
+
+
+
+                
+
+
+
+
+                var modelW = 500,
+                    modelH = 500;
+
+                lwip.create(modelW, modelH, 'yellow', function(err, background){
+                    lwip.open(buf,fileExt, function(err, originImage){
+                        if (err){
+                            console.log(err);
+                        }
+
+                        var w = originImage.width(),
+                            h = originImage.height();
+
+                        console.log(w+'-------'+h);
+
+
+                        if (h == w) {
+                            h = modelH;
+                            w = modelW;
+
+                        }else {
+
+                            if (w > h) {
+                                if (w > modelW) {
+                                    h = Math.floor(modelH * h / w);
+                                    w = modelW;
+                                } else {
+                                    h = h * modelW / w;
+                                    w = modelW;
+                                }
+                            }
+                            else {
+                                if (h > modelH) {
+                                    w = Math.floor(modelW * w / h);
+                                    h = modelH;
+                                } else {
+                                    w = w * modelH / h;
+                                    h = modelH;
+                                }
+                            }
+                        }
+                        console.log(w+'-------'+h);
+                        originImage.resize(w,h, function (err, resizedImage) {
+                            if (err){
+                                console.log(err);
+                            }
+                            var left = 0
+                                ,top = 0
+                                ;
+                            //centers the image into the background
+                            if (w < modelW){
+                                left = Math.floor((modelW-w)/2);
+                            }
+                            if (h < modelH){
+                                top = Math.floor((modelH-h)/2);
+                            }
+
+
+                            background.paste(left, top, resizedImage, function (err, readyImage) {
+                                if (err){
+                                    console.log(err);
+                                }
+                                readyImage.toBuffer('jpg',{quality: 100}, function(err, bufferedImage) {
+                                    if (err){
+                                        console.log(err);
+                                    }
+                                    //creates readable stream from buffered image and pipes it to GridFs
+                                    stream.createReadStream(bufferedImage).pipe(gfs.createWriteStream({
+                                        filename: randomFileName
+                                        //       ,mode: 'w'
+                                    }));
+                                })
+                            })
+                        })
+                    });
                 });
             });
         });
@@ -134,12 +208,9 @@ module.exports = {
         Products.create(prod, function(err, product) {
             if (err) {
                 console.log('Failed to add new product: ' + err);
-                return;
             }
         });
         if (!pictureExists){
-            //console.log('no picture');
-            //var file = fs.createReadStream('./nopicture.jpg');
             fs.createReadStream('./server/nopicture.jpg').pipe(gfs.createWriteStream({
                 filename: randomFileName
                 //       ,mode: 'w'
@@ -195,27 +266,5 @@ module.exports = {
 
     }
 
-    //adds product to DB
-//    createProduct: function(req, res, next) {
-//
-//        req.body.pros[0].dateAdded = new Date();
-//        req.body.cons[0].dateAdded = new Date();
-//        req.body.dateAdded = new Date();
-//        if (req.body.picture) {req.body.picture[0].dateAdded = new Date()}
-//        //console.log(req.body);
-////
-////        Products.create(req.body, function(err, product) {
-////            if (err) {
-////                console.log('Failed to add new product: ' + err);
-////                return;
-////            }
-////            res.end();
-////        });
-//
-//    },
-        //TODO hints during searching
-//    searchingResult : function(req, res, next){
-//
-//    }
 
-    };
+};

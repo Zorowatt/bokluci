@@ -30,7 +30,7 @@ var productSchema = mongoose.Schema ({
         dateAdded: Date,
         userAdded: String
     }],
-
+    thumbnail: String,
     id: Number,
     keyWords: [String],
     userAdded: String,
