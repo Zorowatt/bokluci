@@ -2,6 +2,8 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
 
     var fff = [];
+    $scope.flag = true;
+
 
     $scope.myThumbnail = false;
     var p = {
@@ -25,7 +27,8 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
     $('.prevImg').attr('src','');
 
     $scope.removeImage = function(){
-        $('.prevImg').attr('src','');
+        $scope.flag = false;
+        //$('.prevImg').attr('src','');
         $scope.myThumbnail = false;
         $scope.product.filedata = '';
         //$scope.$apply();
@@ -50,20 +53,23 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
             }
             if (f) {
                 $scope.error ='File OK and ready for uploading!';
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL($file[0]);
-                fileReader.onload = function (e) {
-                    $scope.product.filename = file.name;
-                    $scope.myThumbnail = true;
-                    $('.prevImg').attr('src',e.target.result);
-                    $scope.$apply();
-                }
+                //var fileReader = new FileReader();
+                //fileReader.readAsDataURL($file[0]);
+                $scope.product.filename = file.name;
+                $scope.flag = true;
+                $scope.myThumbnail = true;
+//                fileReader.onload = function (e) {
+//                    $scope.product.filename = file.name;
+//                    $scope.myThumbnail = true;
+//                    //$('.prevImg').attr('src',e.target.result);
+//                    $scope.$apply();
+//                }
             }
     };
 
     $scope.addProduct = function (product) {
         //if image exists
-        if (!!$('#zozo').attr('src')){
+        if ($scope.flag){
                 if (confirm('Are you sure you want to save this thing into the database?')) {
                     // Save it!
                     if (!!$scope.product.name) {
