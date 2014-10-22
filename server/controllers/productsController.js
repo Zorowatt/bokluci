@@ -111,7 +111,7 @@ module.exports = {
                         thumbW = 100,
                         thumbH = 100;
 
-                    lwip.create(modelW, modelH, 'yellow', function (err, background) {
+                    lwip.create(modelW, modelH, 'white', function (err, background) {
                         if (err) {
                             console.log(err);
                             pictureExists = false;

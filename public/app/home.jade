@@ -7,21 +7,22 @@
             span.input-group-btn
                 button.btn.btn-danger(type="button", ng-click='goSearch()') Go!
 
-    .container
-        .well
-            ul.list-inline.aaa
-                li(ng-repeat='item in products')
-                        a.thumbnail(href='/productShow/{{item._id}}')
-                            p.fix-text-length {{item.name}}
-                            img.home-image(ng-src='/get_image/{{item.thumbnail}}')
-                            p Za:
-                                span.badge {{getNumber(item.pros)}}
-                            p Protiv:
-                                span.badge {{getNumber(item.cons)}}
-                            p Date:
-                                span {{item.dateAdded | limitTo: 10}}
-    ul.pager
-        li
-            a.btn.btn-default(href="", ng-click="prev()") Prew
-        li
-            a.btn.btn-default(href="", ng-click="next()") Next
+.container
+    .well
+        ul.list-inline.aaa
+            li(ng-repeat='item in products')
+                    a.thumbnail(href='/productShow/{{item._id}}')
+                        //p(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
+                        p(data-toggle="tooltip" data-placement="right" title="{{item.name}}") {{item.name | limitTo: 15 }}
+                        img.home-image(ng-src='/get_image/{{item.thumbnail}}')
+                        p Za:
+                            span.badge {{getNumber(item.pros)}}
+                        p Protiv:
+                            span.badge {{getNumber(item.cons)}}
+                        p Date:
+                            span {{item.dateAdded | limitTo: 10}}
+ul.pager
+    li
+        a.btn.btn-default(href="", ng-click="prev()") Prew
+    li
+        a.btn.btn-default(href="", ng-click="next()") Next
