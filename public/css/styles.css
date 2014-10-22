@@ -112,6 +112,11 @@ a.thumbnail:hover{
 
 /*------------------------------------------for product Adding page----------------------------------------*/
 
+.padd{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 /*Adjusting of file-upload button*/
 .fileUpload {
     position: relative;

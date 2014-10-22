@@ -2,10 +2,8 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
 
     var fff = [];
-    $scope.flag = true;
+   $scope.imageExist = false;
 
-
-    $scope.myThumbnail = false;
     var p = {
         name : '',
         productModel: '',
@@ -22,14 +20,14 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
     $scope.product = p;
     $scope.proscon = '';
     $scope.conscon = '';
-    $scope.error = 'No file selected';
+    $scope.error = 'No file is selected!';
 
-    $('.prevImg').attr('src','');
+    //$('.prevImg').attr('src','');
 
     $scope.removeImage = function(){
-        $scope.flag = false;
+        $scope.imageExist = false;
+        $scope.error = 'No file is selected!';
         //$('.prevImg').attr('src','');
-        $scope.myThumbnail = false;
         $scope.product.filedata = '';
         //$scope.$apply();
     };
@@ -56,8 +54,8 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                 //var fileReader = new FileReader();
                 //fileReader.readAsDataURL($file[0]);
                 $scope.product.filename = file.name;
-                $scope.flag = true;
-                $scope.myThumbnail = true;
+                $scope.imageExist = true;
+                $scope.error = 'Selected file name is :  '+file.name;
 //                fileReader.onload = function (e) {
 //                    $scope.product.filename = file.name;
 //                    $scope.myThumbnail = true;
@@ -69,7 +67,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
     $scope.addProduct = function (product) {
         //if image exists
-        if ($scope.flag){
+        if ($scope.imageExist){
                 if (confirm('Are you sure you want to save this thing into the database?')) {
                     // Save it!
                     if (!!$scope.product.name) {
@@ -130,9 +128,8 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                         $scope.product.reseller.dateBought = '';
                         $scope.proscon = '';
                         $scope.conscon = '';
-                        $('.prevImg').attr('src','');
-                        $scope.myThumbnail = false;
-                        $scope.error = 'No file selected';
+                        //$('.prevImg').attr('src','');
+                        $scope.error = 'No file is selected!';
                         alert('Product created!');
                     }
                     else {
@@ -203,9 +200,9 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                     $scope.product.reseller.dateBought = '';
                     $scope.proscon = '';
                     $scope.conscon = '';
-                    $('.prevImg').attr('src','');
-                    $scope.myThumbnail = false;
-                    $scope.error = 'No file selected';
+                    //$('.prevImg').attr('src','');
+
+                    $scope.error = 'No file is selected!';
                     alert('Product created!');
                 }
                 else {
