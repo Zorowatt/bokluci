@@ -31,7 +31,7 @@ module.exports = function(app){
 
     //shows all products
     app.get('/api', controllers.products.getAllProducts);
-    //get the image from gridFS
+    //get the image or thumbnail from gridFS
     app.get('/get_image/:id', controllers.products.getImage);
 
 

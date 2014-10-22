@@ -13,7 +13,7 @@
                 li(ng-repeat='item in products')
                         a.thumbnail(href='/productShow/{{item._id}}')
                             p.fix-text-length {{item.name}}
-                            img.home-image(ng-src='/get_image/{{item.picture[0].filename}}')
+                            img.home-image(ng-src='/get_image/{{item.thumbnail}}')
                             p Za:
                                 span.badge {{getNumber(item.pros)}}
                             p Protiv:

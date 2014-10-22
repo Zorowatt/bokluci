@@ -10,7 +10,7 @@ var Products = require('mongoose').model('Product')
     ,stream = require('streamifier')
     ;
 
-var randomFileName;
+
 //creates random string for the image name
 function randomString() {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
@@ -63,6 +63,8 @@ module.exports = {
         });
         readstream.pipe(res);
     },
+
+
     getProductById: function(req, res, next){
         Products.findOne({ _id : req.params.id }).exec(function(err, document) {
             if (err) {
@@ -78,54 +80,47 @@ module.exports = {
         var pictureExists = false;
         var busboy = new Busboy({ headers: req.headers });
         var prod = {};
+        var randomFileName = randomString();
+        var thumbnailFileName = randomString();
+
+
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
             pictureExists = true;
             var fileExt = filename.split('.').pop();
-            if (fileExt != 'jpg' && fileExt != 'jpeg' && fileExt != 'png'){
+            if (fileExt != 'jpg' && fileExt != 'jpeg' && fileExt != 'png') {
                 pictureExists = false;
                 return;
             }
             var bufs = [];
-            file.on('data', function(d){
+            file.on('data', function (d) {
                 bufs.push(d);
                 //console.log(d.length);
             });
-            file.on('end', function() {
+            file.on('end', function () {
                 var buf = Buffer.concat(bufs);
+                lwip.open(buf, fileExt, function (err, originImage) {
+                    if (err) {
+                        console.log(err);
+                        pictureExists = false;
+                        return;
+                    }
+                    var w = originImage.width(),
+                        h = originImage.height(),
+                        modelW = 500,
+                        modelH = 500,
+                        thumbW = 100,
+                        thumbH = 100;
 
-
-// TODO make thumbnail
-
-
-
-
-
-                
-
-
-
-
-                var modelW = 500,
-                    modelH = 500;
-
-                lwip.create(modelW, modelH, 'yellow', function(err, background){
-                    lwip.open(buf,fileExt, function(err, originImage){
-                        if (err){
+                    lwip.create(modelW, modelH, 'yellow', function (err, background) {
+                        if (err) {
                             console.log(err);
+                            pictureExists = false;
+                            return;
                         }
-
-                        var w = originImage.width(),
-                            h = originImage.height();
-
-                        console.log(w+'-------'+h);
-
-
                         if (h == w) {
                             h = modelH;
                             w = modelW;
-
-                        }else {
-
+                        } else {
                             if (w > h) {
                                 if (w > modelW) {
                                     h = Math.floor(modelH * h / w);
@@ -145,43 +140,242 @@ module.exports = {
                                 }
                             }
                         }
-                        console.log(w+'-------'+h);
-                        originImage.resize(w,h, function (err, resizedImage) {
-                            if (err){
+                        originImage.resize(w, h, function (err, resizedImage) {
+                            if (err) {
                                 console.log(err);
+                                pictureExists = false;
+                                return;
                             }
                             var left = 0
-                                ,top = 0
+                                , top = 0
                                 ;
                             //centers the image into the background
-                            if (w < modelW){
-                                left = Math.floor((modelW-w)/2);
+                            if (w < modelW) {
+                                left = Math.floor((modelW - w) / 2);
                             }
-                            if (h < modelH){
-                                top = Math.floor((modelH-h)/2);
+                            if (h < modelH) {
+                                top = Math.floor((modelH - h) / 2);
                             }
-
 
                             background.paste(left, top, resizedImage, function (err, readyImage) {
-                                if (err){
+                                if (err) {
                                     console.log(err);
+                                    pictureExists = false;
+                                    return;
                                 }
-                                readyImage.toBuffer('jpg',{quality: 100}, function(err, bufferedImage) {
-                                    if (err){
+                                readyImage.toBuffer('jpg', {quality: 100}, function (err, bufferedImage) {
+                                    if (err) {
                                         console.log(err);
+                                        pictureExists = false;
+                                        return;
                                     }
                                     //creates readable stream from buffered image and pipes it to GridFs
                                     stream.createReadStream(bufferedImage).pipe(gfs.createWriteStream({
                                         filename: randomFileName
                                         //       ,mode: 'w'
                                     }));
+                                    //creates the thumbnail of the converted image
+                                    readyImage.resize(thumbW, thumbH, function (err, thumbImage) {
+                                        if (err) {
+                                            console.log(err);
+                                            pictureExists = false;
+                                            return;
+                                        }
+                                        thumbImage.toBuffer('jpg', {quality: 100}, function (err, bufferedThumbImage) {
+                                            if (err) {
+                                                console.log(err);
+                                                pictureExists = false;
+                                                return;
+                                            }
+                                            //creates readable stream from buffered image and pipes it to GridFs
+                                            stream.createReadStream(bufferedThumbImage).pipe(gfs.createWriteStream({
+                                                filename: thumbnailFileName
+                                                //       ,mode: 'w'
+                                            }));
+                                        })
+                                    });
                                 })
                             })
                         })
                     });
                 });
-            });
+            })
         });
+
+
+//TODO this is the old variant to be used if upper one is wrong!
+
+//        busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+//            pictureExists = true;
+//            var fileExt = filename.split('.').pop();
+//            if (fileExt != 'jpg' && fileExt != 'jpeg' && fileExt != 'png'){
+//                pictureExists = false;
+//                return;
+//            }
+//            var bufs = [];
+//            file.on('data', function(d){
+//                bufs.push(d);
+//                //console.log(d.length);
+//            });
+//            file.on('end', function() {
+//                var buf = Buffer.concat(bufs);
+//
+//
+//// TODO make thumbnail
+//
+//                var modelThumbW = 100,
+//                    modelThumbH = 100;
+//
+//                lwip.create(modelThumbW, modelThumbH, 'red', function(err, background){
+//                    lwip.open(buf,fileExt, function(err, originImage){
+//                        if (err){
+//                            console.log(err);
+//                            pictureExists = false;
+//                            return;
+//                        }
+//                        var w = originImage.width(),
+//                            h = originImage.height();
+//
+//                        if (h == w) {
+//                            h = modelThumbH;
+//                            w = modelThumbW;
+//                        }else {
+//                            if (w > h) {
+//                                if (w > modelThumbW) {
+//                                    h = Math.floor(modelThumbH * h / w);
+//                                    w = modelThumbW;
+//                                } else {
+//                                    h = h * modelThumbW / w;
+//                                    w = modelThumbW;
+//                                }
+//                            }
+//                            else {
+//                                if (h > modelThumbH) {
+//                                    w = Math.floor(modelThumbW * w / h);
+//                                    h = modelThumbH;
+//                                } else {
+//                                    w = w * modelThumbH / h;
+//                                    h = modelThumbH;
+//                                }
+//                            }
+//                        }
+//                        originImage.resize(w,h, function (err, resizedImage) {
+//                            if (err){
+//                                console.log(err);
+//                                pictureExists = false;
+//                                return;
+//                            }
+//                            var left = 0
+//                                ,top = 0
+//                                ;
+//                            //centers the image into the background
+//                            if (w < modelThumbW){
+//                                left = Math.floor((modelThumbW-w)/2);
+//                            }
+//                            if (h < modelThumbH){
+//                                top = Math.floor((modelThumbH-h)/2);
+//                            }
+//                            background.paste(left, top, resizedImage, function (err, readyImage) {
+//                                if (err){
+//                                    console.log(err);
+//                                    pictureExists = false;
+//                                    return;
+//                                }
+//                                readyImage.toBuffer('jpg',{quality: 100}, function(err, bufferedImage) {
+//                                    if (err){
+//                                        console.log(err);
+//                                        pictureExists = false;
+//                                        return;
+//                                    }
+//                                    //creates readable stream from buffered image and pipes it to GridFs
+//                                    stream.createReadStream(bufferedImage).pipe(gfs.createWriteStream({
+//                                        filename: thumbnailFileName
+//                                        //       ,mode: 'w'
+//                                    }));
+//                                })
+//                            })
+//                        })
+//                    });
+//
+//
+//                    var modelW = 500,
+//                        modelH = 500;
+//                    lwip.create(modelW, modelH, 'yellow', function(err, background){
+//                        lwip.open(buf,fileExt, function(err, originImage){
+//                            if (err){
+//                                console.log(err);
+//                                pictureExists = false;
+//                                return;
+//                            }
+//                            var w = originImage.width(),
+//                                h = originImage.height();
+//                            if (h == w) {
+//                                h = modelH;
+//                                w = modelW;
+//                            }else {
+//                                if (w > h) {
+//                                    if (w > modelW) {
+//                                        h = Math.floor(modelH * h / w);
+//                                        w = modelW;
+//                                    } else {
+//                                        h = h * modelW / w;
+//                                        w = modelW;
+//                                    }
+//                                }
+//                                else {
+//                                    if (h > modelH) {
+//                                        w = Math.floor(modelW * w / h);
+//                                        h = modelH;
+//                                    } else {
+//                                        w = w * modelH / h;
+//                                        h = modelH;
+//                                    }
+//                                }
+//                            }
+//                            originImage.resize(w,h, function (err, resizedImage) {
+//                                if (err){
+//                                    console.log(err);
+//                                    pictureExists = false;
+//                                    return;
+//                                }
+//                                var left = 0
+//                                    ,top = 0
+//                                    ;
+//                                //centers the image into the background
+//                                if (w < modelW){
+//                                    left = Math.floor((modelW-w)/2);
+//                                }
+//                                if (h < modelH){
+//                                    top = Math.floor((modelH-h)/2);
+//                                }
+//
+//                                background.paste(left, top, resizedImage, function (err, readyImage) {
+//                                    if (err){
+//                                        console.log(err);
+//                                        pictureExists = false;
+//                                        return;
+//                                    }
+//                                    readyImage.toBuffer('jpg',{quality: 100}, function(err, bufferedImage) {
+//                                        if (err){
+//                                            console.log(err);
+//                                            pictureExists = false;
+//                                            return;
+//                                        }
+//                                        //creates readable stream from buffered image and pipes it to GridFs
+//                                        stream.createReadStream(bufferedImage).pipe(gfs.createWriteStream({
+//                                            filename: randomFileName
+//                                            //       ,mode: 'w'
+//                                        }));
+//                                    })
+//                                })
+//                            })
+//                        });
+//                    });
+//                });
+//            });
+//        });
+
+
         busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
             //console.log('Field [' + fieldname + ']: value: ' + inspect(val));
 
@@ -190,9 +384,8 @@ module.exports = {
                 prod[fieldname] = JSON.parse(val);
                 //randomly generate picture name
                 if(fieldname=='picture'){
-                    randomFileName = randomString();
                     prod.picture[0].filename = randomFileName;
-                    //console.log(prod.picture[0].filename);
+                    prod.thumbnail = thumbnailFileName;
                 }
             }
             //catch when the val is string only
@@ -215,6 +408,10 @@ module.exports = {
                 filename: randomFileName
                 //       ,mode: 'w'
                 }));
+            fs.createReadStream('./server/nopictureThumb.jpg').pipe(gfs.createWriteStream({
+                filename: thumbnailFileName
+                //       ,mode: 'w'
+            }))
         }
             //console.log('Done parsing form!');
             //res.writeHead(303, { Connection: 'close', Location: '/' });
