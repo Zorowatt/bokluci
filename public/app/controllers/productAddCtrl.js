@@ -129,6 +129,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                         $scope.proscon = '';
                         $scope.conscon = '';
                         //$('.prevImg').attr('src','');
+                        $scope.imageExist = false;
                         $scope.error = 'No file is selected!';
                         alert('Product created!');
                     }
@@ -201,7 +202,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                     $scope.proscon = '';
                     $scope.conscon = '';
                     //$('.prevImg').attr('src','');
-
+                    $scope.imageExist = false;
                     $scope.error = 'No file is selected!';
                     alert('Product created!');
                 }
