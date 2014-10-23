@@ -33,7 +33,6 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
     };
 
     $scope.onFileSelect = function ($file) {
-
             fff = $file;
             var file = $file[0];
             var f = true;
@@ -46,22 +45,12 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
             if (file.size > 5000000){
                 $scope.error ='File size cannot exceed 5 MB!';
                 f = false;
-                // this string represents Red Dot
-                //$scope.product.filedata = "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
             }
             if (f) {
-                $scope.error ='File OK and ready for uploading!';
-                //var fileReader = new FileReader();
-                //fileReader.readAsDataURL($file[0]);
+                //$scope.error ='File OK and ready for uploading!';
                 $scope.product.filename = file.name;
                 $scope.imageExist = true;
                 $scope.error = 'Selected file name is :  '+file.name;
-//                fileReader.onload = function (e) {
-//                    $scope.product.filename = file.name;
-//                    $scope.myThumbnail = true;
-//                    //$('.prevImg').attr('src',e.target.result);
-//                    $scope.$apply();
-//                }
             }
     };
 
@@ -121,13 +110,24 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                 data: pp,
                 progress: function(e){}
             }).then(function(data, status, headers, config) {
-                // file is uploaded successfully
-                //console.log(data);
 
-                    alert('done!');
+
+                $('#uiLockId').remove();
+
+                alert('done!');
             });
 
-
+                $('<div></div>').attr('id', 'uiLockId').css({
+                    'position': 'absolute',
+                    'top': 0,
+                    'left': 0,
+                    'z-index': 1000,
+                    'opacity': 0.8,
+                    'width':'100%',
+                    'height':'100%',
+                    'color':'white',
+                    'background-color':'orange'
+                }).html('').appendTo('body');
 
 
 
