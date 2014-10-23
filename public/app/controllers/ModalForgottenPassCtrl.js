@@ -1,18 +1,24 @@
 app.controller('ModalForgottenPassCtrl',['$scope','$modalInstance','auth', function ($scope, $modalInstance, auth) {
     $scope.search = {username:''};
 
-    $('body').keyup( function (e) {
-        if(event.keyCode == 13){
-            if($scope.search.username.length>0) {
-                $scope.ok();
-            }
-            else{
-                if (!!document.getElementById("signUpUsername")) {
-                    document.getElementById("signUpUsername").focus();
-                }
-            }
+//    $('body').keyup( function (e) {
+//        if(event.keyCode == 13){
+//            if($scope.search.username.length>0) {
+//                $scope.ok();
+//            }
+//            else{
+//                if (!!document.getElementById("signUpUsername")) {
+//                    document.getElementById("signUpUsername").focus();
+//                }
+//            }
+//        }
+//    });
+    $scope.ent = function () {
+        if($scope.search.username.length>0){
+            $scope.ok();
+            return;
         }
-    });
+    };
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

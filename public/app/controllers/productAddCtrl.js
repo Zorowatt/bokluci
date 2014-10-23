@@ -20,13 +20,13 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
     $scope.product = p;
     $scope.proscon = '';
     $scope.conscon = '';
-    $scope.error = 'No file is selected!';
+    $scope.error = 'Няма Снимка';
 
     //$('.prevImg').attr('src','');
 
     $scope.removeImage = function(){
         $scope.imageExist = false;
-        $scope.error = 'No file is selected!';
+        $scope.error = 'Няма Снимка';
         //$('.prevImg').attr('src','');
         $scope.product.filedata = '';
         //$scope.$apply();
@@ -40,20 +40,21 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
             var file = $file[0];
             var f = true;
             if (file.type.indexOf('image') == -1) {
-                $scope.error = 'image extension not allowed, please choose a JPEG or PNG file.';
+                $scope.error = 'Снимката може да бъде само в .JPEG или .PNG формат!';
                 f = false;
                 // this string represents Red Dot
                 //$scope.product.filedata = "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
             }
             if (file.size > 5000000){
-                $scope.error ='File size cannot exceed 5 MB!';
+                $scope.error ='Снимката трябва да е по-малка от 5 МВ!';
                 f = false;
             }
             if (f) {
                 //$scope.error ='File OK and ready for uploading!';
                 $scope.product.filename = file.name;
                 $scope.imageExist = true;
-                $scope.error = 'Selected file name is :  '+file.name;
+                $scope.error = 'Избрана е снимка!';
+                $('#name').focus();
             }
     };
 

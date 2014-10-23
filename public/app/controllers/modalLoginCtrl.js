@@ -1,23 +1,40 @@
 app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($scope, $modalInstance, auth) {
     $scope.user={username:'',password:''};
-    $('body').keyup( function (e) {
+//    $('document').keypress( function (e) {
+//
+//        if(event.keyCode == 13 && e.currentTarget.className== "modal-open"){
+//            console.log(e);
+//            if($scope.user.username.length>0 && $scope.user.password.length>0) {
+//                $scope.ok();
+//            }else{
+//                if($scope.user.password.length>0 && !!document.getElementById("username")) {
+//                    document.getElementById("username").focus();
+//                }
+//                else{
+//                    if($scope.user.username.length>0 && !!document.getElementById("pass") ){
+//                       document.getElementById("pass").focus();
+//                    }
+//                }
+//            }
+//        }
+//    });
 
-        if(event.keyCode == 13 && e.currentTarget.className== "modal-open"){
-            console.log(e);
-            if($scope.user.username.length>0 && $scope.user.password.length>0) {
-                $scope.ok();
-            }else{
-                if($scope.user.password.length>0 && !!document.getElementById("username")) {
-                    document.getElementById("username").focus();
-                }
-                else{
-                    if($scope.user.username.length>0 && !!document.getElementById("pass") ){
-                       document.getElementById("pass").focus();
-                    }
-                }
-            }
+    $scope.ent = function () {
+        if($scope.user.username.length>0 && $scope.user.password.length>0){
+            $scope.ok();
+            return;
         }
-    });
+        if($scope.user.username.length>0){
+            document.getElementById("pass").focus();
+            document.getElementById('redAlert').innerHTML = 'Въведи парола!';
+            return;
+        }
+        if($scope.user.password.length>0) {
+            if(document.getElementById("username")){document.getElementById("username").focus();}
+            document.getElementById('redAlert').innerHTML = 'Въведи име!';
+        }
+    };
+
 
 
     $scope.clear = function () {
@@ -32,12 +49,12 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
     $scope.ok = function () {
         if ($scope.user) {
             if (!$scope.user.username){
-                document.getElementById('redAlert').innerHTML = 'Enter Username!';
+                document.getElementById('redAlert').innerHTML = 'Въведи име!';
                 document.getElementById("username").focus();
                 return;
             }
             if (!$scope.user.password){
-                document.getElementById('redAlert').innerHTML = 'Enter Password!';
+                document.getElementById('redAlert').innerHTML = 'Въведи парола!';
                 document.getElementById("pass").focus();
                 return;
             }
@@ -50,7 +67,7 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                     else {
                         $scope.user.username = '';
                         $scope.user.password = '';
-                        document.getElementById('redAlert').innerHTML = 'Wrong username or password!';
+                        document.getElementById('redAlert').innerHTML = 'Грешна парола или име!';
                         document.getElementById("username").focus();
                     }
                 },

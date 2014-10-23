@@ -1,13 +1,13 @@
 .modal-header
     label Enter your credentials:
 .modal-body
-    .well
+    .well(id='login')
         .form-group
             label Username
-            input.form-control(id='username',autofocus="autofocus", ng-click='clear()', type='text', ng-model='user.username')
+            input.form-control(id='username',autofocus="true",ng-enter="ent()", ng-click='clear()', type='text', ng-model='user.username')
             br
             label Password
-            input.form-control(id='pass',ng-click='clear()', type='password', ng-model='user.password', required=)
+            input.form-control(id='pass',ng-enter="ent()",ng-click='clear()', type='password', ng-model='user.password', required=)
             a.pull-right(href='', ng-click='forgottenPass()')
                 h6 Forgot password
 
