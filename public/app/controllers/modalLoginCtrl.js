@@ -40,4 +40,11 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+
+    $scope.signUp = function () {
+        $modalInstance.close('signUp');
+
+    };
+
 }]);

@@ -67,27 +67,45 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
             //if something wrong with the POST
             function (err) {
                 console.log('something wrong happened during logging out on the server : ' + err)
-            });
-
-
+            }
+        );
     };
 
-    $scope.oldUser = function (size) {
+    $scope.SignIn = function (size) {
         var modalInstance = $modal.open({
             templateUrl: '/p/partials/modalLogin',
             controller: 'ModalLoginCtrl',
             size: size
         });
-
         modalInstance.result.then(function (user) {
+            if(user == 'signUp'){
+                var modalInstance = $modal.open({
+                    templateUrl: '/p/partials/modalSignup',
+                    controller: 'ModalSignupCtrl'
+                });
+                modalInstance.result.then(function (payload) {
+                    if(payload.success){
+                        alert(payload.reason);
+                    }
+                    $location.path('/');
+                });
+                return;
+            }
             if(user == 's'){
-
-                forgottenPass();
-
+                var modalInstance = $modal.open({
+                    templateUrl: '/p/partials/modalForgottenPass',
+                    controller: 'ModalForgottenPassCtrl',
+                    size: 'sm'
+                });
+                modalInstance.result.then(function (payload) {
+                    if(payload){
+                        alert(payload);
+                    }
+                    //$location.path('/');
+                });
                 return;
             }
             if (user) {
-
                 identity.currentUser = user;
             }
         }, function () {
@@ -95,52 +113,4 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
             //$log.info('Modal dismissed at: ' + new Date());
         });
     };
-
-    $scope.newUser = function (size) {
-        var modalInstance = $modal.open({
-            templateUrl: '/p/partials/modalSignup',
-            controller: 'ModalSignupCtrl',
-            size: size
-        });
-
-        modalInstance.result.then(function (payload) {
-
-            if(payload.success){
-                alert(payload.reason);
-
-            }
-            $location.path('/');
-        });
-//            if () {
-//
-////                angular.extend($scope.user,userReceived);
-////                identity.currentUser = userReceived;
-//
-//            }
-//        }, function () {
-//            console.log('Something wrong with user signUp!')
-//            //$log.info('Modal dismissed at: ' + new Date());
-//        });
-    };
-
-
-    function forgottenPass() {
-        var modalInstance = $modal.open({
-            templateUrl: '/p/partials/modalForgottenPass',
-            controller: 'ModalForgottenPassCtrl',
-            size: 'sm'
-        });
-
-        modalInstance.result.then(function (payload) {
-
-            if(payload){
-                alert(payload);
-            }
-            //$location.path('/');
-        });
-    }
-
-
-
-
 }]);

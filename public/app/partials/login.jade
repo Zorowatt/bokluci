@@ -1,25 +1,21 @@
 div(ng-controller='LoginCtrl')
-    ul.nav.navbar-nav.pull-right(ng-hide="identity.isAuthenticated()")
-        li.dropdown
-            a.dropdown-toggle(href="", data-toggle="dropdown") Logging
-                span.caret
-            ul.dropdown-menu
-                li
-                    a(href="" ng-click="oldUser('sm')") Old user
-                    a(href="" ng-click="newUser()") New user
-    ul.nav.navbar-nav.pull-right(ng-show="identity.isAuthenticated()")
-        li.dropdown
-            a.dropdown-toggle(href="", data-toggle="dropdown")
-                | {{identity.currentUser.username}}
-                span.caret
-            ul.dropdown-menu
-                li
-                    a(href="") My products
-                li
-                    a(href="") My comments
-                li.divider
-                li
-                    a(href="") My account
-                li.divider
-                li
-                    a(href="" ng-click="logout()") Sign Out
+    button.navButtons.btn.btn-default.pull-right(ng-show="!identity.isAuthenticated()", ng-click="SignIn('sm')") Sign In
+
+
+    button.navButtons.btn.btn-default.pull-right(ng-show="identity.isAuthenticated()", ng-click="logout()") {{identity.currentUser.username}}
+    //ul.nav.navbar-nav.pull-right(ng-show="identity.isAuthenticated()")
+    //    li.dropdown
+    //        a.dropdown-toggle(href="", data-toggle="dropdown")
+    //            | {{identity.currentUser.username}}
+    //            span.caret
+    //        ul.dropdown-menu
+    //            li
+    //                a(href="") My products
+    //            li
+    //                a(href="") My comments
+    //            li.divider
+    //            li
+    //                a(href="") My account
+    //            li.divider
+    //            li
+    //                a(href="" ng-click="logout()") Sign Out

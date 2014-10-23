@@ -7,10 +7,12 @@ body {
     /*-webkit-font-smoothing: antialiased;*/
     /*text-rendering: optimizelegibility;*/
 }
-/*Login fields*/
-/*.navbar-right .navbar-form input {*/
-    /*margin-right: 10px;*/
-/*}*/
+
+/*buttons into the navbar*/
+.navButtons{
+
+    margin-top: 8px;
+}
 .logout{
     margin-left: 5px;
 }
