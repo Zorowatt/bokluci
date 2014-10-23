@@ -1,4 +1,25 @@
 app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($scope, $modalInstance, auth) {
+    $scope.user={username:'',password:''};
+    $('body').keyup( function (e) {
+
+        if(event.keyCode == 13 && e.currentTarget.className== "modal-open"){
+            console.log(e);
+            if($scope.user.username.length>0 && $scope.user.password.length>0) {
+                $scope.ok();
+            }else{
+                if($scope.user.password.length>0 && !!document.getElementById("username")) {
+                    document.getElementById("username").focus();
+                }
+                else{
+                    if($scope.user.username.length>0 && !!document.getElementById("pass") ){
+                       document.getElementById("pass").focus();
+                    }
+                }
+            }
+        }
+    });
+
+
     $scope.clear = function () {
         document.getElementById('redAlert').innerHTML = '';
     };
@@ -12,10 +33,12 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
         if ($scope.user) {
             if (!$scope.user.username){
                 document.getElementById('redAlert').innerHTML = 'Enter Username!';
+                document.getElementById("username").focus();
                 return;
             }
             if (!$scope.user.password){
                 document.getElementById('redAlert').innerHTML = 'Enter Password!';
+                document.getElementById("pass").focus();
                 return;
             }
             auth.login($scope.user).then(
@@ -28,6 +51,7 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                         $scope.user.username = '';
                         $scope.user.password = '';
                         document.getElementById('redAlert').innerHTML = 'Wrong username or password!';
+                        document.getElementById("username").focus();
                     }
                 },
                 //if something wrong with the POST

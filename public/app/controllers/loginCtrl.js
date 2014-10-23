@@ -72,6 +72,7 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
     };
 
     $scope.SignIn = function (size) {
+        $('#si').blur();
         var modalInstance = $modal.open({
             templateUrl: '/p/partials/modalLogin',
             controller: 'ModalLoginCtrl',

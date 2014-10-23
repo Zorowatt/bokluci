@@ -4,10 +4,10 @@
     .well
         .form-group
             label Username
-            input.form-control(autofocus="autofocus", ng-click='clear()', type='text', ng-model='user.username')
+            input.form-control(id='username',autofocus="autofocus", ng-click='clear()', type='text', ng-model='user.username')
             br
             label Password
-            input.form-control(ng-click='clear()', type='password', ng-model='user.password')
+            input.form-control(id='pass',ng-click='clear()', type='password', ng-model='user.password', required=)
             a.pull-right(href='', ng-click='forgottenPass()')
                 h6 Forgot password
 
@@ -15,5 +15,5 @@
     #redAlert.text-center
     a.pull-left(href='', ng-click="signUp()") SignUp
 
-    button.btn.btn-primary(ng-click="ok()") OK
+    button.btn.btn-primary(id='bbb', ng-click="ok()", ng-hide='!user.username || !user.password') OK
     button.btn.btn-warning(ng-click="cancel()") Cancel

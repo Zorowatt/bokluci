@@ -16,11 +16,11 @@
                 .form-group
                     label.col-md-3.control-label(for='fname') First Name
                     .col-md-9
-                        input.form-control(id='fname', type='text', placeholder='First name', ng-model='user.firstName', required)
+                        input.form-control(id='fname', type='text', placeholder='First name', ng-model='user.firstName')
                 .form-group
                     label.col-md-3.control-label(for='lname') Last Name
                     .col-md-9
-                        input.form-control(id='lname', type='text', placeholder='Last Name', ng-model='user.lastName', required)
+                        input.form-control(id='lname', type='text', placeholder='Last Name', ng-model='user.lastName')
                 .form-group
                     label.col-md-3.control-label(for='email') E-mail
                     .col-md-9
@@ -31,4 +31,4 @@
                     .col-md-8
 
                         button.sinupMargin.btn.btn-warning.pull-right(ng-click="cancel()") Cancel
-                        button.btn.btn-primary.pull-right(ng-disabled='signUpForm.$invalid', ng-click="signUp(user)") Save
+                        button.btn.btn-primary.pull-right(ng-hide='!user.username || !user.password || !user.email', ng-click="signUp(user)") Save

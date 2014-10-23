@@ -72,7 +72,7 @@ module.exports = {
                 } else {
                     ipAddr = req.connection.remoteAddress;
                 }
-                console.log(newUser);
+               // console.log(newUser);
                 newUser.salt = generateSalt();
                 newUser.hashPass = generateHashedPassword(newUser.salt, newUser.password);
                 newUser.confirmedEmail = false; //this is to verify user after it's confirmation e-mail
@@ -84,7 +84,7 @@ module.exports = {
                 newUser.registrationDetails=[{date:t, ipAddress:ipAddr}];
 
                 // TODO if invalid e-mail has being sent
-                console.log(ipAddr);
+                //console.log(ipAddr);
                 Users.create(newUser, function (err, user) {
                     if (err){
                         //res.status(400);
@@ -323,7 +323,7 @@ module.exports = {
 
     verifyAndRecoverUser: function (req, res, next) {
         var newUser = req.body;
-        console.log(newUser);
+        //console.log(newUser);
         if (!newUser.password){
             //thi is a fake OK
             res.send({success: true, reason: 'OK'});
