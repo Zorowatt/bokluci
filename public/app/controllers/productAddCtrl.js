@@ -115,7 +115,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
                 $upload.upload({
                         url: '/upload_image',
-                        //file: fff[0],
+                        file: fff[0],
                         data: pp,
                         progress: function(e){}
                     })
@@ -130,7 +130,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                     })
                     .then(function(data, status, headers, config) {
                         usSpinnerService.stop('spinner-1');
-                        alert('done!');
+                        //alert('done!');
                         $scope.mainShow = true;
                         $location.path('/');
                     });
