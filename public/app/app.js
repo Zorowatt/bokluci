@@ -1,4 +1,4 @@
-var app = angular.module('app',['ngResource','ngRoute','angularFileUpload','ui.bootstrap','cgNotify']);
+var app = angular.module('app',['ngResource','ngRoute','angularFileUpload','ui.bootstrap','cgNotify','angularSpinner']);
 
 
 app.config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {
@@ -61,6 +61,15 @@ app.config(['$tooltipProvider', function($tooltipProvider){
         'show': 'hide'
     });
 }]);
+
+
+
+
+
+
+
+
+
 //app.directive('ngFileSelect', [ '$parse', '$timeout', function($parse, $timeout) {
 //    return function(scope, elem, attr) {
 //        var fn = $parse(attr['ngFileSelect']);

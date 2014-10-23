@@ -1,0 +1,29 @@
+/* --------------------------------------*/
+   /*Media Queries*/
+   /*-------------------------------------- */
+
+/* Portrait & landscape phone */
+/*@media (max-width: 480px) {*/
+
+    /*.hhh{*/
+        /*min-height: 100px;*/
+    /*}*/
+
+/*}*/
+
+/* Landscape phone to portrait tablet */
+/*@media (max-width: 768px) {*/
+
+/*.hhh{*/
+    /*min-height: 100px;*/
+/*}*/
+
+/*}*/
+
+/* Large desktop */
+/*@media (min-width: 1200px) {*/
+
+    /*.hhh{*/
+        /*min-height: 100px;*/
+    /*}*/
+/*}*/

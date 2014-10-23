@@ -1,5 +1,5 @@
-app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','identity' , function($scope, $http,  productsCRUD, $upload, identity) {
-
+app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','identity', 'usSpinnerService','$location' , function($scope, $http,  productsCRUD, $upload, identity, usSpinnerService, $location) {
+    $scope.mainShow = true;
 
     var fff = [];
    $scope.imageExist = false;
@@ -33,6 +33,9 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
     };
 
     $scope.onFileSelect = function ($file) {
+
+
+
             fff = $file;
             var file = $file[0];
             var f = true;
@@ -65,7 +68,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
         //if image exists
         if ($scope.imageExist){
-            if (confirm('Готовисте ли сте да изпратите този продукт?')) {
+            if (confirm('Готови ли сте да изпратите този продукт?')) {
                 // Save it!
                 var pp = {
                     name : $scope.product.name,
@@ -104,53 +107,53 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                 //productsCRUD.create(pp);
 
                 //Uploads image/as file and product/as data
+                usSpinnerService.spin('spinner-1');
+                //$('#panel').css({'min-height':window.screen.width - 55});
+                $('#panel').css({'min-height':window.innerHeight - 150});
+                $scope.mainShow = false;
+                window.scrollTo(0, 0);
+
                 $upload.upload({
-                url: '/upload_image',
-                file: fff[0],
-                data: pp,
-                progress: function(e){}
-            }).then(function(data, status, headers, config) {
+                        url: '/upload_image',
+                        //file: fff[0],
+                        data: pp,
+                        progress: function(e){}
+                    })
+                    .progress(function(evt) {
+                        //TODO show % progress
+//                        $scope.loaded = parseInt(100.0 * evt.loaded / evt.total);
+//                        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+//                        console.log(evt.loaded );
+                    })
+                    .error(function () {
+                        alert(err)
+                    })
+                    .then(function(data, status, headers, config) {
+                        usSpinnerService.stop('spinner-1');
+                        alert('done!');
+                        $scope.mainShow = true;
+                        $location.path('/');
+                    });
 
-
-                $('#uiLockId').remove();
-
-                alert('done!');
-            });
-
-                $('<div></div>').attr('id', 'uiLockId').css({
-                    'position': 'absolute',
-                    'top': 0,
-                    'left': 0,
-                    'z-index': 1000,
-                    'opacity': 0.8,
-                    'width':'100%',
-                    'height':'100%',
-                    'color':'white',
-                    'background-color':'orange'
-                }).html('').appendTo('body');
-
-
-
-
-                $scope.product.name = '';
-                $scope.product.productModel = '';
-                $scope.product.maker = '';
-                $scope.product.origin = '';
-                $scope.product.reseller.name = '';
-                $scope.product.reseller.town = '';
-                $scope.product.reseller.price = '';
-                $scope.product.reseller.dateBought = '';
-                $scope.proscon = '';
-                $scope.conscon = '';
-                //$('.prevImg').attr('src','');
-                $scope.imageExist = false;
-                $scope.error = 'No file is selected!';
-                $scope.product.filedata = '';
+//                $scope.product.name = '';
+//                $scope.product.productModel = '';
+//                $scope.product.maker = '';
+//                $scope.product.origin = '';
+//                $scope.product.reseller.name = '';
+//                $scope.product.reseller.town = '';
+//                $scope.product.reseller.price = '';
+//                $scope.product.reseller.dateBought = '';
+//                $scope.proscon = '';
+//                $scope.conscon = '';
+//                //$('.prevImg').attr('src','');
+//                $scope.imageExist = false;
+//                $scope.error = 'No file is selected!';
+//                $scope.product.filedata = '';
             }
         }
         //if no image exists
         else{
-            if (confirm('Готовисте ли сте да изпратите този продукт?')) {
+            if (confirm('Готови ли сте да изпратите този продукт?')) {
                 // Save it!
                 var pp = {
                     name : $scope.product.name,
@@ -188,29 +191,38 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                 //productsCRUD.create(pp);
 
                 //Uploads product/as data
+
+                usSpinnerService.spin('spinner-1');
+                //$('#panel').css({'min-height':window.screen.width - 55});
+                $('#panel').css({'min-height':window.innerHeight - 150});
+                $scope.mainShow = false;
+                window.scrollTo(0, 0);
+
                 $upload.upload({
                     url: '/upload_image',
                     //file: fff[0],
                     data: pp,
                     progress: function(e){}
                 }).then(function(data, status, headers, config) {
-                    // file is uploaded successfully
-                    //console.log(data);
-                });
-                $scope.product.name = '';
-                $scope.product.productModel = '';
-                $scope.product.maker = '';
-                $scope.product.origin = '';
-                $scope.product.reseller.name = '';
-                $scope.product.reseller.town = '';
-                $scope.product.reseller.price = '';
-                $scope.product.reseller.dateBought = '';
-                $scope.proscon = '';
-                $scope.conscon = '';
-                //$('.prevImg').attr('src','');
-                $scope.imageExist = false;
-                $scope.error = 'No file is selected!';
-                $scope.product.filedata = '';
+                    usSpinnerService.stop('spinner-1');
+                    //alert('done!');
+                    $scope.mainShow = true;
+                    $location.path('/');
+                })
+//                $scope.product.name = '';
+//                $scope.product.productModel = '';
+//                $scope.product.maker = '';
+//                $scope.product.origin = '';
+//                $scope.product.reseller.name = '';
+//                $scope.product.reseller.town = '';
+//                $scope.product.reseller.price = '';
+//                $scope.product.reseller.dateBought = '';
+//                $scope.proscon = '';
+//                $scope.conscon = '';
+//                //$('.prevImg').attr('src','');
+//                $scope.imageExist = false;
+//                $scope.error = 'No file is selected!';
+//                $scope.product.filedata = '';
             }
         }
     }
