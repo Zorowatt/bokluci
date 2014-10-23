@@ -66,149 +66,151 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
     };
 
     $scope.addProduct = function (product) {
+
+        if(!$scope.product.name){
+            alert('Важно е да въведете наименование?');
+            document.getElementById("name").focus();
+            return;
+        }
+
+
         //if image exists
         if ($scope.imageExist){
-                if (confirm('Are you sure you want to save this thing into the database?')) {
-                    // Save it!
-                    if (!!$scope.product.name) {
-                        //TODO validate all product fields
-                        var pp = {
-                            name : $scope.product.name,
-                            productModel: $scope.product.productModel || '--',
-                            maker: $scope.product.maker || '--',
-                            origin: $scope.product.origin || '--',
-                            reseller: {
-                                name: $scope.product.reseller.name || '--',
-                                town: $scope.product.reseller.town || '--',
-                                price: $scope.product.reseller.price || '--',
-                                dateBought: $scope.product.reseller.dateBought || '--'
-                            },
-                            pros: [{userAdded: identity.currentUser.username,
-                                dateAdded: new Date(),
-                                content: $scope.proscon || '--',
-                                flagIsNew: true}],
-                            cons: [{userAdded: identity.currentUser.username,
-                                dateAdded: new Date(),
-                                content: $scope.conscon || '--',
-                                flagIsNew: true}],
-                            id : 99,
-                            userAdded : identity.currentUser.username,
-                            dateAdded : new Date(),
-                            flagIsNew : true,
-                            flagNewCommentAdded : true,
-                            picture:[{
-                                filename : $scope.product.filename,
-                                dateAdded: new Date(),
-                                userAdded: identity.currentUser.username
-                            }],
-                            keyWords: ['n/a'],
-                            category: ['n/a']
-                        };
+            if (confirm('Готовисте ли сте да изпратите този продукт?')) {
+                // Save it!
+                var pp = {
+                    name : $scope.product.name,
+                    productModel: $scope.product.productModel || '--',
+                    maker: $scope.product.maker || '--',
+                    origin: $scope.product.origin || '--',
+                    reseller: {
+                        name: $scope.product.reseller.name || '--',
+                        town: $scope.product.reseller.town || '--',
+                        price: $scope.product.reseller.price || '--',
+                        dateBought: $scope.product.reseller.dateBought || '--'
+                    },
+                    pros: [{userAdded: identity.currentUser.username,
+                        dateAdded: new Date(),
+                        content: $scope.proscon || '--',
+                        flagIsNew: true}],
+                    cons: [{userAdded: identity.currentUser.username,
+                        dateAdded: new Date(),
+                        content: $scope.conscon || '--',
+                        flagIsNew: true}],
+                    id : 99,
+                    userAdded : identity.currentUser.username,
+                    dateAdded : new Date(),
+                    flagIsNew : true,
+                    flagNewCommentAdded : true,
+                    picture:[{
+                        filename : $scope.product.filename,
+                        dateAdded: new Date(),
+                        userAdded: identity.currentUser.username
+                    }],
+                    keyWords: ['n/a'],
+                    category: ['n/a']
+                };
 
-                        //Uploads product
-                        //productsCRUD.create(pp);
+                //Uploads product
+                //productsCRUD.create(pp);
 
-                        //Uploads image/as file and product/as data
-                        $upload.upload({
-                        url: '/upload_image',
-                        file: fff[0],
-                        data: pp,
-                        progress: function(e){}
-                    }).then(function(data, status, headers, config) {
-                        // file is uploaded successfully
-                        //console.log(data);
-                    });
-                        $scope.product.name = '';
-                        $scope.product.productModel = '';
-                        $scope.product.maker = '';
-                        $scope.product.origin = '';
-                        $scope.product.reseller.name = '';
-                        $scope.product.reseller.town = '';
-                        $scope.product.reseller.price = '';
-                        $scope.product.reseller.dateBought = '';
-                        $scope.proscon = '';
-                        $scope.conscon = '';
-                        //$('.prevImg').attr('src','');
-                        $scope.imageExist = false;
-                        $scope.error = 'No file is selected!';
-                        alert('Product created!');
-                    }
-                    else {
-                        alert('Write some name!');
-                    }
-                }
+                //Uploads image/as file and product/as data
+                $upload.upload({
+                url: '/upload_image',
+                file: fff[0],
+                data: pp,
+                progress: function(e){}
+            }).then(function(data, status, headers, config) {
+                // file is uploaded successfully
+                //console.log(data);
+
+                    alert('done!');
+            });
+
+
+
+
+
+
+                $scope.product.name = '';
+                $scope.product.productModel = '';
+                $scope.product.maker = '';
+                $scope.product.origin = '';
+                $scope.product.reseller.name = '';
+                $scope.product.reseller.town = '';
+                $scope.product.reseller.price = '';
+                $scope.product.reseller.dateBought = '';
+                $scope.proscon = '';
+                $scope.conscon = '';
+                //$('.prevImg').attr('src','');
+                $scope.imageExist = false;
+                $scope.error = 'No file is selected!';
+                $scope.product.filedata = '';
+            }
         }
         //if no image exists
         else{
-            if (confirm('Are you sure you want to save this thing into the database?')) {
+            if (confirm('Готовисте ли сте да изпратите този продукт?')) {
                 // Save it!
-                if (!!$scope.product.name) {
+                var pp = {
+                    name : $scope.product.name,
+                    productModel: $scope.product.productModel || '--',
+                    maker: $scope.product.maker || '--',
+                    origin: $scope.product.origin || '--',
+                    reseller: {
+                        name: $scope.product.reseller.name || '--',
+                        town: $scope.product.reseller.town || '--',
+                        price: $scope.product.reseller.price || '--',
+                        dateBought: $scope.product.reseller.dateBought || '--'
+                    },
+                    pros: [{userAdded: identity.currentUser.username,
+                        dateAdded: new Date(),
+                        content: $scope.proscon || '--',
+                        flagIsNew: true}],
+                    cons: [{userAdded: identity.currentUser.username,
+                        dateAdded: new Date(),
+                        content: $scope.conscon || '--',
+                        flagIsNew: true}],
+                    picture:[{
+                        filename : 'noPicture',
+                        dateAdded: new Date(),
+                        userAdded: identity.currentUser.username
+                    }],
+                    id : 99,
+                    userAdded : identity.currentUser.username,
+                    dateAdded : new Date(),
+                    flagIsNew : true,
+                    flagNewCommentAdded : true,
+                    keyWords: ['n/a'],
+                    category: ['n/a']
+                };
 
-                    //TODO validate all product fields
+                //productsCRUD.create(pp);
 
-                    var pp = {
-                        name : $scope.product.name,
-                        productModel: $scope.product.productModel || '--',
-                        maker: $scope.product.maker || '--',
-                        origin: $scope.product.origin || '--',
-                        reseller: {
-                            name: $scope.product.reseller.name || '--',
-                            town: $scope.product.reseller.town || '--',
-                            price: $scope.product.reseller.price || '--',
-                            dateBought: $scope.product.reseller.dateBought || '--'
-                        },
-                        pros: [{userAdded: identity.currentUser.username,
-                            dateAdded: new Date(),
-                            content: $scope.proscon || '--',
-                            flagIsNew: true}],
-                        cons: [{userAdded: identity.currentUser.username,
-                            dateAdded: new Date(),
-                            content: $scope.conscon || '--',
-                            flagIsNew: true}],
-                        picture:[{
-                            filename : 'noPicture',
-                            dateAdded: new Date(),
-                            userAdded: identity.currentUser.username
-                        }],
-                        id : 99,
-                        userAdded : identity.currentUser.username,
-                        dateAdded : new Date(),
-                        flagIsNew : true,
-                        flagNewCommentAdded : true,
-                        keyWords: ['n/a'],
-                        category: ['n/a']
-                    };
-
-                    //productsCRUD.create(pp);
-
-                    //Uploads product/as data
-                    $upload.upload({
-                        url: '/upload_image',
-                        //file: fff[0],
-                        data: pp,
-                        progress: function(e){}
-                    }).then(function(data, status, headers, config) {
-                        // file is uploaded successfully
-                        //console.log(data);
-                    });
-                    $scope.product.name = '';
-                    $scope.product.productModel = '';
-                    $scope.product.maker = '';
-                    $scope.product.origin = '';
-                    $scope.product.reseller.name = '';
-                    $scope.product.reseller.town = '';
-                    $scope.product.reseller.price = '';
-                    $scope.product.reseller.dateBought = '';
-                    $scope.proscon = '';
-                    $scope.conscon = '';
-                    //$('.prevImg').attr('src','');
-                    $scope.imageExist = false;
-                    $scope.error = 'No file is selected!';
-                    alert('Product created!');
-                }
-                else {
-                    alert('Write some name!');
-                }
+                //Uploads product/as data
+                $upload.upload({
+                    url: '/upload_image',
+                    //file: fff[0],
+                    data: pp,
+                    progress: function(e){}
+                }).then(function(data, status, headers, config) {
+                    // file is uploaded successfully
+                    //console.log(data);
+                });
+                $scope.product.name = '';
+                $scope.product.productModel = '';
+                $scope.product.maker = '';
+                $scope.product.origin = '';
+                $scope.product.reseller.name = '';
+                $scope.product.reseller.town = '';
+                $scope.product.reseller.price = '';
+                $scope.product.reseller.dateBought = '';
+                $scope.proscon = '';
+                $scope.conscon = '';
+                //$('.prevImg').attr('src','');
+                $scope.imageExist = false;
+                $scope.error = 'No file is selected!';
+                $scope.product.filedata = '';
             }
         }
     }
