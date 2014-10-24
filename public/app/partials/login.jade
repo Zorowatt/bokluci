@@ -1,0 +1,19 @@
+//div(ng-controller='LoginCtrl')
+    button.navButtons.btn.btn-default.pull-right(id='si', ng-show="!identity.isAuthenticated()", ng-click="SignIn('sm')") Sign In
+    button.navButtons.btn.btn-default.pull-right(ng-show="identity.isAuthenticated()", ng-click="logout()") Sign Out
+div(ng-controller='LoginCtrl')
+    button.bb.navButtons.btn.btn-default.pull-right(id='si', ng-show="!identity.isAuthenticated()", ng-click="SignIn('sm')") Вход
+
+    span.navButtons.pull-right.dropdown(on-toggle="toggled(open)", ng-show="identity.isAuthenticated()")
+        a.bb.dropdown-toggle(href='') {{identity.currentUser.username}}
+            span.caret
+        ul.dropdown-menu
+            li
+                p.user {{identity.currentUser.username}}
+                a.content(href='') Моите добавки
+            li
+                .divider
+            li.footer
+                a.account.pull-left(href='') Профил
+                button.signout.btn.btn-default.pull-right(ng-click="logout()") Изход
+

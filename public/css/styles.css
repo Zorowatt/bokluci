@@ -7,6 +7,19 @@ body {
     /*-webkit-font-smoothing: antialiased;*/
     /*text-rendering: optimizelegibility;*/
 }
+/*set Navbar background image*/
+.navbar {
+    background-color: white;
+    /*background: url('../images/Nav.png') top center no-repeat;*/
+}
+
+/*#menu {*/
+    /*position: fixed;*/
+    /*right: 0;*/
+    /*top: 0;*/
+    /*//width: 8em;*/
+    /*margin-top: -2.5em;*/
+/*}*/
 
 /*buttons into the navbar*/
 .navButtons{

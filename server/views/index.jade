@@ -1,8 +1,10 @@
 extends includes/layout
 block main-content
-    div(id='origin', ng-app='app')
+    div(id='main', ng-app='app')
         header
-            .container
+            .navbar.navbar-fixed-top
+                div(ng-include="'p/partials/login'")
+            //.container
                 .navbar.navbar-default.navbar-fixed-top(role='navigation')
                     .navbar-inner
                         .container
@@ -14,9 +16,7 @@ block main-content
                             //    span.icon-bar
                             //    span.icon-bar
                             //.navbar-collapse(collapse="!isCollapsed")
-                            div(ng-controller='LoginCtrl')
-                                button.navButtons.btn.btn-default.pull-right(id='si', ng-show="!identity.isAuthenticated()", ng-click="SignIn('sm')") Sign In
-                                button.navButtons.btn.btn-default.pull-right(ng-show="identity.isAuthenticated()", ng-click="logout()") Sign Out
+                            div(ng-include="'p/partials/login'")
                                     //| {{identity.currentUser.username}}
 
                             a.navButtons.btn.btn-default(href="/") Home
@@ -84,35 +84,35 @@ block main-content
         section
             #main(ng-view)
 
-        footer
-            .container
-                .row
-                    .col-sm-2
-                        p Copyright &copy; 2014 {name}
-                    .col-sm-4
-                        p About Us
-                        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    .col-sm-2
-                        p Navigation
-                        ul.unstyled
-                            li
-                                a(href='/') Home
-                            li
-                                a(href='/services') Services
-                            li
-                                a(href='') Links
-                            li
-                                a(href='/contacts') Contacts
-                    .col-sm-2
-                        p Follow Us
-                            ul.unstyled
-                                li
-                                    a(href='') Twitter
-                                li
-                                    a(href='') Facebook
-                                li
-                                    a(href='') Google Plus
-                    .col-sm-2
-                        h6 Coded with
-                            span.glyphicon.glyphicon-heart
-                            | by Zorro
+        ////footer
+        //    .container
+        //        .row
+        //            .col-sm-2
+        //                p Copyright &copy; 2014 {name}
+        //            .col-sm-4
+        //                p About Us
+        //                p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        //            .col-sm-2
+        //                p Navigation
+        //                ul.unstyled
+        //                    li
+        //                        a(href='/') Home
+        //                    li
+        //                        a(href='/services') Services
+        //                    li
+        //                        a(href='') Links
+        //                    li
+        //                        a(href='/contacts') Contacts
+        //            .col-sm-2
+        //                p Follow Us
+        //                    ul.unstyled
+        //                        li
+        //                            a(href='') Twitter
+        //                        li
+        //                            a(href='') Facebook
+        //                        li
+        //                            a(href='') Google Plus
+        //            .col-sm-2
+        //                h6 Coded with
+        //                    span.glyphicon.glyphicon-heart
+        //                    | by Zorro

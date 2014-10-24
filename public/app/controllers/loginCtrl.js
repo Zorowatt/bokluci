@@ -51,7 +51,19 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
 //        //        })
 //
 //    };
-    
+
+
+    $scope.addProduct = function () {
+
+        if (!identity.isAuthenticated()) {
+//            notify.config({duration : 2000});
+//            notify({ message:'Трябва да сте логнат, за да можете да добавяте!'} );
+            return;
+        }
+        $location.path('/addProduct');
+    };
+
+
     $scope.logout = function () {
         auth.logout().then(
             //if POST payload has been received
@@ -108,6 +120,7 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
             }
             if (user) {
                 identity.currentUser = user;
+
             }
         }, function () {
             //console.log('Something wrong with user logIn!')

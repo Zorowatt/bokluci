@@ -1,5 +1,7 @@
-app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','identity', 'usSpinnerService','$location' , function($scope, $http,  productsCRUD, $upload, identity, usSpinnerService, $location) {
+app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','identity', 'usSpinnerService','$location', function($scope, $http,  productsCRUD, $upload, identity, usSpinnerService, $location) {
     $scope.mainShow = true;
+
+    $scope.bool = true;
 
     var fff = [];
    $scope.imageExist = false;
