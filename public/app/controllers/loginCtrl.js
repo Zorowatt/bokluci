@@ -4,6 +4,10 @@ app.controller('LoginCtrl',['$scope', 'identity', 'auth','$modal','$location', f
     $scope.user = {};
 
 
+
+
+
+
         //Not in use only for examples!!!
 
 //    $scope.login = function (user) {

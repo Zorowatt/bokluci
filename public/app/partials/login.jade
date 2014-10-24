@@ -9,7 +9,7 @@ div(ng-controller='LoginCtrl')
             span.caret
         ul.dropdown-menu
             li
-                p.user {{identity.currentUser.username}}
+                p.user.text-center {{identity.currentUser.username | limitTo:30}}
                 a.content(href='') Моите добавки
             li
                 .divider

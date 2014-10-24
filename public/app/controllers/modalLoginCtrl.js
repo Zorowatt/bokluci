@@ -1,45 +1,47 @@
 app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($scope, $modalInstance, auth) {
     $scope.user={username:'',password:''};
-//    $('document').keypress( function (e) {
-//
-//        if(event.keyCode == 13 && e.currentTarget.className== "modal-open"){
-//            console.log(e);
-//            if($scope.user.username.length>0 && $scope.user.password.length>0) {
-//                $scope.ok();
-//            }else{
-//                if($scope.user.password.length>0 && !!document.getElementById("username")) {
-//                    document.getElementById("username").focus();
-//                }
-//                else{
-//                    if($scope.user.username.length>0 && !!document.getElementById("pass") ){
-//                       document.getElementById("pass").focus();
-//                    }
-//                }
-//            }
-//        }
-//    });
 
+
+    //validates username & password input
+    $scope.valid = function() {
+        $scope.proppername = '';
+        $scope.propperpass = '';
+        if ($scope.user.username !== $scope.user.username.replace(/[^a-zA-Z0-9.]/g,"")){
+            $scope.user.username = $scope.user.username.replace(/[^a-zA-Z0-9.]/g,"");
+            $scope.proppername = 'Моля, използвайте само букви (a-z), цифри и точки.';
+        }
+        if ($scope.user.password !== $scope.user.password.replace(/[^a-zA-Z0-9.]/g,"")){
+            $scope.user.password = $scope.user.password.replace(/[^a-zA-Z0-9.]/g,"");
+            $scope.propperpass = 'Моля, използвайте само букви (a-z), цифри и точки.';
+        }
+
+        document.getElementById('redAlert').innerHTML = '';
+    };
+
+
+    //Action when Enter button has being pressed
     $scope.ent = function () {
         if($scope.user.username.length>0 && $scope.user.password.length>0){
             $scope.ok();
             return;
         }
         if($scope.user.username.length>0){
-            document.getElementById("pass").focus();
-            document.getElementById('redAlert').innerHTML = 'Въведи парола!';
+            angular.element('#password').focus();
+            $scope.propperpass = 'Моля, въведете парола си!';
+            //document.getElementById('redAlert').innerHTML = 'Въведи парола!';
             return;
         }
         if($scope.user.password.length>0) {
-            if(document.getElementById("username")){document.getElementById("username").focus();}
-            document.getElementById('redAlert').innerHTML = 'Въведи име!';
+            if(document.getElementById("username")){
+                angular.element('#username').focus();}
+            $scope.proppername = 'Моля, въведете потребителското си име!';
+            //document.getElementById('redAlert').innerHTML = 'Въведи име!';
         }
     };
 
 
 
-    $scope.clear = function () {
-        document.getElementById('redAlert').innerHTML = '';
-    };
+
 
     $scope.forgottenPass = function () {
         //$modalInstance.dismiss('cancel');
@@ -49,13 +51,13 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
     $scope.ok = function () {
         if ($scope.user) {
             if (!$scope.user.username){
-                document.getElementById('redAlert').innerHTML = 'Въведи име!';
-                document.getElementById("username").focus();
+                $scope.proppername = 'Моля, въведете потребителското си име!';
+                angular.element('#username').focus();
                 return;
             }
             if (!$scope.user.password){
-                document.getElementById('redAlert').innerHTML = 'Въведи парола!';
-                document.getElementById("pass").focus();
+                $scope.propperpass = 'Моля, въведете парола си!';
+                angular.element('#password').focus();
                 return;
             }
             auth.login($scope.user).then(
@@ -67,8 +69,8 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                     else {
                         $scope.user.username = '';
                         $scope.user.password = '';
-                        document.getElementById('redAlert').innerHTML = 'Грешна парола или име!';
-                        document.getElementById("username").focus();
+                        document.getElementById('redAlert').innerHTML = 'Сгрешили сте паролата или името си!';
+                        angular.element('#username').focus();
                     }
                 },
                 //if something wrong with the POST
@@ -81,7 +83,6 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-
 
     $scope.signUp = function () {
         $modalInstance.close('signUp');

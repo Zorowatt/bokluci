@@ -3,16 +3,18 @@
 .modal-body
     .well(id='login')
         .form-group
-            label Username
-            input.form-control(id='username',autofocus="true",ng-enter="ent()", ng-click='clear()', type='text', ng-model='user.username')
+            //label Потребителско име
+            input.form-control(placeholder='Потребителско име', id='username',ng-blur="proppername=''",ng-change="valid()",autofocus="true",ng-enter="ent()", type='text', ng-model='user.username', ng-trim='false')
+            p.alerting {{proppername}}
             br
-            label Password
-            input.form-control(id='pass',ng-enter="ent()",ng-click='clear()', type='password', ng-model='user.password', required=)
+            //label Парола
+            input.form-control(placeholder='Парола', id='password',ng-blur="propperpass=''",ng-change="valid()", ng-enter="ent()", type='password', ng-model='user.password', ng-trim='false')
+            p.alerting {{propperpass}}
             a.pull-right(href='', ng-click='forgottenPass()')
-                h6 Forgot password
-
+                span Забравена парола
+    p#redAlert.alerting.text-center
 .modal-footer
-    #redAlert.text-center
+
     a.pull-left(href='', ng-click="signUp()") SignUp
 
     button.btn.btn-primary(id='bbb', ng-click="ok()", ng-hide='!user.username || !user.password') OK

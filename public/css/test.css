@@ -36,14 +36,14 @@
 .dropdown-menu{
    /*background-color:  rgba(255, 250, 244, 1);*/
    padding-bottom: 0;
-    min-width: 200px;
+    min-width: 300px;
 
  }
 .dropdown-menu .user{
-    display: inline-block;
-    max-width: 100%;
-    margin-left: 10px;
-    margin-bottom: 5px;
+    /*display: inline-block;*/
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1.5em;
     font-weight: bold;
 }
 .dropdown-menu .content{
@@ -85,6 +85,27 @@
 .dropdown-menu .divider {
     margin-bottom: 0;
 }
+
+
+
+
+
+
+
+
+
+
+.alerting{
+    margin-bottom: 0;
+    padding-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: .9em;
+    color: red;
+}
+
+
+
 
 
 
