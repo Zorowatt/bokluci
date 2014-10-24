@@ -1,7 +1,12 @@
-.navButtons {
-    margin-top: 20px;
+.navButton {
+    margin-top: 8px;
     margin-right: 40px;
-    padding-right: 10px;
+
+}
+.navAnchor{
+    margin-top: 13px;
+    margin-right: 40px;
+
 }
 .bb:hover {
     color: orangered;
@@ -15,12 +20,18 @@
 }
 
 @media (max-width: 768px) {
-    .navButtons {
-        margin-top: 20px;
-        margin-right: 15px;
-
-
+    .navButton {
+        margin-right: 17px;
+        /*padding-right: 10px;*/
     }
+    .navAnchor{
+        margin-right: 15px;
+        /*padding-right: 10px;*/
+    }
+
+
+
+
 }
 .dropdown-menu{
    /*background-color:  rgba(255, 250, 244, 1);*/
