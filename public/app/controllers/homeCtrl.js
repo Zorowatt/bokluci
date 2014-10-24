@@ -1,11 +1,11 @@
-app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$location', function($scope, $resource, $http, $q, identity, $location) {
+app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$location','notify', function($scope, $resource, $http, $q, identity, $location,notify) {
     $scope.identity = identity; //this is only to show Add Product button if logged user exists
 
 
     $scope.addProduct = function () {
         if (!identity.isAuthenticated()) {
-//            notify.config({duration : 2000});
-//            notify({ message:'Трябва да сте логнат, за да можете да добавяте!'} );
+            notify.config({duration : 2000});
+            notify({ message:'Трябва да сте логнат, за да можете да добавяте!'} );
             return;
         }
         $location.path('/addProduct');
