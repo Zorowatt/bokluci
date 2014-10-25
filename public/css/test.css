@@ -1,3 +1,6 @@
+
+/*------------- for navigation bar ------------*/
+
 .navButton {
     margin-top: 8px;
     margin-right: 40px;
@@ -14,11 +17,9 @@
     background-color: white;
     border-color: #ff4500;
 }
-
 .caret{
     color: orange;
 }
-
 @media (max-width: 768px) {
     .navButton {
         margin-right: 17px;
@@ -54,7 +55,6 @@
     background-color: white;
     color: orangered;
 }
-
 .dropdown-menu .footer{
     /*background-color: red;*/
     padding-top: 5px;
@@ -69,8 +69,6 @@
     background-color: white;
     color: #ff4500;
 }
-
-
 .dropdown-menu button{
     font-size: .9em;
     margin-bottom: 5px;
@@ -87,28 +85,39 @@
 }
 
 
-
-
-
-
-
-
-
-
+/*  ---------------  for error messages -----------*/
 .alerting{
     margin-bottom: 0;
-    padding-top: 5px;
+    margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-size: .9em;
-    color: red;
+    color: white;
+    background-color: darkred;
+    border-radius: 7px;
+    position: absolute;
+    box-shadow: 0 5px 10px rgba(0,0,0,.5);
 }
 
-
-
-
-
-
+.modal-header {
+    padding-top: 13px;
+}
+.closeMe {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 2px;
+    border: 1px solid #808080;
+    color: #808080;
+}
+.smalldown{
+    margin-top: 5px;
+    text-decoration: underline;
+}
+.modal-body input{
+    font-weight: bold;
+}
 
 /*@media (max-width: 768px) {*/
     /*.navbar-nav > li > a {*/

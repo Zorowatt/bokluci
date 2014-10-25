@@ -2,20 +2,25 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
     $scope.user={username:'',password:''};
 
 
+    $scope.closeMe = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+
     //validates username & password input
     $scope.valid = function() {
         $scope.proppername = '';
         $scope.propperpass = '';
-        if ($scope.user.username !== $scope.user.username.replace(/[^a-zA-Z0-9.]/g,"")){
-            $scope.user.username = $scope.user.username.replace(/[^a-zA-Z0-9.]/g,"");
-            $scope.proppername = 'Моля, използвайте само букви (a-z), цифри и точки.';
+        if ($scope.user.username !== $scope.user.username.replace(/[^a-zA-Z0-9а-яА-Я.]/g,"")){
+            $scope.user.username = $scope.user.username.replace(/[^a-zA-Z0-9а-яА-Я.]/g,"");
+            $scope.proppername = 'Моля, използвайте само големи или малки букви (a-z)(а-я), цифри и точки!';
         }
-        if ($scope.user.password !== $scope.user.password.replace(/[^a-zA-Z0-9.]/g,"")){
-            $scope.user.password = $scope.user.password.replace(/[^a-zA-Z0-9.]/g,"");
-            $scope.propperpass = 'Моля, използвайте само букви (a-z), цифри и точки.';
+        if ($scope.user.password !== $scope.user.password.replace(/[^a-zA-Z0-9а-яА-Я.]/g,"")){
+            $scope.user.password = $scope.user.password.replace(/[^a-zA-Z0-9а-яА-Я.]/g,"");
+            $scope.propperpass = 'Моля, използвайте само големи или малки букви (a-z)(а-я), цифри и точки!';
         }
 
-        document.getElementById('redAlert').innerHTML = '';
+        //document.getElementById('redAlert').innerHTML = '';
     };
 
 
@@ -32,11 +37,10 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
             return;
         }
         if($scope.user.password.length>0) {
-            if(document.getElementById("username")){
-                angular.element('#username').focus();}
+            angular.element('#username').focus();}
             $scope.proppername = 'Моля, въведете потребителското си име!';
             //document.getElementById('redAlert').innerHTML = 'Въведи име!';
-        }
+
     };
 
 
@@ -67,9 +71,10 @@ app.controller('ModalLoginCtrl',['$scope','$modalInstance','auth', function ($sc
                         $modalInstance.close(payload.data.user);
                     }
                     else {
-                        $scope.user.username = '';
+                        //$scope.user.username = '';
                         $scope.user.password = '';
-                        document.getElementById('redAlert').innerHTML = 'Сгрешили сте паролата или името си!';
+                        $scope.proppername = 'Сгрешили сте паролата или потребителското си име!';
+                        //document.getElementById('redAlert').innerHTML = 'Сгрешили сте паролата или името си!';
                         angular.element('#username').focus();
                     }
                 },

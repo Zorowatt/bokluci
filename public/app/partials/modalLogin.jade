@@ -1,5 +1,7 @@
 .modal-header
-    label Enter your credentials:
+    b.closeMe.pull-right(ng-click='closeMe()') x
+    label Моля въведете:
+
 .modal-body
     .well(id='login')
         .form-group
@@ -10,12 +12,8 @@
             //label Парола
             input.form-control(placeholder='Парола', id='password',ng-blur="propperpass=''",ng-change="valid()", ng-enter="ent()", type='password', ng-model='user.password', ng-trim='false')
             p.alerting {{propperpass}}
-            a.pull-right(href='', ng-click='forgottenPass()')
-                span Забравена парола
-    p#redAlert.alerting.text-center
+            a.smalldown.pull-right(href='', ng-click='forgottenPass()') Забравих си паролата
 .modal-footer
-
-    a.pull-left(href='', ng-click="signUp()") SignUp
-
-    button.btn.btn-primary(id='bbb', ng-click="ok()", ng-hide='!user.username || !user.password') OK
-    button.btn.btn-warning(ng-click="cancel()") Cancel
+    a.smalldown.pull-left(href='', ng-click="signUp()") Регистрирай ме
+    button.btn.btn-primary(id='bbb', ng-click="ok()", ng-hide='!user.username || !user.password') Влез
+    button.btn.btn-default(ng-click="cancel()", ng-hide='user.username && user.password') Откажи

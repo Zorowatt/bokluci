@@ -60,6 +60,12 @@ app.config(['$tooltipProvider', function($tooltipProvider){
         'never': 'mouseleave',
         'show': 'hide'
     });
+    $tooltipProvider.options({
+        placement: 'top',
+        animation: true,
+        popupDelay: 700,
+        appendToBody: false
+    });
 }]);
 
 

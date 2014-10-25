@@ -7,8 +7,7 @@
         .well
             .form-group
                 label Username or E-mail
-                input.form-control(id='signUpUsername', autofocus="autofocus", ng-enter="ent()", ng-click='clear()', type='text', ng-model='search.username')
-
+                input.form-control(name='signUpUsername', autofocus="autofocus", ng-enter="ent()", ng-click='clear()', type='text', ng-model='search.username', required)
                 //label Type what you see in this image
                 //img.center-block(alt="" src="https://capi-na.ssl-images-amazon.com/ov96x1PLIHbOR5jbozMmkkujAXWRAmkWRckNZZXFzZrGoQmO7ApbUfGnzzRQQMGjEH1zIMnPFMOpePN,4tfnUKtIlRRrVnjPtKH7CUtX8_4" data-refresh-url="/ap/captcha?appAction=FORGOTPWD" id="auth-captcha-image")
                 //input.form-control(ng-click='image()', type='text', ng-model='char')
