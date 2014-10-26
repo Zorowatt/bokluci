@@ -112,6 +112,9 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
                 //productsCRUD.create(pp);
 
                 //Uploads image/as file and product/as data
+
+
+                //Spinner Start
                 usSpinnerService.spin('spinner-1');
                 //$('#panel').css({'min-height':window.screen.width - 55});
                 $('#panel').css({'min-height':window.innerHeight - 150});

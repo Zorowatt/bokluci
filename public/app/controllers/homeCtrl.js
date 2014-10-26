@@ -1,14 +1,42 @@
-app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$location','notify', function($scope, $resource, $http, $q, identity, $location,notify) {
+app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$location','notify','$modal', function($scope, $resource, $http, $q, identity, $location,notify,$modal) {
     $scope.identity = identity; //this is only to show Add Product button if logged user exists
 
 
     $scope.addProduct = function () {
+        //TODO before
 //        if (!identity.isAuthenticated()) {
 //            notify.config({duration : 2000});
 //            notify({ message:'Трябва да сте логнат, за да можете да добавяте!'} );
 //            return;
 //        }
         $location.path('/addProduct');
+
+
+
+        //TODO after
+
+//        var modalInstance = $modal.open({
+//            templateUrl: '/p/partials/add',
+//            controller: 'AddCtrl'
+//            ,backdrop: 'static'
+//        });
+//        modalInstance.result.then(function (result) {
+
+//            if (user == 'signUp') {
+//                var modalInstance = $modal.open({
+//                    templateUrl: '/p/partials/modalSignup',
+//                    controller: 'ModalSignupCtrl'
+//                });
+//                modalInstance.result.then(function (payload) {
+//                    if (payload.success) {
+//                        alert(payload.reason);
+//                    }
+//                    $location.path('/');
+//                });
+//                return;
+//            }
+       // })
+
     };
 
 

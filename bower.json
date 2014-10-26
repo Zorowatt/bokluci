@@ -1,7 +1,7 @@
 {
-  "name": "Bokluci",
+  "name": "Reviews&Recommendations",
   "version": "0.0.1",
-  "description": "BokluciteKoitoKupuvame",
+  "description": "reviews and recommendations",
   "main": "server.js",
   "authors": [
     "ZorroAcademy"

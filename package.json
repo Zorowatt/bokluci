@@ -1,5 +1,5 @@
 {
-  "name": "bokluci-bg",
+  "name": "Reviews&Recommendations",
   "version": "0.0.1",
   "description": "",
   "main": "server.js",
@@ -31,6 +31,6 @@
     "passport-google": "^0.3.0",
     "passport-local": "^1.0.0",
     "streamifier": "^0.1.0",
-      "lwip": "0.0.5"
+    "lwip": "0.0.5"
   }
 }
