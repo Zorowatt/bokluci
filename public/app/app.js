@@ -26,9 +26,9 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
         })
         .when('/addProduct', {
             templateUrl: 'p/partials/productAdd',
-            controller: 'ProductCtrl',
+            controller: 'ProductCtrl'
               //can not show this view if user not logged
-            resolve: routeUserChecks.authenticated
+            //resolve: routeUserChecks.authenticated
         })
         .when('/', {
             templateUrl: '/home',

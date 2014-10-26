@@ -4,7 +4,7 @@
 app.factory('identity',['$window', function ($window) {
     return {
             //returns currentUser
-        currentUser: $window.bootstrappedZoroObject,
+        currentUser: {username: 'anonymous'},//$window.bootstrappedZoroObject,
             //returns true||flase if there is a currentUser
         isAuthenticated: function () {
             return !!this.currentUser;

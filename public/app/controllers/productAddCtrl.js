@@ -1,4 +1,6 @@
 app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','identity', 'usSpinnerService','$location', function($scope, $http,  productsCRUD, $upload, identity, usSpinnerService, $location) {
+
+
     $scope.mainShow = true;
 
     $scope.bool = true;

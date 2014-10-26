@@ -23,7 +23,9 @@ module.exports = function(app){
 
 
     //add product to mongoDB and save image to the gridFS
-    app.post('/upload_image', auth.isAuthenticated, controllers.products.createProduct);
+    app.post('/upload_image'
+        //, auth.isAuthenticated
+        , controllers.products.createProduct);
 
 
     //TODO hints during search

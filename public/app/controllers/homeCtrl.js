@@ -3,11 +3,11 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$locati
 
 
     $scope.addProduct = function () {
-        if (!identity.isAuthenticated()) {
-            notify.config({duration : 2000});
-            notify({ message:'Трябва да сте логнат, за да можете да добавяте!'} );
-            return;
-        }
+//        if (!identity.isAuthenticated()) {
+//            notify.config({duration : 2000});
+//            notify({ message:'Трябва да сте логнат, за да можете да добавяте!'} );
+//            return;
+//        }
         $location.path('/addProduct');
     };
 
