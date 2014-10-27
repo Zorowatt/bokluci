@@ -4,18 +4,18 @@ var app = angular.module('app',['ngResource','ngRoute','angularFileUpload','ui.b
 app.config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
 
-    var routeUserChecks = {
-//        adminRole: {
+//    var routeUserChecks = {
+////        adminRole: {
+////            authenticate: function(auth) {
+////                return auth.isAuthorizedForRole('admin');
+////            }
+////        },
+//        authenticated: {
 //            authenticate: function(auth) {
-//                return auth.isAuthorizedForRole('admin');
+//                return auth.isAuthenticated();
 //            }
-//        },
-        authenticated: {
-            authenticate: function(auth) {
-                return auth.isAuthenticated();
-            }
-        }
-    };
+//        }
+//    };
 
 
 
@@ -44,13 +44,13 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
 
 }]);
 
-app.run(['$rootScope', '$location', function($rootScope, $location) {
-    $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
-        if (rejection === 'not authorized') {
-            $location.path('/');
-        }
-    })
-}]);
+//app.run(['$rootScope', '$location', function($rootScope, $location) {
+//    $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
+//        if (rejection === 'not authorized') {
+//            $location.path('/');
+//        }
+//    })
+//}]);
 
 app.config(['$tooltipProvider', function($tooltipProvider){
     $tooltipProvider.setTriggers({

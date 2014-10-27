@@ -1,5 +1,5 @@
-app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$location','notify','$modal', function($scope, $resource, $http, $q, identity, $location,notify,$modal) {
-    $scope.identity = identity; //this is only to show Add Product button if logged user exists
+app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','notify','$modal', function($scope, $resource, $http, $q, $location,notify,$modal) {
+    //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
     $scope.addProduct = function () {
         //TODO before
