@@ -1,0 +1,34 @@
+.modal-header
+    button.close(ng-click='closeMe()') &times
+    label Моля въведете:
+
+.modal-body
+    .well.ask
+        .inner.center-block
+            form.form-horizontal(role="form")
+                .form-group
+                    label.control-label(ng-show='titles') Тема:
+                    input.form-control.input-lg(id='name', autofocus="autofocus", type="text", placeholder="тема", ng-model="product.name")
+
+                .form-group
+                    label.control-label(ng-show='titles') Мнение:
+                    textarea.form-control(placeholder="Мнение", cols=40 ,rows=4, ng-model="proscon")
+                .form-group
+                    label.control-label(ng-show='titles') Препоръки:
+                    textarea.form-control(placeholder="Препоръки",cols=40 ,rows=4, ng-model="conscon")
+                .row
+                    .col-xs-6
+                        .text-center
+                            .fileUpload.btn.btn-success.big(ng-hide = 'imageExist') Добавете снимка
+                                    input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
+                            button#but.btn.btn-default(ng-show = 'imageExist' ,ng-click="removeImage()") Махнете Снимката
+                    .col-xs-6
+                        .thumbnail.preview
+                            img(ng-show='imageExist', ng-src='{{img}}')
+                            p.noPicture.text-center(ng-show='!imageExist') Без Снимка
+
+
+                p.alerting {{proppername}}
+
+.modal-footer
+    button.btn.btn-primary.center-block(ng-click='upload()') Добави

@@ -1,4 +1,4 @@
-var app = angular.module('app',['ngResource','ngRoute','angularFileUpload','ui.bootstrap','cgNotify','angularSpinner']);
+var app = angular.module('app',['ngResource','ngRoute','angularFileUpload','ui.bootstrap','cgNotify']);
 
 
 app.config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {

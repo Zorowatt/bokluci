@@ -26,7 +26,9 @@ module.exports = function(app){
     app.post('/upload_image'
         //, auth.isAuthenticated
         , controllers.products.createProduct);
-
+    app.post('/convert'
+        //, auth.isAuthenticated
+        , controllers.products.convertImage);
 
     //TODO hints during search
     app.get('/api/search', controllers.search.searchSuggestions);

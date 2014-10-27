@@ -1,7 +1,7 @@
+div#spin
 .container
     .topone.center-block
-
-        button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Добавям
+        button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Добави
         .input-group.addProdSearch
             input.form-control.search(type="text" ng-model="search" typeahead="a for a in getProd($viewValue)")
             span.input-group-btn
@@ -10,7 +10,7 @@
 .container
     ul.list-inline.aaa
         li(ng-repeat='item in products')
-                a.thumbnail(href='/productShow/{{item._id}}')
+                a.thumbnail.home(href='/productShow/{{item._id}}')
                     //p(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
                     p(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
                     img.home-image(ng-src='/get_image/{{item.thumbnail}}')

@@ -1,14 +1,15 @@
-app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','identity', 'usSpinnerService','$location', function($scope, $http,  productsCRUD, $upload, identity, usSpinnerService, $location) {
+app.controller('ProductCtrl',['$scope',  'productsCRUD','$upload','identity', 'usSpinnerService','$location', function($scope, productsCRUD, $upload, identity, usSpinnerService, $location) {
 
 
     $scope.mainShow = true;
 
     $scope.bool = true;
 
-    var fff = [];
+    var selectedFile = [];
    $scope.imageExist = false;
 
-    var p = {
+
+    $scope.product = {
         name : '',
         productModel: '',
         maker: '',
@@ -21,7 +22,6 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
         }
 
     };
-    $scope.product = p;
     $scope.proscon = '';
     $scope.conscon = '';
     $scope.error = 'Няма Снимка';
@@ -38,28 +38,28 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
     $scope.onFileSelect = function ($file) {
 
+        selectedFile=$file[0];
+        if (selectedFile===undefined){return;}
 
+        var f = true;
 
-            fff = $file;
-            var file = $file[0];
-            var f = true;
-            if (file.type.indexOf('image') == -1) {
-                $scope.error = 'Снимката може да бъде само в .JPEG или .PNG формат!';
-                f = false;
-                // this string represents Red Dot
-                //$scope.product.filedata = "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
-            }
-            if (file.size > 5000000){
-                $scope.error ='Снимката трябва да е по-малка от 5 МВ!';
-                f = false;
-            }
-            if (f) {
-                //$scope.error ='File OK and ready for uploading!';
-                $scope.product.filename = file.name;
-                $scope.imageExist = true;
-                $scope.error = 'Избрана е снимка!';
-                $('#name').focus();
-            }
+        if (selectedFile.type.indexOf('image') == -1) {
+            $scope.error = 'Снимката може да бъде само в .JPEG или .PNG формат!';
+            f = false;
+            // this string represents Red Dot
+            //$scope.product.filedata = "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
+        }
+        if (selectedFile.size > 5000000){
+            $scope.error ='Снимката трябва да е по-малка от 5 МВ!';
+            f = false;
+        }
+        if (f) {
+            //$scope.error ='File OK and ready for uploading!';
+            $scope.product.filename = selectedFile.name;
+            $scope.imageExist = true;
+            $scope.error = 'Избрана е снимка!';
+            $('#name').focus();
+        }
     };
 
     $scope.addProduct = function (product) {
@@ -123,7 +123,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
                 $upload.upload({
                         url: '/upload_image',
-                        file: fff[0],
+                        file: selectedFile,
                         data: pp,
                         progress: function(e){}
                     })
@@ -208,7 +208,7 @@ app.controller('ProductCtrl',['$scope', '$http',  'productsCRUD','$upload','iden
 
                 $upload.upload({
                     url: '/upload_image',
-                    //file: fff[0],
+                    //file: selectedFile,
                     data: pp,
                     progress: function(e){}
                 }).then(function(data, status, headers, config) {

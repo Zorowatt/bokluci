@@ -1,7 +1,6 @@
 app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$location','notify','$modal', function($scope, $resource, $http, $q, identity, $location,notify,$modal) {
     $scope.identity = identity; //this is only to show Add Product button if logged user exists
 
-
     $scope.addProduct = function () {
         //TODO before
 //        if (!identity.isAuthenticated()) {
@@ -9,18 +8,21 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$locati
 //            notify({ message:'Трябва да сте логнат, за да можете да добавяте!'} );
 //            return;
 //        }
-        $location.path('/addProduct');
+//        $location.path('/addProduct');
 
-
+    $scope.ent= function () {
+        console.log('asd');
+    };
 
         //TODO after
 
-//        var modalInstance = $modal.open({
-//            templateUrl: '/p/partials/add',
-//            controller: 'AddCtrl'
-//            ,backdrop: 'static'
-//        });
-//        modalInstance.result.then(function (result) {
+        var modalInstance = $modal.open({
+            templateUrl: '/p/partials/add',
+            controller: 'AddCtrl'
+            ,backdrop: 'static'
+            ,keyboard: false
+        });
+        modalInstance.result.then(function (result) {
 
 //            if (user == 'signUp') {
 //                var modalInstance = $modal.open({
@@ -35,7 +37,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$locati
 //                });
 //                return;
 //            }
-       // })
+        })
 
     };
 
@@ -83,14 +85,16 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$locati
             });
     };
     //When Enter keyboard button been pressed
-    $('body').keyup( function (e) {
-        if(event.keyCode == 13){
-            if ($(".search").is(":focus")) {
 
-                $scope.goSearch();
-            }
-        }
-    });
+    //TODO press Enter w/o jquery
+//    $('body').keyup( function (e) {
+//        if(event.keyCode == 13){
+//            if ($(".search").is(":focus")) {
+//
+//                $scope.goSearch();
+//            }
+//        }
+//    });
     //Search filter of the products
     $scope.goSearch = function(){
         $scope.search = $scope.search.trim();
@@ -116,9 +120,10 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','identity','$locati
                 console.log('Resource reading failed: ' + err);
             });
 
-        $(".search").blur();
-        //document.getElementsByClassName(".products")[0].focus();
-        $( "ul li:nth-child(1)").focus();
+        //TODO w/o jquery
+//        $(".search").blur();
+//        //document.getElementsByClassName(".products")[0].focus();
+//        $( "ul li:nth-child(1)").focus();
 
 
 

@@ -113,6 +113,46 @@
     font-weight: bold;
 }
 
+
+
+
+
+input.upload{
+    width: 136px;
+    height: 34px;
+}
+
+.thumbnail.preview{
+    width: 110px;
+    height: 110px;
+
+    margin-bottom: 10px;
+}
+.fileUpload{
+    margin: 0;
+}
+.noPicture{
+    padding-top: 35px;
+}
+#but{
+    margin-top: 30px;
+    /*margin-left: 5px;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.big{
+    margin-top: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*padding-left: 7px;*/
+}
+
+
+
+
+
+
+
 /*@media (max-width: 768px) {*/
     /*.navbar-nav > li > a {*/
         /*position: relative;*/
