@@ -1,7 +1,7 @@
 app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload', function ($scope,$modalInstance,$modal,$upload) {
 
     //show labels if IE version less than 10
-    $scope.titles = false;
+    $scope.titles = true;
     //check for IE version to be less than 10
 //    var ie = (function (){
 //        if (window.ActiveXObject === undefined) return null;
