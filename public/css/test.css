@@ -153,6 +153,7 @@ input.upload{
 }
 
 #spin{
+    position: absolute;
     margin-left: 33px;
 }
 

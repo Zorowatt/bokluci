@@ -92,8 +92,8 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
     var selectedFile = undefined;
 
     $scope.removeImage = function(){
-        $scope.imageSpin = false;
-        $activityIndicator.stopAnimating();
+
+
         $scope.imageExist = false;
         $scope.product.filedata = '';
         selectedFile = undefined;
@@ -142,7 +142,7 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
         //angular.element('#name').focus();
 
         $scope.imageMessage = 'Снимката се зарежда...';
-        $scope.imageExist = true;
+
         $scope.imageSpin = true;
         $activityIndicator.startAnimating();
         //spinner.spin(target);
@@ -162,11 +162,12 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
                 $activityIndicator.stopAnimating();
 
                 //spinner.stop(target);
-                if ($scope.imageExist) {
+                $scope.imageExist = true;
                     $scope.img = data.data;
-                }
+
 
             });
+
 
     };
     $scope.upload = function () {

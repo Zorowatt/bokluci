@@ -21,13 +21,14 @@
                     textarea.form-control(cols=40 ,rows=4, ng-model="conscon")
                 .row
                     .text-center
-                        label Добавете снимка пожелание
+                        label(ng-show='!imageExist') Добавете снимка, ако желаете
+                        label(ng-show='imageExist') Премахнете снимката, ако не е необходима
                     .col-xs-6
-                        #spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
+                        //#spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
                         .text-center
-                            .fileUpload.btn.btn-success.big(ng-hide = 'imageExist') Вземи
+                            .fileUpload.btn.btn-success.big(ng-disabled='imageSpin',ng-hide = 'imageExist') Вземи
                                     input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
-                            button#but.btn.btn-default(ng-enter='ent()', ng-show = 'imageExist' ,ng-click="removeImage()") Махни
+                            button#but.btn.btn-default(ng-enter='ent()', ng-show = 'imageExist' ,ng-click="removeImage()") Премахни
                         p.alerting {{alert[1]}}
                     .col-xs-6
                         .thumbnail.preview
@@ -36,4 +37,4 @@
                             #spin(ng-show='imageSpin', ng-activity-indicator='', skip-ng-show="yes")
 
 .modal-footer
-    button.btn.btn-primary.center-block(ng-click='upload()') Готово
+    button.btn.btn-primary.center-block(ng-disabled='imageSpin',ng-click='upload()') Добавяй
