@@ -8,8 +8,9 @@
             form.form-horizontal(role="form")
                 .form-group
                     label.control-label(ng-show='titles') Тема:
-                    input.form-control.input-lg(id='name', autofocus="autofocus", type="text", ng-model="product.name")
-
+                    .necessary.pull-right необходима е
+                    input.form-control.input-lg(ng-enter="ent()",ng-blur="alert=''", id='name', autofocus="autofocus", type="text", ng-model="product.name")
+                    p.alerting {{alert[0]}}
                 .form-group
                     label.control-label(ng-show='titles') Мнение:
                     textarea.form-control(cols=40 ,rows=4, ng-model="proscon")
@@ -23,7 +24,7 @@
                         .text-center
                             .fileUpload.btn.btn-success.big(ng-hide = 'imageExist') Вземи
                                     input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
-                            button#but.btn.btn-default(ng-show = 'imageExist' ,ng-click="removeImage()") Махни
+                            button#but.btn.btn-default(ng-enter='ent()', ng-show = 'imageExist' ,ng-click="removeImage()") Махни
                     .col-xs-6
                         .thumbnail.preview
                             img(ng-show='imageExist', ng-src='{{img}}')
@@ -33,4 +34,4 @@
                 p.alerting {{proppername}}
 
 .modal-footer
-    button.btn.btn-primary.center-block(ng-click='upload()') Добавяй
+    button.btn.btn-primary.center-block(ng-click='upload()') Готово

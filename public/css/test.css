@@ -1,88 +1,88 @@
 
 /*------------- for navigation bar ------------*/
 
-.navButton {
-    margin-top: 8px;
-    margin-right: 40px;
+/*.navButton {*/
+    /*margin-top: 8px;*/
+    /*margin-right: 40px;*/
 
-}
-.navAnchor{
-    margin-top: 13px;
-    margin-right: 40px;
+/*}*/
+/*.navAnchor{*/
+    /*margin-top: 13px;*/
+    /*margin-right: 40px;*/
 
-}
-.bb:hover {
-    color: orangered;
-    text-decoration: none;
-    background-color: white;
-    border-color: #ff4500;
-}
-.caret{
-    color: orange;
-}
-@media (max-width: 768px) {
-    .navButton {
-        margin-right: 17px;
+/*}*/
+/*.bb:hover {*/
+    /*color: orangered;*/
+    /*text-decoration: none;*/
+    /*background-color: white;*/
+    /*border-color: #ff4500;*/
+/*}*/
+/*.caret{*/
+    /*color: orange;*/
+/*}*/
+/*@media (max-width: 768px) {*/
+    /*.navButton {*/
+        /*margin-right: 17px;*/
         /*padding-right: 10px;*/
-    }
-    .navAnchor{
-        margin-right: 15px;
+    /*}*/
+    /*.navAnchor{*/
+        /*margin-right: 15px;*/
         /*padding-right: 10px;*/
-    }
+    /*}*/
 
 
 
 
-}
-.dropdown-menu{
+/*}*/
+/*.dropdown-menu{*/
    /*background-color:  rgba(255, 250, 244, 1);*/
-   padding-bottom: 0;
-    min-width: 300px;
+   /*padding-bottom: 0;*/
+    /*min-width: 300px;*/
 
- }
-.dropdown-menu .user{
+ /*}*/
+/*.dropdown-menu .user{*/
     /*display: inline-block;*/
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-.dropdown-menu .content{
-    background-color: #FFFFFF;
-    color: #36c;
-}
-.dropdown-menu .content:hover{
-    background-color: white;
-    color: orangered;
-}
-.dropdown-menu .footer{
+    /*margin-right: auto;*/
+    /*margin-left: auto;*/
+    /*font-size: 1.5em;*/
+    /*font-weight: bold;*/
+/*}*/
+/*.dropdown-menu .content{*/
+    /*background-color: #FFFFFF;*/
+    /*color: #36c;*/
+/*}*/
+/*.dropdown-menu .content:hover{*/
+    /*background-color: white;*/
+    /*color: orangered;*/
+/*}*/
+/*.dropdown-menu .footer{*/
     /*background-color: red;*/
-    padding-top: 5px;
+    /*padding-top: 5px;*/
     /*padding-bottom: 5px;*/
-}
-.dropdown-menu .account{
-    padding-top: 5px;
-    color: #36c;
-}
-.dropdown-menu .account:hover{
+/*}*/
+/*.dropdown-menu .account{*/
+    /*padding-top: 5px;*/
+    /*color: #36c;*/
+/*}*/
+/*.dropdown-menu .account:hover{*/
     /*text-decoration: underline;*/
-    background-color: white;
-    color: #ff4500;
-}
-.dropdown-menu button{
-    font-size: .9em;
-    margin-bottom: 5px;
-    margin-right: 15px;
-}
-.dropdown-menu .signout:hover, .signout:focus, .signout:active  {
-    color: #ff4500;
-    border-color: #ff4500;
-    background-color: white;
-    text-decoration: none;
-}
-.dropdown-menu .divider {
-    margin-bottom: 0;
-}
+    /*background-color: white;*/
+    /*color: #ff4500;*/
+/*}*/
+/*.dropdown-menu button{*/
+    /*font-size: .9em;*/
+    /*margin-bottom: 5px;*/
+    /*margin-right: 15px;*/
+/*}*/
+/*.dropdown-menu .signout:hover, .signout:focus, .signout:active  {*/
+    /*color: #ff4500;*/
+    /*border-color: #ff4500;*/
+    /*background-color: white;*/
+    /*text-decoration: none;*/
+/*}*/
+/*.dropdown-menu .divider {*/
+    /*margin-bottom: 0;*/
+/*}*/
 
 
 /*  ---------------  for error messages -----------*/
@@ -147,7 +147,12 @@ input.upload{
     /*padding-left: 7px;*/
 }
 
-
+.necessary {
+    padding-top: 5px;
+    padding-right: 5px;
+    font-size: 0.8em;
+    color: grey;
+}
 
 
 

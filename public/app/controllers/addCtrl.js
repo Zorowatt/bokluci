@@ -1,4 +1,48 @@
-app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload', function ($scope,$modalInstance,$modal,$upload) {
+app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout'
+    , function ($scope,$modalInstance,$modal,$upload, $timeout) {
+
+    $scope.alert=[];
+
+    function popAlert(allertNumber,message) {
+        $scope.alert[allertNumber] = message;
+        $timeout(function () {
+            $scope.alert[allertNumber] = '';
+        }, 2000);
+    }
+
+
+    //validation for the topic
+    $scope.$watch('product.name', function(newValue, oldValue) {
+        if (newValue!==undefined && newValue.length>30){
+            $scope.product.name=oldValue;
+            return popAlert(0,'Моля темата да не е по-дълга от 30 символа!');
+        }
+    });
+
+
+
+    $scope.ent = function () {
+//        alert('enter Pressed');
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //show labels if IE version less than 10
     $scope.titles = true;
@@ -15,13 +59,12 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload', function
         $scope.titles = true;
     }
 
-
     //spinner configuration
     var opts = {
-        lines: 11, // The number of lines to draw
+        lines: 7, // The number of lines to draw
         length: 20, // The length of each line
         width: 10, // The line thickness
-        radius: 5, // The radius of the inner circle
+        radius: 10, // The radius of the inner circle
         corners: 1, // Corner roundness (0..1)
         rotate: 0, // The rotation offset
         direction: 1, // 1: clockwise, -1: counterclockwise
@@ -38,19 +81,38 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload', function
     var target = document.getElementById('spin');
     var spinner = new Spinner(opts);
 
-
     //$scope.imageLabel = 'Няма избрана снимка';
     $scope.imageExist = false;
     $scope.product = {};
     var selectedFile = undefined;
 
-
     $scope.removeImage = function(){
-        $scope.imageExist = false;
-        $scope.product.filedata = '';
-        selectedFile=undefined;
+        if(confirm('Искате ли да премахнете снимката?')) {
+            $scope.imageExist = false;
+            $scope.product.filedata = '';
+            selectedFile = undefined;
+        }
     };
+    $scope.closeMe = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/p/partials/confirmMessage',
+            controller: 'ConfirmMessageCtrl'
+            ,backdrop: 'static'
+            ,keyboard: false
+            ,size: 'sm'
+            ,resolve: {
+               message : function () {
+                   return 'Желаете ли да излезете?';
+               }
+            }
+        });
+        modalInstance.result.then(function (result) {
+            if (result == 'close') {
+                $modalInstance.close('close');
+            }
 
+        });
+    };
     $scope.addImage = function ($file) {
         $scope.proppername = '';
         selectedFile = $file[0];
@@ -87,33 +149,6 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload', function
             });
 
     };
-
-
-
-
-    $scope.closeMe = function () {
-        var modalInstance = $modal.open({
-            templateUrl: '/p/partials/confirmMessage',
-            controller: 'ConfirmMessageCtrl'
-            ,backdrop: 'static'
-            ,keyboard: false
-            ,size: 'sm'
-            ,resolve: {
-               message : function () {
-                   return 'Желаете ли да излезете?';
-               }
-            }
-        });
-        modalInstance.result.then(function (result) {
-            if (result == 'close') {
-                $modalInstance.close('close');
-            }
-
-        });
-    };
-
-
-
     $scope.upload = function () {
 
 
