@@ -1,17 +1,17 @@
-div#spin
 .container
     .topone.center-block
         button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Добавяй
         .input-group.addProdSearch
-            input.form-control.search(type="text" ng-model="search" typeahead="a for a in getProd($viewValue)")
+            input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2)
             span.input-group-btn
                 button.btn.btn-danger(type="button", ng-click='goSearch()') Намери
 
 .container
+    .well.center-block.nothing(ng-show='nothing')
+        p.text-center {{info}}
     ul.list-inline.aaa
         li(ng-repeat='item in products')
-                a.thumbnail.home(href='/productShow/{{item._id}}')
-                    //p(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
+                a.thumbnail.home(href='/topic/{{item._id}}')
                     p(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
                     img.home-image(ng-src='/get_image/{{item.thumbnail}}')
                     p Мнения:
@@ -20,7 +20,7 @@ div#spin
                         span.badge {{getNumber(item.cons)}}
                     p Дата:
                         span {{item.dateAdded | limitTo: 10}}
-ul.pager
+ul.pager(ng-hide='nothing')
     li
         a.btn.btn-default(href="", ng-click="prev()") Назад
     li

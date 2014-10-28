@@ -131,9 +131,7 @@ input.upload{
 .fileUpload{
     margin: 0;
 }
-.noPicture{
-    padding-top: 35px;
-}
+
 #but{
     margin-top: 30px;
     /*margin-left: 5px;*/
@@ -154,10 +152,15 @@ input.upload{
     color: grey;
 }
 
+#spin{
+    margin-left: 33px;
+}
 
-
-
-
+.nothing{
+    max-width: 500px;
+    padding-bottom: 30px;
+    font-weight: bold;
+}
 /*@media (max-width: 768px) {*/
     /*.navbar-nav > li > a {*/
         /*position: relative;*/

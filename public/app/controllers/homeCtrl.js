@@ -1,5 +1,14 @@
-app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','notify','$modal', function($scope, $resource, $http, $q, $location,notify,$modal) {
+app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal'
+    , function($scope, $resource, $http, $q, $location,$modal) {
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
+
+     $scope.nothing = false;
+     $scope.info = 'Засега няма информация за това което търсите!';
+
+    //When Enter keyboard button been pressed
+    $scope.ent= function () {
+    $scope.goSearch();
+    };
 
     $scope.addProduct = function () {
         //TODO before
@@ -9,10 +18,6 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','notify
 //            return;
 //        }
 //        $location.path('/addProduct');
-
-    $scope.ent= function () {
-        console.log('asd');
-    };
 
         //TODO after
 
@@ -84,7 +89,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','notify
             return response.data;
             });
     };
-    //When Enter keyboard button been pressed
+
 
     //TODO press Enter w/o jquery
 //    $('body').keyup( function (e) {
@@ -97,6 +102,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','notify
 //    });
     //Search filter of the products
     $scope.goSearch = function(){
+        $scope.nothing = false;
         $scope.search = $scope.search.trim();
 
 
@@ -112,9 +118,11 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','notify
         $http.get('/api', {params: {s: pos, l: $scope.step, search: $scope.search}})
             .success(function (data, status, error, config) { // .success(data,status,header,config)
                 if (data.length > 0) {
-                    $scope.products = data;
-
+                    return $scope.products = data;
                 }
+                //TODO show message No such topic
+                $scope.nothing = true;
+                $scope.products='';
             })
             .error(function (err) { // .error(data,status,header,config)
                 console.log('Resource reading failed: ' + err);

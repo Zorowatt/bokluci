@@ -1,13 +1,13 @@
-app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD',
-    function($scope, $routeParams, $resource, productsCRUD) {
+app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD','$location'
+    ,function($scope, $routeParams, $resource, productsCRUD, $location) {
 
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
-
-
-
-    var p = $resource('/api/product/:id',{id: $routeParams.id});
+    var p = $resource('/api/topic/:id',{id: $routeParams.id});
     p.get().$promise.then(function(product) {
+        if(product.missing){
+            $location.path('/');
+        }
         $scope.Product = product;
     });
 

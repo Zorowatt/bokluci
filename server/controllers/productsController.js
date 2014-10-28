@@ -27,6 +27,7 @@ function randomString() {
 module.exports = {
 
     getAllProducts: function(req, res, next) {
+
         if (req.query.l && req.query.s) {
 
 
@@ -68,10 +69,12 @@ module.exports = {
     getProductById: function(req, res, next){
         Products.findOne({ _id : req.params.id }).exec(function(err, document) {
             if (err) {
-                console.log('Product can not be loaded: ' + err);
+                //console.log('Product can not be loaded: ' + err);
+                document={missing:true};
+
             }
             res.send(document);
-        })
+        });
 
     },
 
@@ -364,6 +367,7 @@ module.exports = {
 
     //updates product after comments added
     updateProduct : function(req, res, next) {
+
         var t = req.body;
         if (t){
             res.end();
