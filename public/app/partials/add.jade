@@ -9,7 +9,7 @@
                 .form-group
                     label.control-label(ng-show='titles') Тема:
                     .necessary.pull-right необходима е
-                    input.form-control.input-lg(ng-enter="ent()",ng-blur="alert=''", id='name', autofocus="autofocus", type="text", ng-model="product.name")
+                    input.form-control.input-lg(ng-enter="ent()",ng-blur="alert[0]=''", id='name', autofocus="autofocus", type="text", ng-model="product.name")
                     p.alerting {{alert[0]}}
                 .form-group
                     label.control-label(ng-show='titles') Мнение:
@@ -28,10 +28,10 @@
                     .col-xs-6
                         .thumbnail.preview
                             img(ng-show='imageExist', ng-src='{{img}}')
-                            p.noPicture.text-center(ng-show='!imageExist') Без Снимка
+                            p.noPicture.text-center(ng-show='!imageExist') {{imageMessage}}
 
 
-                p.alerting {{proppername}}
+                p.alerting {{alert[1]}}
 
 .modal-footer
     button.btn.btn-primary.center-block(ng-click='upload()') Готово

@@ -2,12 +2,13 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
     , function ($scope,$modalInstance,$modal,$upload, $timeout) {
 
     $scope.alert=[];
+    $scope.imageMessage='Без Снимка';
 
-    function popAlert(allertNumber,message) {
-        $scope.alert[allertNumber] = message;
+    function popAlert(alertNumber,message) {
+        $scope.alert[alertNumber] = message;
         $timeout(function () {
-            $scope.alert[allertNumber] = '';
-        }, 2000);
+            $scope.alert[alertNumber] = '';
+        }, 3000);
     }
 
 
@@ -87,11 +88,10 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
     var selectedFile = undefined;
 
     $scope.removeImage = function(){
-        if(confirm('Искате ли да премахнете снимката?')) {
-            $scope.imageExist = false;
-            $scope.product.filedata = '';
-            selectedFile = undefined;
-        }
+        $scope.imageExist = false;
+        $scope.product.filedata = '';
+        selectedFile = undefined;
+        $scope.imageMessage='Без Снимка';
     };
     $scope.closeMe = function () {
         var modalInstance = $modal.open({
@@ -108,6 +108,7 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
         });
         modalInstance.result.then(function (result) {
             if (result == 'close') {
+                spinner.stop(target);
                 $modalInstance.close('close');
             }
 
@@ -120,17 +121,20 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
         if (selectedFile.type!=='image/jpeg' && selectedFile.type!=='image/png') {
             //TODO
-            $scope.proppername = 'Снимката може да бъде само .JPEG или .PNG формат!';
-            return;
+            return popAlert(1,'Снимката може да бъде само .JPEG или .PNG формат!');
+//            $scope.proppername = 'Снимката може да бъде само .JPEG или .PNG формат!';
+//            return;
         }
         if (selectedFile.size > 5000000){
-            $scope.proppername ='Снимката трябва да е по-малка от 5 МВ!';
-            return;
+            return popAlert(1,'Снимката трябва да е по-малка от 5 МВ!');
+//            $scope.proppername ='Снимката трябва да е по-малка от 5 МВ!';
+//            return;
         }
         //$scope.product.filename = selectedFile.name;
 
         //angular.element('#name').focus();
-        $scope.image = 'Снимката се Зарежда...';
+
+        $scope.imageMessage = 'Снимката се Зарежда...';
         spinner.spin(target);
         $upload.upload({
             url: '/convert',
@@ -153,10 +157,10 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
 
         //TODO validate title, pros and cons
-        //TODO new modal with all data and button confirm or cancel
+
 
         if(!$scope.product.name){
-            alert('Важно е да въведете тема или наименование?');
+            popAlert(0,'Важно е да въведете тема или наименование?');
             document.getElementById("name").focus();
             return;
         }
