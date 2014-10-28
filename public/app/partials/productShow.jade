@@ -1,13 +1,13 @@
 .container
     .row
-        .col-md-6
-            .panel
-                .panel-body
-                    .well
+        .center-block#regarding
+            .panel.panel-default
+                .panel-heading
+                    .panel-title
                         label Относно:
                         p {{Product.name}}
-        .col-md-6
-            img.fromShow.center-block(ng-if='!!Product.picture[0].filename', ng-src='/get_image/{{Product.picture[0].filename}}')
+
+                img.fromShow.center-block(alt="Няма Снимка", ng-if='!!Product.picture[0].filename', ng-src='/get_image/{{Product.picture[0].filename}}')
 
 
 
