@@ -32,7 +32,7 @@
                     .col-xs-6
                         .thumbnail.preview
                             img(ng-show='imageExist', ng-src='{{img}}')
-                            p.text-center(ng-show='!imageExist') {{imageMessage}}
+                            p.text-center(ng-show='imageSpin') {{imageMessage}}
                             #spin(ng-show='imageSpin', ng-activity-indicator='', skip-ng-show="yes")
 
 .modal-footer
