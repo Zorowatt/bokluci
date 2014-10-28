@@ -181,6 +181,12 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
             document.getElementById("name").focus();
             return;
         }
+        if(!$scope.proscon && !$scope.conscon){
+            document.getElementById("mnenie").focus();
+            popAlert(2,'Нямате ли някакво мнение?');
+            return;
+        }
+
 
         //prepares product data for uploading
         var pp = {
@@ -212,6 +218,8 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
         //window.scrollTo(0, 0);
         //spinner.spin(target);
+        $scope.uploadSpin = true;
+        $activityIndicator.startAnimating();
 
         if (selectedFile!==undefined) {
             //uploads data w/ image
@@ -227,6 +235,8 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
             })
             .then(function (data, status, headers, config) {
                 //spinner.stop(target);
+                $scope.uploadSpin = false;
+                $activityIndicator.stopAnimating();
                 $modalInstance.dismiss();
             });
 

@@ -15,7 +15,11 @@
                     p.alerting {{alert[0]}}
                 .form-group
                     label.control-label(ng-show='titles') Мнение:
-                    textarea.form-control(cols=40 ,rows=4, ng-model="proscon")
+                    p.alerting {{alert[2]}}
+                    textarea#mnenie.form-control(cols=40 ,rows=4, ng-model="proscon")
+
+                .center-block
+                    #spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
                 .form-group
                     label.control-label(ng-show='titles') Препоръки:
                     textarea.form-control(cols=40 ,rows=4, ng-model="conscon")
@@ -24,7 +28,7 @@
                         label(ng-show='!imageExist') Добавете снимка, ако желаете
                         label(ng-show='imageExist') Премахнете снимката, ако не е необходима
                     .col-xs-6
-                        //#spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
+
                         .text-center
                             .fileUpload.btn.btn-success.big(ng-disabled='imageSpin',ng-hide = 'imageExist') Вземи
                                     input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")

@@ -1,13 +1,16 @@
 .container
     .row
-        label Тема:
-            span {{Product.name}}
-    .row
-
+        .col-md-6
+            .panel
+                .panel-body
+                    .well
+                        label Относно:
+                        p {{Product.name}}
+        .col-md-6
             img.fromShow.center-block(ng-if='!!Product.picture[0].filename', ng-src='/get_image/{{Product.picture[0].filename}}')
 
-    br
-    hr
+
+
     .row
         .col-md-6
             //button.btn.btn-primary(data-toggle='modal' data-target="#prosModal") Добави мнение
@@ -24,19 +27,21 @@
             //                a.btn.btn-primary(href='', ng-click='addCommentPros()', data-dismiss='modal') Save
             //                a.btn.btn-primary(href='', data-dismiss='modal') Cancel
             p
-            .panel.panel-warning
-                .panel-heading Мнения:
+            .panel.panel-success
+                .panel-heading
+                    label Мнения:
                 .panel-body
                     ul.list-unstyled
-                        li.panel.panel-default(ng-repeat='item in Product.pros', ng-show='!item.flagIsNew')
+                        li.panel.panel-success(ng-repeat='item in Product.pros', ng-show='!item.flagIsNew')
                             .panel-body
-                                textarea.form-control(rows = 4 , readonly) {{item.content}}
+                                .well
+                                    p {{item.content}}
                             .panel-footer.pros-color
                                 //| user:
                                 //span &nbsp{{item.userAdded}}
-                                br
-                                | date:
-                                span &nbsp{{item.dateAdded | limitTo : 10}}
+                                //br
+                                //| date:
+                                span добавен на: &nbsp{{item.dateAdded | limitTo : 10}}
 
         .col-md-6
             //button.btn.btn-primary(data-toggle='modal' data-target="#consModal") Добави препоръка
@@ -53,16 +58,18 @@
             //                a.btn.btn-primary(href='', ng-click='addCommentCons()', data-dismiss='modal') Save
             //                a.btn.btn-primary(href='', data-dismiss='modal') Cancel
             p
-            .panel.panel-warning
-                .panel-heading Препоръки:
+            .panel.panel-danger
+                .panel-heading
+                    label Препоръки:
                 .panel-body
                     ul.list-unstyled
                         li.panel.panel-danger(ng-repeat='item in Product.cons', ng-show='!item.flagIsNew')
                             .panel-body
-                                textarea.form-control(rows = 4 , readonly) {{item.content}}
+                                .well
+                                    p {{item.content}}
                             .panel-footer.cons-color
                                 //| user:
                                 //span &nbsp{{item.userAdded}}
-                                br
-                                | date:
-                                span &nbsp{{item.dateAdded | limitTo:10}}
+
+
+                                span добавен на: &nbsp{{item.dateAdded | limitTo:10}}

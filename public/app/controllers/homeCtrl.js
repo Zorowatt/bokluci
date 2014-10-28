@@ -26,6 +26,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
             controller: 'AddCtrl'
             ,backdrop: 'static'
             ,keyboard: false
+            ,windowClass: "modal fade in"
         });
         modalInstance.result.then(function (result) {
 
