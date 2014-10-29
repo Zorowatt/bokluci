@@ -32,17 +32,7 @@ module.exports = {
         var busboy = new Busboy({ headers: req.headers });
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
             var fileExt = filename.split('.').pop();
-
-            var bufs = [];
-            file.on('data', function (d) {
-                bufs.push(d);
-                //console.log(d.length);
-            });
-            file.on('end', function () {
-                var buf = Buffer.concat(bufs);
-                //console.timeEnd("dbsave");
-
-                gm(buf,filename)
+            gm(file,filename)
                 .noProfile()
                 .thumbnail(100, 100)
                 .toBuffer(fileExt,function (err, buffer) {
@@ -50,34 +40,10 @@ module.exports = {
                         console.log(err);
                         return res.end();
                     }
-                        console.log('22');
                     var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64'));
                     t.pipe(res);
                     //console.timeEnd("dbsave");
                     });
-
-
-
-
-
-
-
-            });
-
-
-//            gm(file,filename)
-//                .noProfile()
-//                .thumbnail(100, 100)
-//                .toBuffer(fileExt,function (err, buffer) {
-//                    if (err)  {
-//                        console.log(err);
-//                        return res.end();
-//                    }
-//                        console.log('22');
-//                    var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64'));
-//                    t.pipe(res);
-//                    //console.timeEnd("dbsave");
-//                    });
 
 //                .stream('jpg', function (err, stdout, stderr) {
 ////                        res.setHeader('Expires', new Date(Date.now() + 604800000));
@@ -112,7 +78,7 @@ module.exports = {
             var fileExt = filename.split('.').pop();
             gm(file,filename)
                 .noProfile()
-                .thumbnail(100, 100)
+                .thumbnail(150, 150)
                 .stream(function (err, stdout, stderr) {
                     if(err){
                         return pictureExists = false;

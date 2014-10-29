@@ -4,8 +4,6 @@
 
 .modal-body
     .well.ask
-
-
         .inner.center-block
             form.form-horizontal(role="form")
                 .form-group
@@ -14,14 +12,14 @@
                     input.form-control.input-lg(ng-enter="ent()",ng-blur="alert[0]=''", id='name', autofocus="autofocus", type="text", ng-model="product.name")
                     p.alerting {{alert[0]}}
                 .form-group
-                    label.control-label(ng-show='titles') Мнение:
+                    label.control-label(ng-show='titles') Споделете своето мнение:
                     p.alerting {{alert[2]}}
                     textarea#mnenie.form-control(cols=40 ,rows=4, ng-model="proscon")
 
                 .center-block
                     #spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
                 .form-group
-                    label.control-label(ng-show='titles') Препоръки:
+                    label.control-label(ng-show='titles') Бихте ли препоръчали нещо:
                     textarea.form-control(cols=40 ,rows=4, ng-model="conscon")
                 .row
                     .text-center
@@ -43,4 +41,4 @@
                             #spin(ng-show='imageSpin', ng-activity-indicator='', skip-ng-show="yes")
 
 .modal-footer
-    button.btn.btn-primary.center-block(ng-disabled='imageSpin',ng-click='upload()') Добавяй
+    button.btn.btn-primary.center-block(ng-click='upload()') Добавяй

@@ -1,16 +1,32 @@
 .container
-    .row
-        .center-block#regarding
-            .panel.panel-default
-                .panel-heading
-                    .panel-title
-                        label Относно:
-                        p {{Product.name}}
 
-                img.fromShow.center-block(alt="Няма Снимка", ng-if='!!Product.picture[0].filename', ng-src='/get_image/{{Product.picture[0].filename}}')
+    .media
+        a.pull-left(href='', ng-click='showMe()')
+            .thumbnail
+                img#imgShow.media-object(alt="Няма Снимка", ng-if='!!Product.picture[0].filename', ng-src='/get_image/{{Product.picture[0].filename}}')
+
+        .media-body
+            //label.media-heading Относно:
+            label.media-heading {{Product.name}}
+            h4.media-heading
+                small
+                    i {{Product.dateAdded | limitTo : 10}}
+            br
+           // p Excellent feature! I love it. One day I'm definitely going to put this Bootstrap component into use and I'll let you know once I doExcellent feature! I love it. One day I'm definitely going to put this Bootstrap component into use and I'll let you know once I do
 
 
-
+    //.row
+    //    .center-block#regarding
+    //        .panel.panel-default
+    //            .panel-heading
+    //                .panel-title
+    //                    label Относно:
+    //                    p {{Product.name}}
+    //
+    //            img.img-responsive.center-block(alt="Няма Снимка", ng-if='!!Product.picture[0].filename', ng-src='/get_image/{{Product.picture[0].filename}}')
+    //
+    //
+    //
     .row
         .col-md-6
             //button.btn.btn-primary(data-toggle='modal' data-target="#prosModal") Добави мнение

@@ -1,5 +1,5 @@
-app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD','$location'
-    ,function($scope, $routeParams, $resource, productsCRUD, $location) {
+app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD','$location','$modal'
+    ,function($scope, $routeParams, $resource, productsCRUD, $location,$modal) {
 
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
@@ -10,6 +10,30 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
         }
         $scope.Product = product;
     });
+
+
+    $scope.showMe = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/p/partials/showMe',
+            controller: 'ShowMeCtrl'
+            //,backdrop: 'static'
+            //,keyboard: false
+            //,size: 'sm'
+            ,resolve: {
+               message : function () {
+                   return $scope.Product.picture[0].filename;
+               }
+            }
+        });
+        modalInstance.result.then(function (result) {
+            if (result == 'close') {
+                $modalInstance.dismiss('close');
+            }
+
+        });
+    };
+
+
 
     $scope.addCommentPros = function (){
         if($scope.commentPros) {

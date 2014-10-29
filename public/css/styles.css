@@ -6,7 +6,7 @@ body {
     padding-top: 20px; /*body to be below the navbar*/
     /*-webkit-font-smoothing: antialiased;*/
     /*text-rendering: optimizelegibility;*/
-    font-family: Tahoma;
+    /*font-family: Tahoma;*/
 }
 /*set Navbar background image*/
 .navbar {
@@ -27,22 +27,21 @@ body {
 
     margin-top: 8px;
 }
-.logout{
-    margin-left: 5px;
-}
+/*.logout{*/
+    /*margin-left: 5px;*/
+/*}*/
 
 
-footer {
-    background: #333;
-    color: #eee;
-    font-size: 11px;
-    padding: 20px;
-}
+/*footer {*/
+    /*background: #333;*/
+    /*color: #eee;*/
+    /*font-size: 11px;*/
+    /*padding: 20px;*/
+/*}*/
 
 /*--------------------------------------- for Home page-----------------------------------------*/
 /*disables auto zoom on mobile devices */
 @media (max-width: 768px) {
-
     select:focus,
     textarea:focus,
     input:focus {
@@ -90,25 +89,66 @@ footer {
 /*centers li in ul*/
 .aaa { /* also works with ol */
     width: 100%; /* or your desired width */
-    text-align: center; /* this will center the list items */
+    text-align: center;
 }
 .aaa li {
     display: inline-block; /* the key bit */
     *display: inline; /* IE7 hack */
     *zoom: 1; /* IE7 hack */
 }
-
+#bellow{
+    text-align: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: .9em;
+    color: #000000;
+}
 .thumbnail .home{
     display: block;
-    width: 140px;
+    min-width: 150px;
     min-height: 250px;
 }
-/*Оразмерява thumbnail*/
-.home-image{
-    width: auto;
-    max-height: 100px;
-    overflow: hidden;
+#imgShow{
+   max-width: 150px;
+   max-height: 150px;
 }
+#imgsize{
+    min-width: 150px;
+    min-height: 150px;
+    margin-bottom: 10px;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    display: flex; /* add */
+    justify-content: center; /* add to align horizontal */
+    align-items: center; /* add to align vertical */
+}
+#erefds{
+    min-width: 120px;
+    min-height: 105px;
+    margin-bottom: 10px;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    display: flex; /* add */
+    justify-content: center; /* add to align horizontal */
+    align-items: center; /* add to align vertical */
+}
+/*.home-image{*/
+
+    /*vertical-align:middle;*/
+
+/*}*/
+/*Оразмерява thumbnail*/
+/*.home-image{*/
+    /*width: auto;*/
+    /*max-height: 100px;*/
+    /*overflow: hidden;*/
+/*}*/
 /*ограничава дължината на текста, като го прехварля на друг ред*/
 /*.fix-text-length{*/
     /*max-width:100px;*/
@@ -116,22 +156,18 @@ footer {
 /*}*/
 
 /*blur the thumbnails -- only for desktop*/
-@media (min-width: 768px) {
-    a.thumbnail {
-        opacity: 0.7;
-    }
-}
+/*@media (min-width: 768px) {*/
+    /*a.thumbnail {*/
+        /*opacity: 0.7;*/
+    /*}*/
+/*}*/
 /*contrast the thumbnails and remove the underlines*/
-a.thumbnail.home:hover{
-    text-decoration: none;
-    opacity: 1;
+/*a.thumbnail.home:hover{*/
+    /*text-decoration: none;*/
+    /*opacity: 1;*/
 
-}
-a.thumbnail.home:hover{
-    text-decoration: none;
-    opacity: 1;
+/*}*/
 
-}
 
 /*----------------------------------------- for Show page----------------------------------------------*/
 
@@ -144,14 +180,14 @@ a.thumbnail.home:hover{
 }
 .panel-footer.pros-color{
     height: auto;
-    background: #daf0e2;
+    /*background: #daf0e2;*/
     text-align: right;
     color: #2d6ca2;
     font-size: 12px;
 }
 .panel-footer.cons-color{
     height: auto;
-    background: #ffd4d4;
+    /*background: #ffd4d4;*/
     text-align: right;
     color: #2d6ca2;
     font-size: 12px;

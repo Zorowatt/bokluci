@@ -101,25 +101,26 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
         $scope.imageMessage='Няма Снимка';
     };
     $scope.closeMe = function () {
-        var modalInstance = $modal.open({
-            templateUrl: '/p/partials/confirmMessage',
-            controller: 'ConfirmMessageCtrl'
-            ,backdrop: 'static'
-            ,keyboard: false
-            ,size: 'sm'
-            ,resolve: {
-               message : function () {
-                   return 'Желаете ли да излезете?';
-               }
-            }
-        });
-        modalInstance.result.then(function (result) {
-            if (result == 'close') {
-                $activityIndicator.stopAnimating();
-                $modalInstance.close('close');
-            }
-
-        });
+        $modalInstance.dismiss('close');
+//        var modalInstance = $modal.open({
+//            templateUrl: '/p/partials/confirmMessage',
+//            controller: 'ConfirmMessageCtrl'
+//            ,backdrop: 'static'
+//            ,keyboard: false
+//            ,size: 'sm'
+//            ,resolve: {
+//               message : function () {
+//                   return 'Желаете ли да излезете?';
+//               }
+//            }
+//        });
+//        modalInstance.result.then(function (result) {
+//            if (result == 'close') {
+//                $activityIndicator.stopAnimating();
+//                $modalInstance.dismiss('close');
+//            }
+//
+//        });
     };
     $scope.addImage = function ($file) {
         $scope.proppername = '';
@@ -218,8 +219,8 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
         //window.scrollTo(0, 0);
         //spinner.spin(target);
-        $scope.uploadSpin = true;
-        $activityIndicator.startAnimating();
+//        $scope.uploadSpin = true;
+//        $activityIndicator.startAnimating();
 
         if (selectedFile!==undefined) {
             //uploads data w/ image
@@ -235,9 +236,9 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
             })
             .then(function (data, status, headers, config) {
                 //spinner.stop(target);
-                $scope.uploadSpin = false;
-                $activityIndicator.stopAnimating();
-                $modalInstance.dismiss();
+//                $scope.uploadSpin = false;
+//                $activityIndicator.stopAnimating();
+
             });
         }else{
             //uploads data w/o image
@@ -252,8 +253,9 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
             })
             .then(function (data, status, headers, config) {
                 //spinner.stop(target);
-                $modalInstance.dismiss();
+
             });
         }
+        $modalInstance.dismiss();
     }
 }]);

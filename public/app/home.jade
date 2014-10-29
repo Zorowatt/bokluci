@@ -5,20 +5,23 @@
             input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
             span.input-group-btn
                 button.btn.btn-danger(type="button", ng-click='goSearch()') Намери
+
 .container
     .well.center-block.nothing(ng-show='nothing')
         p.text-center {{info}}
     ul.list-inline.aaa
         li.biggi(ng-repeat='item in products')
-                a.thumbnail.home(href='/topic/{{item._id}}')
-                    p(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
-                    img.home-image(ng-src='/get_image/{{item.thumbnail}}')
+            a.thumbnail.home(href='/topic/{{item._id}}')
+                label(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
+                #imgsize
+                    img.img-rounded.home-image(ng-src='/get_image/{{item.thumbnail}}')
+                #bellow
                     p Мнения:
-                        span.badge {{getNumber(item.pros)}}
+                        span.pull-right.badge {{getNumber(item.pros)}}
                     p Препоръки:
-                        span.badge {{getNumber(item.cons)}}
-                    p Дата:
-                        span {{item.dateAdded | limitTo: 10}}
+                        span.pull-right.badge {{getNumber(item.cons)}}
+                    //p Дата:
+                    //    span {{item.dateAdded | limitTo: 10}}
 ul.pager(ng-hide='nothing')
     li
         a.btn.btn-default(href="", ng-click="prev()") Назад
