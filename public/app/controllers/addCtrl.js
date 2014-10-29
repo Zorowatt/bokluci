@@ -161,9 +161,11 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
                 $scope.imageSpin = false;
                 $activityIndicator.stopAnimating();
 
+
                 //spinner.stop(target);
                 $scope.imageExist = true;
-                    $scope.img = data.data;
+                $scope.img=data.data;
+
 
 
             });
@@ -177,13 +179,13 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
 
         if(!$scope.product.name){
-            popAlert(0,'Важно е да въведете тема или наименование?');
+            popAlert(0,'Важно е да въведете тема, наименование, описание ...');
             document.getElementById("name").focus();
             return;
         }
         if(!$scope.proscon && !$scope.conscon){
             document.getElementById("mnenie").focus();
-            popAlert(2,'Нямате ли някакво мнение?');
+            popAlert(2,'Моля напишете мнението си и/или препоръка?');
             return;
         }
 

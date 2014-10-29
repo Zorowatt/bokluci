@@ -122,11 +122,16 @@ footer {
     }
 }
 /*contrast the thumbnails and remove the underlines*/
-a.thumbnail:hover{
+a.thumbnail.home:hover{
     text-decoration: none;
     opacity: 1;
-}
 
+}
+a.thumbnail.home:hover{
+    text-decoration: none;
+    opacity: 1;
+
+}
 
 /*----------------------------------------- for Show page----------------------------------------------*/
 

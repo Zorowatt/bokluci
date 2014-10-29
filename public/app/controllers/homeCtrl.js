@@ -5,7 +5,8 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
      $scope.nothing = false;
      $scope.info = 'Засега няма информация за това което търсите!';
 
-     $scope.sel = function (a,b,c) {
+     //after selecting an item from typeahead
+     $scope.sel = function () {
          $scope.goSearch();
      };
 
