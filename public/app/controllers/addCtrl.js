@@ -126,9 +126,9 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
         selectedFile = $file[0];
         if (selectedFile===undefined){return;}
 
-        if (selectedFile.type!=='image/jpeg' && selectedFile.type!=='image/png') {
+        if ((selectedFile.type.indexOf('image') == -1)) {
             //TODO
-            return popAlert(1,'Снимката може да бъде само .JPEG или .PNG формат!');
+            return popAlert(1,'Снимката може да бъде в подходящ формат - .JPEG,.PNG ...!');
 //            $scope.proppername = 'Снимката може да бъде само .JPEG или .PNG формат!';
 //            return;
         }
@@ -157,16 +157,14 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
                 alert(err)
             })
             .then(function (data, status, headers, config) {
-
                 $scope.imageSpin = false;
                 $activityIndicator.stopAnimating();
-
-
+                if (data.data==''){
+                    return popAlert(1,'Тази снимка не се разпознава!  Моля добавете друга снимка.');
+                }
                 //spinner.stop(target);
                 $scope.imageExist = true;
                 $scope.img=data.data;
-
-
 
             });
 
@@ -241,7 +239,6 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
                 $activityIndicator.stopAnimating();
                 $modalInstance.dismiss();
             });
-
         }else{
             //uploads data w/o image
             $upload.upload({

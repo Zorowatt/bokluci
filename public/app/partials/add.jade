@@ -36,9 +36,9 @@
                         p.alerting {{alert[1]}}
                     .col-xs-6
                         .thumbnail.preview
-                            //canvas(id="myCanvas" width="200" height="200")
+
                             img(ng-show='imageExist', ng-src='{{img}}')
-                            //img(ng-show='imageExist', ng-src='/convert')
+
                             p.text-center(ng-show='imageSpin') {{imageMessage}}
                             #spin(ng-show='imageSpin', ng-activity-indicator='', skip-ng-show="yes")
 
