@@ -2,7 +2,7 @@
     .topone.center-block
         button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Добавяй
         .input-group.addProdSearch
-            input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2)
+            input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel($item, $model, $label)')
             span.input-group-btn
                 button.btn.btn-danger(type="button", ng-click='goSearch()') Намери
 .container

@@ -5,6 +5,10 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
      $scope.nothing = false;
      $scope.info = 'Засега няма информация за това което търсите!';
 
+     $scope.sel = function (a,b,c) {
+         $scope.goSearch();
+     };
+
     //When Enter keyboard button been pressed
     $scope.ent= function () {
     $scope.goSearch();

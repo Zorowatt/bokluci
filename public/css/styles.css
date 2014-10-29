@@ -3,7 +3,7 @@
    -------------------------------------- */
 
 body {
-    padding-top: 70px; /*body to be below the navbar*/
+    padding-top: 20px; /*body to be below the navbar*/
     /*-webkit-font-smoothing: antialiased;*/
     /*text-rendering: optimizelegibility;*/
     font-family: Tahoma;
