@@ -140,11 +140,13 @@ input.upload{
 #but{
     margin-top: 30px;
     /*margin-left: 5px;*/
+    margin-left: -10px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 .big{
     margin-top: 30px;
+    margin-left: -10px;
     padding-top: 10px;
     padding-bottom: 10px;
     /*padding-left: 7px;*/

@@ -24,13 +24,13 @@
                 .row
                     .text-center
                         label(ng-show='!imageExist') Добавете снимка, ако желаете
-                        label(ng-show='imageExist') Премахнете снимката, ако не е необходима
+                        //label(ng-show='imageExist') Премахнете снимката, ако не е необходима
                     .col-xs-4
 
-                        .text-center
-                            .fileUpload.btn.btn-success.big(ng-disabled='imageSpin',ng-hide = 'imageExist') Вземи
-                                    input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
-                            button#but.btn.btn-default(ng-enter='ent()', ng-show = 'imageExist' ,ng-click="removeImage()") Премахни
+
+                        .fileUpload.btn.btn-success.big(ng-disabled='imageSpin',ng-hide = 'imageExist') Вземи
+                                input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
+                        button#but.btn.btn-default(ng-enter='ent()', ng-show = 'imageExist' ,ng-click="removeImage()") Откажи
                         p.alerting {{alert[1]}}
                     .col-xs-8
                         .thumbnail.preview
