@@ -9,6 +9,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
             $location.path('/');
         }
         $scope.Product = product;
+        //console.log('-----'+$scope.Product.picture[0].filename);
     });
 
 
@@ -21,6 +22,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
             //,size: 'sm'
             ,resolve: {
                message : function () {
+
                    return $scope.Product.picture[0].filename;
                }
             }

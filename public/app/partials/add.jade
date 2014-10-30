@@ -35,10 +35,10 @@
                     .col-xs-6
                         .thumbnail.preview
 
-                            img(ng-show='imageExist', ng-src='{{img}}')
+                            img#asda(ng-show='imageExist', ng-src='{{img}}')
 
                             p.text-center(ng-show='imageSpin') {{imageMessage}}
                             #spin(ng-show='imageSpin', ng-activity-indicator='', skip-ng-show="yes")
 
 .modal-footer
-    button.btn.btn-primary.center-block(ng-click='upload()') Добавяй
+    button.btn.btn-primary.center-block(ng-disabled='adding', ng-click='upload()') Добавяй
