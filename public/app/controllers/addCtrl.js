@@ -156,7 +156,7 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
                 var l = evt.loaded;
                 var p = Math.round(l/t*100);
                 console.log(t+'---'+l+'---'+p+'---'+ new Date().getSeconds()+':'+new Date().getMilliseconds());
-
+                $scope.imageMessage = p+'%';
             })
             .error(function (err) {
                 $scope.imageExist = false;
