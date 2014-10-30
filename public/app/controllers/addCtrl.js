@@ -151,9 +151,9 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
             url: '/convert',
             file: selectedFile
         })
-            .progress(function (eee) {
-                var t =eee.total ;
-                var l = eee.loaded;
+            .progress(function (evt) {
+                var t =evt.total ;
+                var l = evt.loaded;
                 var p = Math.round(l/t*100);
                 console.log(t+'---'+l+'---'+p+'---'+ new Date().getSeconds()+':'+new Date().getMilliseconds());
 
