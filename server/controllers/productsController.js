@@ -32,18 +32,33 @@ module.exports = {
         var busboy = new Busboy({ headers: req.headers });
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
             var fileExt = filename.split('.').pop();
-            gm(file,filename)
+
+
+            var bufs = [];
+            file.on('data', function (d) {
+                bufs.push(d);
+                //console.log(d.length);
+            });
+            file.on('end', function () {
+                var buf = Buffer.concat(bufs);
+
+            gm(buf,filename)
                 .noProfile()
                 .thumbnail(100, 100)
+
                 .toBuffer(fileExt,function (err, buffer) {
                     if (err)  {
                         console.log(err);
                         return res.end();
                     }
+
                     var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64'));
                     t.pipe(res);
                     //console.timeEnd("dbsave");
                     });
+
+            });
+
 
 //                .stream('jpg', function (err, stdout, stderr) {
 ////                        res.setHeader('Expires', new Date(Date.now() + 604800000));
