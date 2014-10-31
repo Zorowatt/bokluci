@@ -99,6 +99,7 @@
     border-radius: 7px;
     position: absolute;
     box-shadow: 0 5px 10px rgba(0,0,0,.5);
+    z-index: 3;
 }
 
 .modal-header {
@@ -123,7 +124,7 @@ input.upload{
 }
 
 .thumbnail.preview{
-    width: 110px;
+    max-width: 130px;
     height: 110px;
 
     margin-bottom: 10px;
@@ -161,7 +162,8 @@ input.upload{
 
 #spin{
     position: absolute;
-    margin-left: 33px;
+    margin-top: 5px;
+    margin-left: 43px;
 }
 
 .nothing{

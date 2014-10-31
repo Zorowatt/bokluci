@@ -1,13 +1,13 @@
 app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout','$activityIndicator'
     , function ($scope,$modalInstance,$modal,$upload, $timeout,$activityIndicator) {
 
-
+        //$activityIndicator.startAnimating();
         $scope.uploadSpin = false;
         $scope.imageSpin = false;
         $scope.fileId = 'na';
         $scope.thumbId = 'na';
         $scope.adding = false;
-
+        $scope.imageExistGet=true;
     $scope.alert=[];
     $scope.imageMessage='Няма Снимка';
 
@@ -95,7 +95,7 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
     $scope.removeImage = function(){
 
-
+        $scope.imageExistGet=true;
         $scope.imageExist = false;
         $scope.product.filedata = '';
         selectedFile = undefined;
@@ -135,7 +135,7 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
         $scope.fileId = 'na';
         $scope.thumbId = 'na';
-
+        $scope.imageExistGet=false;
         $scope.proppername = '';
         selectedFile = $file[0];
         if (selectedFile===undefined){return;}
@@ -178,12 +178,13 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
             .then(function (data, status, headers, config) {
                 $scope.imageSpin = false;
                 $activityIndicator.stopAnimating();
+                $scope.imageExist = true;
                 if (data.data==''){
                     $scope.adding = false;
                     return popAlert(1,'Тази снимка не се разпознава!  Моля добавете друга снимка.');
                 }
                 //spinner.stop(target);
-                $scope.imageExist = true;
+
                 $scope.adding = false;
                 var t = data.data.substr(-40);
                 $scope.fileId = t.slice(20);

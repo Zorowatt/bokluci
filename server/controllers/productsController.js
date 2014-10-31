@@ -324,8 +324,7 @@ module.exports = {
         }
     },
     getImage: function(req, res, next) {
-        //console.log('-'+req.params.id+'-');
-        if (req.params.id=='na' || req.params.id===undefined){
+         if (req.params.id=='na' || req.params.id===undefined){
             fs.createReadStream('./server/nopictureThumb.jpg').pipe(res);
             return
         }

@@ -16,29 +16,43 @@
                     p.alerting {{alert[2]}}
                     textarea#mnenie.form-control(cols=40 ,rows=4, ng-model="proscon")
 
-                .center-block
-                    #spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
+                    //#spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
                 .form-group
-                    label.control-label(ng-show='titles') Бихте ли препоръчали нещо:
+                    label.control-label(ng-show='titles') Имате ли препоръки:
                     textarea.form-control(cols=40 ,rows=4, ng-model="conscon")
-                .row
-                    .text-center
-                        label(ng-show='!imageExist') Добавете снимка, ако желаете
-                        //label(ng-show='imageExist') Премахнете снимката, ако не е необходима
-                    .col-xs-4
+                .form-group
+                    .media
+                        .pull-left
+                            img(ng-show='imageExist', ng-src='{{img}}')
 
+                        .media-body
+                            h5.media-heading(ng-show='imageExistGet') Вземете снимка, ако желаете
 
-                        .fileUpload.btn.btn-success.big(ng-disabled='imageSpin',ng-hide = 'imageExist') Вземи
-                                input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
-                        button#but.btn.btn-default(ng-enter='ent()', ng-show = 'imageExist' ,ng-click="removeImage()") Откажи
-                        p.alerting {{alert[1]}}
-                    .col-xs-8
-                        .thumbnail.preview
+                            p.alerting {{alert[1]}}
+                            .fileUpload.btn.btn-success(ng-show='imageExistGet') Вземи
+                                 input.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
+                            p(ng-show='imageExist && !imageSpin') Откажете снимката, ако желаете
+                            button.btn.btn-default(ng-enter='ent()', ng-show='imageExist && !imageSpin' ,ng-click="removeImage()") Откажи
 
-                            img#asda(ng-show='imageExist', ng-src='{{img}}')
+                            .thumbnail.preview(ng-show='imageSpin')
+                                p.text-center {{imageMessage}}
+                                #spin.center(ng-activity-indicator='')
 
-                            p.text-center(ng-show='imageSpin') {{imageMessage}}
-                            #spin(ng-show='imageSpin', ng-activity-indicator='', skip-ng-show="yes")
+                    //  p.alerting {{alert[1]}}
+                    //    //label(ng-show='imageExist') Премахнете снимката, ако не е необходима
+                    //.row
+                    //    .col-xs-4
+                    //        .fileUpload.btn.btn-success.big(ng-disabled='imageSpin',ng-hide = 'imageExist') Вземи
+                    //                input.gg.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
+                    //        button#but.btn.btn-default(ng-enter='ent()', ng-show = 'imageExist' ,ng-click="removeImage()") Откажи
+                    //
+                    //    .col-xs-8
+                    //
+                    //
+                    //            .thumbnail.preview
+                    //                img#asda(ng-show='imageExist', ng-src='{{img}}')
+                    //                p.text-center(ng-show='imageSpin') {{imageMessage}}
+                    //                #spin(ng-show='imageSpin', ng-activity-indicator='', skip-ng-show="yes")
 
 .modal-footer
     button.btn.btn-primary.center-block(ng-disabled='adding', ng-click='upload()') Добавяй
