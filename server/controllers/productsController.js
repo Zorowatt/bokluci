@@ -304,7 +304,7 @@ module.exports = {
                     if (err) {
                         console.log('Products can not be loaded: ' + err);
                     }
-                    if(collection.length>0) {
+                    if(collection!==undefined && collection.length>0) {
                         var arr = [];
                         for (i = 0; i < collection.length; i++) {
                             var p={};
@@ -333,7 +333,7 @@ module.exports = {
                     if (err) {
                         console.log('Products can not be loaded: ' + err);
                     }
-                    if(collection.length>0) {
+                    if(collection!==undefined && collection.length>0) {
                         var arr = [];
                         for (i = 0; i < collection.length; i++) {
                             var p={};
@@ -346,8 +346,9 @@ module.exports = {
                             p.dateAdded = collection[i].dateAdded;
                             arr.push(p);
                         }
-                    }
                     res.send(arr);
+                    }
+
                 })
             }
         }

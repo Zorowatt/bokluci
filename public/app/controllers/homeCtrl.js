@@ -87,12 +87,12 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
 //deals with the search box typeahead
     $scope.getProd = function(val) {
-        return $http.get('/api/search', {
-            params: {
-                search: val
-            }
+        return $http.post('/api/search', {
+            search: val
         }).then(function(response){
             return response.data;
+
+
             });
     };
 
@@ -110,7 +110,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
     $scope.goSearch = function(){
         $scope.nothing = false;
         $scope.search = $scope.search.trim();
-console.log($scope.search);
+
 
 //        //TODO 1st way
 //        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {

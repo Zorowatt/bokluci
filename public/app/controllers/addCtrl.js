@@ -18,9 +18,9 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
 
         //validation for the topic
         $scope.$watch('product.name', function(newValue, oldValue) {
-            if (newValue!==undefined && newValue.length>50){
+            if (newValue!==undefined && newValue.length>100){
                 $scope.product.name=oldValue;
-                return popAlert(0,'Моля темата да не е по-дълга от 50 символа!');
+                return popAlert(0,'Моля темата да не е по-дълга от 100 символа!');
             }
         });
         $scope.ent = function () {};

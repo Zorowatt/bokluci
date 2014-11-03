@@ -9,16 +9,18 @@ module.exports = {
         //str1 =  '/^'+req.query.search+'/';
         //console.log(str1);
         //var re = new RegExp(str1);
+
+
         var findOptions = {
             flagIsNew: false,
-            name: { $regex: req.query.search, $options: "i" }
+            name: { $regex: req.body.search, $options: "i" }
         };
 
         Products.find(findOptions).sort({ pros: -1 }).exec(function (err, collection) {
             if (err) {
                 console.log('Products can not be loaded: ' + err);
             }
-            if (collection.length > 0){
+            if (collection!==undefined && collection.length > 0){
                 var arr = [];
                 for (i = 0; i < collection.length; i++) {
                     arr.push(collection[i].name);

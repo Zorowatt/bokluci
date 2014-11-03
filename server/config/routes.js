@@ -33,7 +33,7 @@ module.exports = function(app){
         , controllers.products.convertImage);
 
     //TODO hints during search
-    app.get('/api/search', controllers.search.searchSuggestions);
+    app.post('/api/search', controllers.search.searchSuggestions);
 
     //shows all products
     app.get('/api', controllers.products.getAllProducts);
