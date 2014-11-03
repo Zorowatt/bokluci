@@ -53,7 +53,8 @@
                     ul.list-unstyled
                         li.panel.panel-success(ng-repeat='item in Product.pros', ng-show='!item.flagIsNew')
                             .panel-body
-                                p {{item.content}}
+                                textarea.form-control(cols=40 ,rows=5 , ng-model="item.content", maxlength='100', ng-disabled='true')
+                                //p {{item.content}}
                                 hr.horrow
                                 span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo : 10}}
                                 //.label.pull-right
@@ -85,12 +86,11 @@
                     ul.list-unstyled
                         li.panel.panel-danger(ng-repeat='item in Product.cons', ng-show='!item.flagIsNew')
                             .panel-body
-                                p {{item.content}}
+                                textarea.form-control(cols=40 ,rows=5 , ng-model="item.content", maxlength='100', ng-disabled='true')
+                                //p {{item.content}}
                                 hr.horrow
                                 span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo:10}}
-                            //.panel-footer.cons-color
-                                //| user:
-                                //span &nbsp{{item.userAdded}}
+
 
 
 
