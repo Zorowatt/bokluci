@@ -1,5 +1,5 @@
-app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD','$location','$modal'
-    ,function($scope, $routeParams, $resource, productsCRUD, $location,$modal) {
+app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD','$location','$modal','$http'
+    ,function($scope, $routeParams, $resource, productsCRUD, $location,$modal,$http) {
 
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
@@ -37,33 +37,111 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
 
 
     $scope.addCommentPros = function (){
-        if($scope.commentPros) {
-            var comment = {
-                id: $scope.Product._id,
-                pros: {
-                    //userAdded: identity.currentUser.username,
-                    content: $scope.commentPros,
-                    flagIsNew: true
+        var modalInstance = $modal.open({
+            templateUrl: '/p/partials/comments',
+            controller: 'CommentsCtrl'
+            ,resolve: {
+                message : function () {
+                    return 'Моля добавете вашето мнение!';
                 }
-            };
-            productsCRUD.update(comment);
-        }
-        $scope.commentPros = '';
+            }
+        });
+        modalInstance.result.then(function (result) {
+            if(result){
+                var pp = {
+                    id: $routeParams.id,
+                    pros: {
+                        content: result
+                    }
+                };
+                $http.post('/api/update/',pp).success(function(response) {
+                    if (response.success) {
+                        var modalInstance = $modal.open({
+                            templateUrl: '/p/partials/confirmMessage',
+                            controller: 'ConfirmMessageCtrl'
+                            ,size: 'sm'
+                            ,resolve: {
+                                message : function () {
+                                    return 'Вашето мнение бе добавено успешно!';
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        var modalInstance = $modal.open({
+                            templateUrl: '/p/partials/confirmMessage',
+                            controller: 'ConfirmMessageCtrl'
+                            ,size: 'sm'
+                            ,resolve: {
+                                message : function () {
+                                    return 'Добавянето беше неуспешно! Моля опитайте по-късно.';
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
     };
 
     $scope.addCommentCons = function (){
-        if($scope.commentCons) {
-            var comment = {
-                id: $scope.Product._id,
-                cons: {
-                    //userAdded: identity.currentUser.username,
-                    content: $scope.commentCons,
-                    flagIsNew: true
+        var modalInstance = $modal.open({
+            templateUrl: '/p/partials/comments',
+            controller: 'CommentsCtrl'
+            ,resolve: {
+                message : function () {
+                    return 'Моля добавете вашите препоръки!';
                 }
-            };
-            productsCRUD.update(comment);
-        }
-        $scope.commentCons = '';
+            }
+        });
+        modalInstance.result.then(function (result) {
+            if(result){
+                var pp = {
+                    id: $routeParams.id,
+                    cons: {
+                        content: result
+                    }
+                };
+                $http.post('/api/update/',pp).success(function(response) {
+                    if (response.success) {
+                        var modalInstance = $modal.open({
+                            templateUrl: '/p/partials/confirmMessage',
+                            controller: 'ConfirmMessageCtrl'
+                            ,size: 'sm'
+                            ,resolve: {
+                                message : function () {
+                                    return 'Вашите препоръки бяха добавени успешно!';
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        var modalInstance = $modal.open({
+                            templateUrl: '/p/partials/confirmMessage',
+                            controller: 'ConfirmMessageCtrl'
+                            ,size: 'sm'
+                            ,resolve: {
+                                message : function () {
+                                    return 'Добавянето беше неуспешно! Моля опитайте по-късно.';
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+//        if($scope.commentCons) {
+//            var comment = {
+//                id: $scope.Product._id,
+//                cons: {
+//                    //userAdded: identity.currentUser.username,
+//                    content: $scope.commentCons,
+//                    flagIsNew: true
+//                }
+//            };
+//            productsCRUD.update(comment);
+//        }
+//        $scope.commentCons = '';
     };
 
 }]);

@@ -1,0 +1,11 @@
+.modal-header
+    button.close(ng-click='closeMe()') &times
+    label {{message}}
+.modal-body
+    .form-group
+        //p.alerting {{alert[2]}}
+        textarea#mnenie.form-control(autofocus='true', cols=40 ,rows=4, ng-model="comment")
+
+.modal-footer
+    button.btn.btn-default(ng-click='add()') Добави
+    button.btn.btn-default(ng-click='closeMe()') Откажи

@@ -1,9 +1,8 @@
 .container
-
     .media
         a.pull-left(href='', ng-click='showMe()')
             .thumbnail
-                img#imgShow.media-object(alt="Няма Снимка", ng-src='/thumb/{{Product.thumbnail}}')
+                img#imgShow.media-object(alt="Няма Снимка",ng-if="Product.thumbnail" , ng-src='/thumb/{{Product.thumbnail}}')
 
         .media-body
             //label.media-heading Относно:
@@ -43,20 +42,23 @@
             //                a.btn.btn-primary(href='', ng-click='addCommentPros()', data-dismiss='modal') Save
             //                a.btn.btn-primary(href='', data-dismiss='modal') Cancel
             p
+
             .panel.panel-success
                 .panel-heading
                     label Мнения:
+                    .label.pull-right.vert
+                        button.btn.btn-default.btn-sm(ng-click='addCommentPros()') Добави мнение
+
                 .panel-body
                     ul.list-unstyled
                         li.panel.panel-success(ng-repeat='item in Product.pros', ng-show='!item.flagIsNew')
                             .panel-body
-                                .well
-                                    p {{item.content}}
-                            .panel-footer.pros-color
-                                //| user:
-                                //span &nbsp{{item.userAdded}}
-                                //br
-                                //| date:
+                                p {{item.content}}
+                                hr.horrow
+                                span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo : 10}}
+                                //.label.pull-right
+                                //    button.btn.btn-default.btn-xs Коментар
+                            //.panel-footer.pros-color
                                 span добавен на: &nbsp{{item.dateAdded | limitTo : 10}}
 
         .col-md-6
@@ -77,15 +79,18 @@
             .panel.panel-danger
                 .panel-heading
                     label Препоръки:
+                    .label.pull-right.vert
+                        button.btn.btn-default.btn-sm(ng-click='addCommentCons()') Добави препоръка
                 .panel-body
                     ul.list-unstyled
                         li.panel.panel-danger(ng-repeat='item in Product.cons', ng-show='!item.flagIsNew')
                             .panel-body
-                                .well
-                                    p {{item.content}}
-                            .panel-footer.cons-color
+                                p {{item.content}}
+                                hr.horrow
+                                span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo:10}}
+                            //.panel-footer.cons-color
                                 //| user:
                                 //span &nbsp{{item.userAdded}}
 
 
-                                span добавен на: &nbsp{{item.dateAdded | limitTo:10}}
+

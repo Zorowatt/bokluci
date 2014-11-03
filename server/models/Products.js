@@ -8,18 +8,27 @@ var productSchema = mongoose.Schema ({
         dateAdded: Date,
         content: String,
         flagIsNew : Boolean
+//        comments: [{
+//            comment: String,
+//            flagIsNew: Boolean
+//        }]
     }],
     cons: [{
         //userAdded: String,
         dateAdded: Date,
         content: String,
         flagIsNew : Boolean
+//        comments: [{
+//            comment: String,
+//            flagIsNew: Boolean
+//        }]
+
     }],
-    picture: [{
-        filename: String,
-        dateAdded: Date
-        //userAdded: String
-    }],
+//    picture: [{
+//        filename: String,
+//        dateAdded: Date
+//        //userAdded: String
+//    }],
     productNew: Boolean,
     consCount: Number,
     prosCount: Number,

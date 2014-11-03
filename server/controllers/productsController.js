@@ -417,14 +417,14 @@ module.exports = {
 
     //updates product after comments added
     updateProduct : function(req, res, next) {
-
         var t = req.body;
-        if (t){
+        if (!t){
             res.end();
             return;
         }
-        if (t.pros) {
+        if (!!t.pros) {
             t.pros.dateAdded = new Date();
+            t.pros.flagIsNew = true;
             Products.update({_id : t.id},{
                   $push: { pros: t.pros } ,
                   flagNewCommentAdded: true
@@ -435,12 +435,13 @@ module.exports = {
                         console.log('Error: '+ err);
                         return;
                     }
-                    //console.log('Product with _id: '+ t.id + '   UPDATED');
+                    console.log('Product with _id: '+ t.id + '   UPDATED');
                     res.end();
                 });
         }
-        if (t.cons) {
+        if (!!t.cons) {
             t.cons.dateAdded = new Date();
+            t.cons.flagIsNew = true;
             Products.update({_id : t.id},{
                 $push: { cons: t.cons },
                 flagNewCommentAdded: true
