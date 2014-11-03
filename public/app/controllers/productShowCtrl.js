@@ -55,6 +55,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
                     }
                 };
                 $http.post('/api/update/',pp).success(function(response) {
+                    console.log(response);
                     if (response.success) {
                         var modalInstance = $modal.open({
                             templateUrl: '/p/partials/confirmMessage',

@@ -433,11 +433,12 @@ module.exports = {
                 function(err, edited) {
                     if (err){
                         console.log('Error: '+ err);
-                        return;
+                        return res.send({success: false});
                     }
-                    console.log('Product with _id: '+ t.id + '   UPDATED');
-                    res.end();
+                    //console.log('Product with _id: '+ t.id + '   UPDATED');
+
                 });
+            return res.send({success: true});
         }
         if (!!t.cons) {
             t.cons.dateAdded = new Date();
@@ -450,13 +451,14 @@ module.exports = {
                 function(err, edited) {
                     if (err){
                         console.log('Error: '+ err);
-                        return;
+                        res.send({success: false});
                     }
                     //console.log('Product with _id: '+ t.id + '   UPDATED');
-                    res.end();
+
                 });
+            return res.send({success: true});
         }
-        res.end();
+        res.send({success: false});
 
     }
 
