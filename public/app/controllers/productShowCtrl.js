@@ -1,5 +1,5 @@
-app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'productsCRUD','$location','$modal','$http'
-    ,function($scope, $routeParams, $resource, productsCRUD, $location,$modal,$http) {
+app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource','$location','$modal','$http'
+    ,function($scope, $routeParams, $resource, $location,$modal,$http) {
 
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
