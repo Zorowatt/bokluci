@@ -180,7 +180,10 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
                 $activityIndicator.stopAnimating();
                 $scope.imageExist = true;
                 if (data.data==''){
+                    $scope.imageExistGet=true;
                     $scope.adding = false;
+                    $scope.imageSpin = false;
+                    $scope.imageExist = false;
                     return popAlert(1,'Тази снимка не се разпознава!  Моля добавете друга снимка.');
                 }
                 //spinner.stop(target);

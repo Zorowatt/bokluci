@@ -22,8 +22,7 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource', 'produc
             //,size: 'sm'
             ,resolve: {
                message : function () {
-
-                   return $scope.Product.picture[0].filename;
+                   return $scope.Product.thumbnail;
                }
             }
         });

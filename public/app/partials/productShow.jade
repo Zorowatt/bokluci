@@ -3,7 +3,7 @@
     .media
         a.pull-left(href='', ng-click='showMe()')
             .thumbnail
-                img#imgShow.media-object(alt="Няма Снимка", ng-src='/get_image/{{Product.picture[0].filename}}')
+                img#imgShow.media-object(alt="Няма Снимка", ng-src='/thumb/{{Product.thumbnail}}')
 
         .media-body
             //label.media-heading Относно:

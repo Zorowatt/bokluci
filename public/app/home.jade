@@ -1,6 +1,6 @@
 .container
     .topone.center-block
-        button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Добавяй
+        button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Кажете и Вие
         .input-group.addProdSearch
             input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
             span.input-group-btn
@@ -14,7 +14,7 @@
             a.thumbnail.home(href='/topic/{{item._id}}')
                 label(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
                 #imgsize
-                    img.img-rounded.home-image(ng-src='/get_image/{{item.thumbnail}}')
+                    img.img-rounded.home-image(ng-src='/thumb/{{item.thumbnail}}')
                 #bellow
                     p Мнения:
                         span.pull-right.badge {{getNumber(item.pros)}}

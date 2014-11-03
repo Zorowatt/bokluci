@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
     ,products = require('../models/Products')
     ,users = require('../models/Users')
     ,searchbuffer = require('../models/SearchBuffer')
+    ,images = require('../models/Images')
     ;
 
 module.exports = function(){

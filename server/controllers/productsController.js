@@ -1,11 +1,12 @@
 var Products = require('mongoose').model('Product')
+    ,Images = require('mongoose').model('Images')
     ,mongoose = require('mongoose')
-    ,Grid = require('gridfs-stream')
+    //,Grid = require('gridfs-stream')
     ,db = mongoose.connection
-    ,gfs = Grid(db.db, mongoose.mongo)
+    //,gfs = Grid(db.db, mongoose.mongo)
     ,Busboy = require('busboy')
     ,fs = require('fs')
-    ,lwip = require('lwip')
+    //,lwip = require('lwip')
     //,stream = require('stream')
     ,stream = require('streamifier')
     //,easyimg = require('easyimage')
@@ -35,60 +36,54 @@ module.exports = {
             var thumbnailFileName = randomString();
             var fileName = randomString();
 
-            gm(file,filename)
-                .noProfile()
-                .thumbnail(150, 150)
-                .toBuffer(fileExt,function (err, buffer) {
-                    if (err)  {
-                        console.log(err);
-                        return res.end();
-                    }
-                    var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64')+thumbnailFileName+fileName);
-//                    t.pipe(gfs.createWriteStream({
-//                        filename: thumbnailFileName
-//                        //       ,mode: 'w'
-//                    }));
-                    t.pipe(res);
-                    //console.timeEnd("dbsave");
+
+            var picc = {
+                name: thumbnailFileName,
+                ready: false,
+                contentType: 'image/'+fileExt
+            };
+            Images.create(picc, function(err, imagesDb) {
+                if (err) {
+                    return console.log('Failed to add new product: ' + err);
+                }
+                gm(file,filename)
+                    .noProfile()
+                    .thumbnail(150, 150)
+                    .toBuffer(fileExt,function (err, buffer) {
+                        if (err)  {
+                            //console.log(err);
+                            return res.end();
+                        }
+                        var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64')+thumbnailFileName+fileName);
+                        t.pipe(res);
                     });
-            gm(file,filename)
-                .noProfile()
-                .resize(150, 150)
-                .stream(function (err, stdout, stderr) {
-                    if(err) {
-                    }
-                    stdout.pipe(gfs.createWriteStream({
-                        filename: thumbnailFileName
-                        //       ,mode: 'w'
-                    }));
+                gm(file,filename)
+                    .noProfile()
+                    .resize(150, 150)
+                    .toBuffer(fileExt,function (err, buffer) {
+                        if (!err)  {
+                            Images.update({_id:imagesDb._id},{dataThumb: buffer}, function(err, product) {
+                                //console.log(product);
+                                if (err) {
+                                    console.log('Failed to add new product: ' + err);
+                                }
+                            })
+                        }
+                    });
+                gm(file,filename)
+                    .noProfile()
+                    .resize(500, 500)
+                    .toBuffer(fileExt,function (err, bufferr) {
+                        if (!err)  {
+                            Images.update({_id:imagesDb._id},{dataFile: bufferr}, function(err, product) {
+                                //console.log(product);
+                                if (err) {
+                                    console.log('Failed to add new product: ' + err);
+                                }
+                            })
+                        }
+                    });
                 });
-            gm(file,filename)
-                .noProfile()
-                .resize(500, 500)
-                .stream(function (err, stdout, stderr) {
-                    if(err) {
-                    }
-                    stdout.pipe(gfs.createWriteStream({
-                        filename: fileName
-                        //       ,mode: 'w'
-                    }));
-                });
-
-
-//                .stream('jpg', function (err, stdout, stderr) {
-////                        res.setHeader('Expires', new Date(Date.now() + 604800000));
-////                        res.setHeader('Content-Type', 'image/jpeg');
-//                var chunks = [];
-//                stdout.on('data', function(chunk) {
-//                    chunks.push(chunk);
-//                    //.log('chunk:', chunk.length);
-//                });
-//                stdout.on('end', function() {
-//                    var result = Buffer.concat(chunks);
-//                    var t = stream.createReadStream("data:image/jpg;base64,"+result.toString('base64'));
-//                    t.pipe(res);
-//                    console.timeEnd("dbsave");
-//                });
         });
         req.pipe(busboy);
     },
@@ -272,13 +267,17 @@ module.exports = {
             prod.cons[0].dateAdded = new Date();
             prod.dateAdded = new Date();
             //if (prod.picture) {prod.picture[0].dateAdded = new Date()}
+            Images.findOneAndUpdate({name:prod.thumbnail},{ready: true}, function (err, imageDb) {
 
+                Products.create(prod, function(err, product) {
+                    if (err) {
+                        console.log('Failed to add new product: ' + err);
+                    }
+                });
+            }),
             //TODO before add to DB check if object contains any commands of mongodb. PREVENTING FROM INJECTION ATTACK
-            Products.create(prod, function(err, product) {
-                if (err) {
-                    console.log('Failed to add new product: ' + err);
-                }
-            });
+
+
 //            if (!pictureExists){
 //                fs.createReadStream('./server/nopicture.jpg').pipe(gfs.createWriteStream({
 //                    filename: randomFileName
@@ -297,25 +296,58 @@ module.exports = {
     },
 
     getAllProducts: function(req, res, next) {
-
         if (req.query.l && req.query.s) {
-
-
             if (req.query.search.length == 0) {
-                Products.find({flagIsNew: false}).sort({ id: 1 }).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
+                var findOptions = {flagIsNew: false};
+                Products.find(findOptions).sort({ prosCount: -1 }).limit(req.query.l).skip(req.query.s)
+                    .exec(function (err, collection) {
                     if (err) {
                         console.log('Products can not be loaded: ' + err);
                     }
-                    res.send(collection);
+                    if(collection.length>0) {
+                        var arr = [];
+                        for (i = 0; i < collection.length; i++) {
+                            var p={};
+                            p._id = collection[i]._id;
+                            p.name = collection[i].name;
+                            p.pros = collection[i].pros;
+                            p.cons = collection[i].cons;
+                            //p.picture = collection[i].picture;
+                            p.thumbnail = collection[i].thumbnail;
+                            p.dateAdded = collection[i].dateAdded;
+                            arr.push(p);
+                            }
+                        res.send(arr);
+                    }
+                        else{
+                        res.end();
+                    }
                 })
             }
             else {
-                var findOptions = {flagIsNew: false, keyWords: {$in: [req.query.search]}};
-                Products.find(findOptions).sort({ id: 1 }).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
+                var findOptions = {
+                    flagIsNew: false,
+                    name: { $regex: req.query.search, $options: "i" }
+                };
+                Products.find(findOptions).sort({ prosCount: -1}).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
                     if (err) {
                         console.log('Products can not be loaded: ' + err);
                     }
-                    res.send(collection);
+                    if(collection.length>0) {
+                        var arr = [];
+                        for (i = 0; i < collection.length; i++) {
+                            var p={};
+                            //p._id = collection[i]._id;
+                            p.name = collection[i].name;
+                            p.pros = collection[i].pros;
+                            p.cons = collection[i].cons;
+                            //p.picture = collection[i].picture;
+                            p.thumbnail = collection[i].thumbnail;
+                            p.dateAdded = collection[i].dateAdded;
+                            arr.push(p);
+                        }
+                    }
+                    res.send(arr);
                 })
             }
         }
@@ -324,35 +356,64 @@ module.exports = {
         }
     },
     getImage: function(req, res, next) {
-         if (req.params.id=='na' || req.params.id===undefined){
-            fs.createReadStream('./server/nopictureThumb.jpg').pipe(res);
-            return
+        if (req.params.id == 'na' || req.params.id === undefined) {
+            fs.createReadStream('./server/nopicture.jpg').pipe(res);
+            return;
         }
-        var readstream = gfs.createReadStream({
-            filename: req.params.id
-            //,content_type: 'image/*'
-        });
-        readstream.on('error', function (err) {
-            console.log('An error occurred!', err);
 
-        });
-        readstream.pipe(res);
+        //console.log('asd');
+        Images.findOne({name: req.params.id})
+            .exec(function (err, document) {
+                //console.log(document);
+                var t = stream.createReadStream(document.dataFile);
+                res.setHeader('Expires', new Date(Date.now() + 604800000));
+                res.setHeader('Content-Type', document.contentType);
+                //var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64')+thumbnailFileName+fileName);
+//                    t.pipe(gfs.createWriteStream({
+//                        filename: thumbnailFileName
+//                        //       ,mode: 'w'
+//                    }));
+                t.pipe(res);
+            });
     },
+    getThumb: function(req, res, next) {
+        if (req.params.id=='na' || req.params.id===undefined){
+            fs.createReadStream('./server/nopictureThumb.jpg').pipe(res);
+            return;
+        }
 
-
+        //console.log('asd');
+        Images.findOne({name: req.params.id})
+            .exec(function(err, document) {
+                //console.log(document);
+                var t = stream.createReadStream(document.dataThumb);
+                res.setHeader('Expires', new Date(Date.now() + 604800000));
+                res.setHeader('Content-Type', document.contentType);
+                //var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64')+thumbnailFileName+fileName);
+//                    t.pipe(gfs.createWriteStream({
+//                        filename: thumbnailFileName
+//                        //       ,mode: 'w'
+//                    }));
+                t.pipe(res);
+            });
+    },
     getProductById: function(req, res, next){
         Products.findOne({ _id : req.params.id }).exec(function(err, document) {
             if (err) {
-                //console.log('Product can not be loaded: ' + err);
-                document={missing:true};
-
+                res.send({missing:true});
             }
-            res.send(document);
+            var p ={};
+           // p._id = document._id;
+            p.name = document.name;
+            p.pros = document.pros;
+            p.cons = document.cons;
+            //p.picture = document.picture;
+            p.thumbnail = document.thumbnail;
+            p.dateAdded = document.dateAdded;
+            res.send(p);
         });
 
     },
-    //adds Product and image to the mongoDB and gridFS
-
 
     //updates product after comments added
     updateProduct : function(req, res, next) {

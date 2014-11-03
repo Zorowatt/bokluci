@@ -38,8 +38,8 @@ module.exports = function(app){
     //shows all products
     app.get('/api', controllers.products.getAllProducts);
     //get the image or thumbnail from gridFS
-    app.get('/get_image/:id', controllers.products.getImage);
-
+    app.get('/image/:id', controllers.products.getImage);
+    app.get('/thumb/:id', controllers.products.getThumb);
 
     //update after comment added
     app.post('/api/update/', controllers.products.updateProduct);

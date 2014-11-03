@@ -3,37 +3,30 @@ var mongoose = require('mongoose');
 var productSchema = mongoose.Schema ({
 
     name: String,
-    origin: String,
-    maker: String,
-    productModel: String,
-    reseller: {
-        name: String,
-        town: String,
-        dateBought: String,
-        price: String
-    },
     pros:[{
-        userAdded: String,
+        //userAdded: String,
         dateAdded: Date,
         content: String,
         flagIsNew : Boolean
     }],
-
     cons: [{
-        userAdded: String,
+        //userAdded: String,
         dateAdded: Date,
         content: String,
         flagIsNew : Boolean
     }],
     picture: [{
         filename: String,
-        dateAdded: Date,
-        userAdded: String
+        dateAdded: Date
+        //userAdded: String
     }],
+    productNew: Boolean,
+    consCount: Number,
+    prosCount: Number,
     thumbnail: String,
-    id: Number,
+    //id: Number,
     keyWords: [String],
-    userAdded: String,
+    //userAdded: String,
     dateAdded: Date,
     category: [String],
     flagIsNew: Boolean,

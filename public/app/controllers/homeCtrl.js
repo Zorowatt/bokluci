@@ -110,7 +110,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
     $scope.goSearch = function(){
         $scope.nothing = false;
         $scope.search = $scope.search.trim();
-
+console.log($scope.search);
 
 //        //TODO 1st way
 //        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {
