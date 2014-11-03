@@ -113,7 +113,7 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
         $scope.upload = function () {
             if(!$scope.product.name){
                 popAlert(0,'Важно е да въведете тема, наименование, описание ...');
-                document.getElementById("name").focus();
+                document.getElementById("topic").focus();
                 return;
             }
             if(!$scope.proscon && !$scope.conscon){

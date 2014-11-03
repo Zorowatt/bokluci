@@ -8,18 +8,18 @@
             form.form-horizontal(role="form")
                 .form-group
                     label.control-label(ng-show='titles') Относно:
-                    .necessary.pull-right необходима е
-                    input.form-control.input-lg(ng-enter="ent()",ng-blur="alert[0]=''", id='name', autofocus="autofocus", type="text", ng-model="product.name")
+                    //.necessary.pull-right необходима е
+                    //input.form-control.input-lg(ng-enter="ent()",ng-blur="alert[0]=''", id='name', autofocus="autofocus", type="text", ng-model="product.name")
+                    textarea#topic.form-control(ng-enter="ent()", ng-blur="alert[0]=''", autofocus="autofocus", ng-model="product.name")
                     p.alerting {{alert[0]}}
                 .form-group
                     label.control-label(ng-show='titles') Споделете своето мнение:
+                    textarea#mnenie.form-control(msd-elastic, ng-model="proscon")
                     p.alerting {{alert[2]}}
-                    textarea#mnenie.form-control(cols=40 ,rows=4, ng-model="proscon")
-
                     //#spin(ng-show='uploadSpin', ng-activity-indicator='', skip-ng-show="yes")
                 .form-group
                     label.control-label(ng-show='titles') Имате ли препоръки:
-                    textarea.form-control(cols=40 ,rows=4, ng-model="conscon")
+                    textarea.form-control(msd-elastic, ng-model="conscon")
                 .form-group
                     .media
                         .pull-left
