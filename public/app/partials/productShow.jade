@@ -3,91 +3,38 @@
         a.pull-left(href='', ng-click='showMe()')
             .thumbnail
                 img#imgShow.media-object(alt="Няма Снимка",ng-if="Product.thumbnail" , ng-src='/thumb/{{Product.thumbnail}}')
-
         .media-body
-            //label.media-heading Относно:
             label.media-heading {{Product.name}}
             h4.media-heading
                 small
                     i {{Product.dateAdded | limitTo : 10}}
             br
-           // p Excellent feature! I love it. One day I'm definitely going to put this Bootstrap component into use and I'll let you know once I doExcellent feature! I love it. One day I'm definitely going to put this Bootstrap component into use and I'll let you know once I do
-
-
-    //.row
-    //    .center-block#regarding
-    //        .panel.panel-default
-    //            .panel-heading
-    //                .panel-title
-    //                    label Относно:
-    //                    p {{Product.name}}
-    //
-    //            img.img-responsive.center-block(alt="Няма Снимка", ng-if='!!Product.picture[0].filename', ng-src='/get_image/{{Product.picture[0].filename}}')
-    //
-    //
-    //
     .row
         .col-md-6
-            //button.btn.btn-primary(data-toggle='modal' data-target="#prosModal") Добави мнение
-            //div.modal.fade(id='prosModal', tabindex="-1", role="dialog", aria-labelledby="prosModalLabel" aria-hidden="true")
-            //    .modal-dialog
-            //        .modal-content
-            //            .modal-body
-            //                .form-group
-            //                    label.col-sm-4.control-label Напишете коментар:
-            //                    .col-sm-8
-            //                        textarea.form-control(cols=40 ,rows=5 , ng-model="commentPros", maxlength='100')
-            //            .modal-footer
-            //                hr
-            //                a.btn.btn-primary(href='', ng-click='addCommentPros()', data-dismiss='modal') Save
-            //                a.btn.btn-primary(href='', data-dismiss='modal') Cancel
-            p
-
             .panel.panel-success
                 .panel-heading
                     label Мнения:
                     .label.pull-right.vert
                         button.btn.btn-default.btn-sm(ng-click='addCommentPros()') Добави мнение
-
-                .panel-body
+                .panel-body.pross
                     ul.list-unstyled
                         li.panel.panel-success(ng-repeat='item in Product.pros', ng-show='!item.flagIsNew')
                             .panel-body
                                 textarea.form-control(msd-elastic, ng-model="item.content", ng-disabled='true')
-                                //p {{item.content}}
+
                                 hr.horrow
                                 span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo : 10}}
-                                //.label.pull-right
-                                //    button.btn.btn-default.btn-xs Коментар
-                            //.panel-footer.pros-color
-                                span добавен на: &nbsp{{item.dateAdded | limitTo : 10}}
-
         .col-md-6
-            //button.btn.btn-primary(data-toggle='modal' data-target="#consModal") Добави препоръка
-            //div.modal.fade(id='consModal', tabindex="-1", role="dialog", aria-labelledby="consModalLabel" aria-hidden="true")
-            //    .modal-dialog
-            //        .modal-content
-            //            .modal-body
-            //                .form-group
-            //                    label.col-sm-4.control-label Напишете коментар:
-            //                    .col-sm-8
-            //                        textarea.form-control(cols=40 ,rows=5 , ng-model="commentCons", maxlength='100')
-            //            .modal-footer
-            //                hr
-            //                a.btn.btn-primary(href='', ng-click='addCommentCons()', data-dismiss='modal') Save
-            //                a.btn.btn-primary(href='', data-dismiss='modal') Cancel
-            p
             .panel.panel-danger
                 .panel-heading
                     label Препоръки:
                     .label.pull-right.vert
                         button.btn.btn-default.btn-sm(ng-click='addCommentCons()') Добави препоръка
-                .panel-body
+                .panel-body.pross
                     ul.list-unstyled
                         li.panel.panel-danger(ng-repeat='item in Product.cons', ng-show='!item.flagIsNew')
                             .panel-body
                                 textarea.form-control(msd-elastic, ng-model="item.content", ng-disabled='true')
-                                //p {{item.content}}
                                 hr.horrow
                                 span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo:10}}
 

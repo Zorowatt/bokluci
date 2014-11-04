@@ -231,7 +231,18 @@ span.data{
     color: grey;
 }
 
-
+@media (max-height: 669px) {
+    .pross{
+        max-height:300px;
+        overflow-y:auto;
+    }
+}
+@media (min-height: 670px) {
+    .pross{
+        max-height:450px;
+        overflow-y:auto;
+    }
+}
 
 
 

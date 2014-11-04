@@ -363,7 +363,7 @@ app.constant('msdElasticConfig', {
     append: ''
 })
 
-    app.directive('msdElastic', [
+app.directive('msdElastic', [
         '$timeout', '$window', 'msdElasticConfig',
         function($timeout, $window, config) {
             'use strict';
