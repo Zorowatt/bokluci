@@ -1,5 +1,5 @@
 var app = angular.module('app',['ngResource','ngRoute'
-    ,'angularFileUpload','ui.bootstrap','ngActivityIndicator','ngCookies']);
+    ,'angularFileUpload','ui.bootstrap','ngActivityIndicator']);
 
 
 app.config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {

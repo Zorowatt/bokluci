@@ -1,5 +1,5 @@
-app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal','$cookies','$timeout','$cookieStore'
-    , function($scope, $resource, $http, $q, $location,$modal,$cookies,$timeout,$cookieStore) {
+app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal'
+    , function($scope, $resource, $http, $q, $location,$modal) {
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
 
@@ -111,7 +111,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
 
         pos = pos + $scope.step;
-      $cookies.home = 'l'+pos+'s'+$scope.step+'search'+$scope.search;
+      //$cookies.home = 'l'+pos+'s'+$scope.step+'search'+$scope.search;
         //$timeout(function () {
         load(pos,$scope.step,$scope.search).$promise.then(function(result){
             if (result.length === 0) {
