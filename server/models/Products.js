@@ -33,6 +33,7 @@ var productSchema = mongoose.Schema ({
     consCount: Number,
     prosCount: Number,
     thumbnail: String,
+    visited: Number,
     //id: Number,
     keyWords: [String],
     //userAdded: String,

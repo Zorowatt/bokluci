@@ -6,8 +6,8 @@ var controllers = require('../controllers')
 
 module.exports = function(app){
 
-
-
+    app.get('/next', controllers.products.next);
+    app.get('/prev', controllers.products.prev);
     //user login
 //    app.post('/login', auth.userLogin);
 //    //user logout
@@ -35,6 +35,11 @@ module.exports = function(app){
     //TODO hints during search
     app.post('/api/search', controllers.search.searchSuggestions);
 
+
+
+
+
+
     //shows all products
     app.get('/api', controllers.products.getAllProducts);
     //get the image or thumbnail from gridFS
@@ -58,6 +63,13 @@ module.exports = function(app){
     });
 
     app.get('*',function(req,res){
+       // res.cookie('pet','cat',{maxAge: 86400000});
+       // res.write(JSON.stringify(req.cookie)+'<br/>\n');
+
+
+
+
+
         var supported = true;
         var agent = useragent.parse(req.headers['user-agent']);
         if (agent !== undefined) {

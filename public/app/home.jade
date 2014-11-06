@@ -20,8 +20,9 @@
                         span.pull-right.badge {{getNumber(item.pros)}}
                     p Препоръки:
                         span.pull-right.badge {{getNumber(item.cons)}}
-                    //p Дата:
-                    //    span {{item.dateAdded | limitTo: 10}}
+                    hr.seen
+                    p.seen Видяно:
+                        span.pull-right.badge.seen {{item.visited}}
 ul.pager(ng-hide='nothing')
     li
         a.btn.btn-default(href="", ng-click="prev()") Назад

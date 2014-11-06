@@ -27,9 +27,12 @@ function randomString() {
 }
 
 
+
+
+
 module.exports = {
     convertImage: function (req, res, next) {
-        //console.time("dbsave");
+               //console.time("dbsave");
         var busboy = new Busboy({ headers: req.headers });
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
             var fileExt = filename.split('.').pop();
@@ -54,6 +57,7 @@ module.exports = {
                             //console.log(err);
                             return res.end();
                         }
+
                         var t = stream.createReadStream("data:image/"+fileExt+";base64,"+buffer.toString('base64')+thumbnailFileName+fileName);
                         t.pipe(res);
                     });
@@ -266,6 +270,7 @@ module.exports = {
             prod.pros[0].dateAdded = new Date();
             prod.cons[0].dateAdded = new Date();
             prod.dateAdded = new Date();
+            prod.visited = 0;
             //if (prod.picture) {prod.picture[0].dateAdded = new Date()}
             Images.findOneAndUpdate({name:prod.thumbnail},{ready: true}, function (err, imageDb) {
 
@@ -295,10 +300,54 @@ module.exports = {
         req.pipe(busboy);
     },
 
+
+    next : function (req, res) {
+//        if (req.cookies.home!==undefined){
+//            l = parseInt(req.cookies.home.l);
+//            s = parseInt(req.cookies.home.s);
+//
+//            search = req.cookies.home.search;
+//            res.clearCookie('home');
+//            res.cookie('home',{l:6,s:s+6,search:''},{maxAge: 100000});
+//            console.log(l+'--'+s+'--'+search);
+//        }
+        res.end();
+    },
+    prev : function (req, res) {
+//        if (req.cookies.home!==undefined){
+//            l = parseInt(req.cookies.home.l);
+//            s = parseInt(req.cookies.home.s);
+//            search = req.cookies.home.search;
+//            res.clearCookie('home');
+//            res.cookie('home',{l:6,s:s-6,search:''},{maxAge: 100000});
+//        }
+        res.end();
+    },
+
     getAllProducts: function(req, res, next) {
+
+
+        //console.log('---'+req.query.search);
+        //res.clearCookie('home');
+
+//        var l,s,search;
+//        if (req.cookies.home!==undefined){
+//            l = parseInt(req.cookies.home.l);
+//            s = parseInt(req.cookies.home.s);
+//            search = req.cookies.home.search;
+//        }else{
+//            l = req.query.l;
+//            s = req.query.s;
+//            search = req.query.search;
+//        }
+        //console.log(req);
+        //console.log(l+'--'+s+'--'+search);
         if (req.query.l && req.query.s) {
-            if (req.query.search.length == 0) {
-                var findOptions = {flagIsNew: false};
+            //if (req.query.search.length == 0) {
+                var findOptions = {
+                    flagIsNew: false,
+                    name: { $regex: req.query.search, $options: "i" }
+                };
                 Products.find(findOptions).sort({ prosCount: -1 }).limit(req.query.l).skip(req.query.s)
                     .exec(function (err, collection) {
                     if (err) {
@@ -312,45 +361,48 @@ module.exports = {
                             p.name = collection[i].name;
                             p.pros = collection[i].pros;
                             p.cons = collection[i].cons;
-                            //p.picture = collection[i].picture;
+                            p.visited = collection[i].visited;
                             p.thumbnail = collection[i].thumbnail;
                             p.dateAdded = collection[i].dateAdded;
                             arr.push(p);
                             }
+//                        res.clearCookie('home');
+//                        res.cookie('home',{l:l,s:s,search: search},{maxAge: 100000});
+
                         res.send(arr);
                     }
                         else{
                         res.end();
                     }
                 })
-            }
-            else {
-                var findOptions = {
-                    flagIsNew: false,
-                    name: { $regex: req.query.search, $options: "i" }
-                };
-                Products.find(findOptions).sort({ prosCount: -1}).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
-                    if (err) {
-                        console.log('Products can not be loaded: ' + err);
-                    }
-                    if(collection!==undefined && collection.length>0) {
-                        var arr = [];
-                        for (i = 0; i < collection.length; i++) {
-                            var p={};
-                            //p._id = collection[i]._id;
-                            p.name = collection[i].name;
-                            p.pros = collection[i].pros;
-                            p.cons = collection[i].cons;
-                            //p.picture = collection[i].picture;
-                            p.thumbnail = collection[i].thumbnail;
-                            p.dateAdded = collection[i].dateAdded;
-                            arr.push(p);
-                        }
-                    res.send(arr);
-                    }
-
-                })
-            }
+            //}
+//            else {
+//                var findOptions = {
+//                    flagIsNew: false,
+//                    name: { $regex: req.query.search, $options: "i" }
+//                };
+//                Products.find(findOptions).sort({ prosCount: -1}).limit(req.query.l).skip(req.query.s).exec(function (err, collection) {
+//                    if (err) {
+//                        console.log('Products can not be loaded: ' + err);
+//                    }
+//                    if(collection!==undefined && collection.length>0) {
+//                        var arr = [];
+//                        for (i = 0; i < collection.length; i++) {
+//                            var p={};
+//                            p._id = collection[i]._id;
+//                            p.name = collection[i].name;
+//                            p.pros = collection[i].pros;
+//                            p.cons = collection[i].cons;
+//                            //p.picture = collection[i].picture;
+//                            p.thumbnail = collection[i].thumbnail;
+//                            p.dateAdded = collection[i].dateAdded;
+//                            arr.push(p);
+//                        }
+//                    res.send(arr);
+//                    }
+//
+//                })
+//            }
         }
         else{
             res.redirect('/');
@@ -399,7 +451,17 @@ module.exports = {
             });
     },
     getProductById: function(req, res, next){
-        Products.findOne({ _id : req.params.id }).exec(function(err, document) {
+        console.log(req.session.name);
+        req.session.name = req.session.name || 56;
+
+
+        if (req.cookies.v === undefined){
+            res.cookie('v',randomString(),{maxAge: 86400000});
+            var count = 1;
+        }else{
+            var count = 0;
+        }
+        Products.findOneAndUpdate({ _id : req.params.id },{ $inc: { visited: count }}).exec(function(err, document) {
             if (err) {
                 res.send({missing:true});
             }
@@ -408,7 +470,7 @@ module.exports = {
             p.name = document.name;
             p.pros = document.pros;
             p.cons = document.cons;
-            //p.picture = document.picture;
+            //p.visited = document.visited;
             p.thumbnail = document.thumbnail;
             p.dateAdded = document.dateAdded;
             res.send(p);

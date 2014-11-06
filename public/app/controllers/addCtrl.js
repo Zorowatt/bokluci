@@ -105,7 +105,8 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
                     var t = data.data.substr(-40);
                     $scope.fileId = t.slice(20);
                     $scope.thumbId = t.substr(0,20);
-                    $scope.img=data.data.slice(0,-40);
+                   $scope.img=data.data.slice(0,-40);
+
                 });
 
 

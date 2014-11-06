@@ -16,7 +16,7 @@ module.exports = function(app){
     app.set('view engine','jade');
     app.set('views', rootPath + '/server/views');
 
-    app.use(cookieParser());
+    app.use(cookieParser('zoroencryption'));
 
     app.use(bodyParser.urlencoded({
         extended: true

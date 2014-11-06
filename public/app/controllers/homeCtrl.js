@@ -1,6 +1,7 @@
-app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal'
-    , function($scope, $resource, $http, $q, $location,$modal) {
+app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal','$cookies','$timeout','$cookieStore'
+    , function($scope, $resource, $http, $q, $location,$modal,$cookies,$timeout,$cookieStore) {
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
+
 
      $scope.nothing = false;
      $scope.info = 'Засега няма информация за това което търсите!';
@@ -58,7 +59,13 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
     var pos = 0;
     $scope.step = 6;
 
+
+//        console.log($cookieStore.get('home.l'));
+//        console.log($cookies.home);
+
     function load(skip, limit, search) {
+
+        //console.log($cookies.home);
         var res = $resource('/api');
         return res.query({s: skip ,l: limit, search: search});
     }
@@ -66,15 +73,46 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
     $scope.products =load(pos,$scope.step,$scope.search);
 //Preview and Next buttons
     $scope.prev = function(){
+//        if (pos >= $scope.step) {
+//            pos = pos - $scope.step;
+//            var res = $resource('/prev');
+//            res.query();
+//            $resource('/api').query.$promise.then(function (result) {
+//                $scope.products = result;
+//            });
+//
+//        }
+
+
         if (pos >= $scope.step) {
             pos = pos - $scope.step;
-            load(pos, $scope.step, $scope.search).$promise.then(function (result) {
-                $scope.products = result;
-            });
+           // $cookies.home= {l:pos,s:$scope.step,search:$scope.search};
+            //$timeout(function () {
+                load(pos, $scope.step, $scope.search).$promise.then(function (result) {
+                    $scope.products = result;
+                });
+            //},10000)
+
         }
     };
     $scope.next = function(){
+
+//        var res = $resource('/next');
+//        res.query();
+//        $resource('/api').query().$promise.then(function(result){
+//            if (result.length === 0) {
+//
+//            }
+//            else {
+//                $scope.products = result;
+//                pos = pos + $scope.step;
+//            }
+//        });
+
+
         pos = pos + $scope.step;
+      $cookies.home = 'l'+pos+'s'+$scope.step+'search'+$scope.search;
+        //$timeout(function () {
         load(pos,$scope.step,$scope.search).$promise.then(function(result){
             if (result.length === 0) {
                 pos = pos - $scope.step;
@@ -83,6 +121,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
                 $scope.products = result;
             }
         });
+       // },10000);
     };
 
 //deals with the search box typeahead
