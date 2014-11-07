@@ -207,8 +207,8 @@ module.exports = {
         p[1] = p[1]!='' ? p[1] : 'щщщщщщ';
         p[2] = p[2]!='' ? p[2] : 'щщщщщщ';
         p[3] = p[3]!='' ? p[3] : 'щщщщщщ';
-        console.log(p);
-        console.log(req.body.search);
+//        console.log(p);
+//        console.log(req.body.search);
 
         //str1 =  '/^'+req.query.search+'/';
         //console.log(str1);
