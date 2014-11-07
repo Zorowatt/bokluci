@@ -132,20 +132,6 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
     };
 
 
-//        var a = {"Ё":"YO","Й":"I","Ц":"TS","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu"};
-//        function transliterateToLatin(word){
-//            return word.split('').map(function (char) {
-//                return a[char] || char;
-//            }).join("");
-//        }
-//        // var a = {"Ё":"YO","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu"};
-//        var m = {'I':"И",'i':'и',"TS":"Ц",'ts':'ц','c':'ц','C':'Ц',"YU":"Ю",'yu':'ю','iu':'ю','IU':'Ю','YA':'Я',"ya":"я",'IA':'Я','ia':'я'};
-//        function transliterateToCyrillic(word){
-//            if (word=='ia') return 'я'
-//            return word.split('').map(function (char) {
-//                return m[char] || char;
-//            }).join("");
-//        }
 //deals with the search box typeahead
     $scope.getProd = function(val) {
         console.log();
@@ -188,6 +174,11 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
         $http.get('/api', {params: {s: pos, l: $scope.step, search: $scope.search}})
             .success(function (data, status, error, config) { // .success(data,status,header,config)
                 if (data.length > 0) {
+
+
+
+                    //TODO replace search content with name of the selected choise
+                    //$scope.search = $scope.products[0].name;
                     return $scope.products = data;
                 }
                 //TODO show message No such topic

@@ -39,98 +39,165 @@ function transliterate(word) {
         }
 
         else{
+
+            //slavei,haimana,slavej
+            if (arr[i]=='e') {
+                if (arr[i + 1] == 'j') {
+                    origin.push('еж');
+                    newWord.push('ей');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='e') {
+                if (arr[i + 1] == 'i') {
+                    origin.push('еи');
+                    newWord.push('ей');
+                    i++;
+                    continue;
+                }
+            }
+            //naj-,nai-
+            if (arr[i]=='a') {
+                if (arr[i + 1] == 'j') {
+                    origin.push('аж');
+                    newWord.push('ай');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='a') {
+                if (arr[i + 1] == 'i') {
+                    origin.push('аи');
+                    newWord.push('ай');
+                    i++;
+                    continue;
+                }
+            }
+            //iuli,juli
             if (arr[i]=='i') {
                 if (arr[i + 1] == 'u') {
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push('у');
+                    origin.push('иу');
                     newWord.push('ю');
                     i++;
                     continue;
                 }
             }
+            if (arr[i]=='j') {
+                if (arr[i + 1] == 'u') {
+                    origin.push('жу');
+                    newWord.push('ю');
+                    i++;
+                    continue;
+                }
+            }
+
+
+
+            //jordan,iordan,djordani
             if (arr[i]=='i') {
                 if (arr[i + 1] == 'o') {
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push('о');
+                    origin.push('ио');
                     newWord.push('йо');
                     i++;
                     continue;
                 }
             }
+            if (arr[i]=='j') {
+                if (arr[i + 1] == 'o') {
+                    origin.push('жо');
+                    newWord.push('йо');
+                    i++;
+                    continue;
+                }
+            }
+
+
+            //moi,twoi
             if (arr[i]=='o') {
                 if (arr[i + 1] == 'i') {
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push('и');
+                    origin.push('ои');
                     newWord.push('ой');
                     i++;
                     continue;
                 }
             }
+            //cska,carevec,tsarevets,tcarevetc
             if (arr[i]=='t') {
                 if (arr[i + 1] == 's') {
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push(transFromLatToCyr(arr[i+1]));
+                    origin.push('тс');
                     newWord.push('ц');
                     i++;
                     continue;
                 }
                 if (arr[i + 1] == 'c') {
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push(transFromLatToCyr(arr[i+1]));
+                    origin.push('тц');
                     newWord.push('ц');
                     i++;
                     continue;
                 }
             }
+            //TODO chehia
+            //chapla
             if (arr[i]=='c') {
                 if (arr[i + 1] == 'h') {
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push(transFromLatToCyr(arr[i+1]));
+                    origin.push('цх');
                     newWord.push('ч');
                     i++;
                     continue;
                 }
             }
+            //niama,njama
             if (arr[i]=='i') {
                 if (arr[i + 1] == 'a') {
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push(transFromLatToCyr(arr[i+1]));
+                    origin.push('иа');
                     newWord.push('я');
                     i++;
                     continue;
                 }
             }
+            if (arr[i]=='j') {
+                if (arr[i + 1] == 'a') {
+                    origin.push('жа');
+                    newWord.push('я');
+                    i++;
+                    continue;
+                }
+            }
+
+            //shtipka,stipka,sharka
             if (arr[i]=='s') {
                 if (arr[i + 1] == 'h') {
                     if(arr[i+2] == 't'){
-                        origin.push(transFromLatToCyr(arr[i]));
-                        origin.push(transFromLatToCyr(arr[i+1]));
-                        origin.push(transFromLatToCyr(arr[i+2]));
+                        origin.push('схт');
                         newWord.push('щ');
                         i++;
                         i++;
                         continue;
                     }else{
-                        origin.push(transFromLatToCyr(arr[i]));
-                        origin.push(transFromLatToCyr(arr[i+1]));
+                        origin.push('сх');
                         newWord.push('ш');
                         i++;
                         continue;
                     }
                 }
                 if (arr[i + 1] == 't'){
-                    origin.push(transFromLatToCyr(arr[i]));
-                    origin.push(transFromLatToCyr(arr[i+1]));
+                    origin.push('ст');
                     newWord.push('щ');
                     i++;
                     continue;
                 }
             }
+
             origin.push(transFromLatToCyr(arr[i]));
             newWord.push(transFromLatToCyr(arr[i]));
 
         }
     }
+
+    //TODO ninja
+    //TODO chehia
+
     variants.push(newWord.join(''));
     variants.push(origin.join(''));
     variants.push(newWord.join('').replace(/у/g, 'ъ'));
