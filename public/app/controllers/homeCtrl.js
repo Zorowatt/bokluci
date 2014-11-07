@@ -1,6 +1,11 @@
 app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal'
     , function($scope, $resource, $http, $q, $location,$modal) {
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
+    $scope.name = function (name) {
+        if (name.length<=17) return name;
+        return name.substr(0,17)+' ...';
+    };
+
 
 
      $scope.nothing = false;
@@ -90,6 +95,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
             //$timeout(function () {
                 load(pos, $scope.step, $scope.search).$promise.then(function (result) {
                     $scope.products = result;
+                    window.scrollTo(0, 0);
                 });
             //},10000)
 
@@ -118,14 +124,31 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
                 pos = pos - $scope.step;
             }
             else {
+                window.scrollTo(0, 0);
                 $scope.products = result;
             }
         });
        // },10000);
     };
 
+
+//        var a = {"Ё":"YO","Й":"I","Ц":"TS","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu"};
+//        function transliterateToLatin(word){
+//            return word.split('').map(function (char) {
+//                return a[char] || char;
+//            }).join("");
+//        }
+//        // var a = {"Ё":"YO","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu"};
+//        var m = {'I':"И",'i':'и',"TS":"Ц",'ts':'ц','c':'ц','C':'Ц',"YU":"Ю",'yu':'ю','iu':'ю','IU':'Ю','YA':'Я',"ya":"я",'IA':'Я','ia':'я'};
+//        function transliterateToCyrillic(word){
+//            if (word=='ia') return 'я'
+//            return word.split('').map(function (char) {
+//                return m[char] || char;
+//            }).join("");
+//        }
 //deals with the search box typeahead
     $scope.getProd = function(val) {
+        console.log();
         return $http.post('/api/search', {
             search: val
         }).then(function(response){
@@ -145,6 +168,8 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 //            }
 //        }
 //    });
+
+
     //Search filter of the products
     $scope.goSearch = function(){
         $scope.nothing = false;

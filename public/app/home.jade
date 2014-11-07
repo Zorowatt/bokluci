@@ -12,7 +12,8 @@
     ul.list-inline.aaa
         li.biggi(ng-repeat='item in products')
             a.thumbnail.home(href='/topic/{{item._id}}')
-                label(tooltip="{{item.name}}") {{item.name | limitTo: 15 }}
+                label(tooltip="{{item.name}}") {{name(item.name)}}
+                    // {{item.name | limitTo: 20 }}
                 #imgsize
                     img.img-rounded.home-image(ng-src='/thumb/{{item.thumbnail}}')
                 #bellow
@@ -25,6 +26,6 @@
                         span.pull-right.badge.seen {{item.visited}}
 ul.pager(ng-hide='nothing')
     li
-        a.btn.btn-default(href="", ng-click="prev()") Назад
+        a.btn.btn-default(href="", ng-click="prev()") &larr; Назад
     li
-        a.btn.btn-default(href="", ng-click="next()") Напред
+        a.btn.btn-default(href="", ng-click="next()") Напред &rarr;
