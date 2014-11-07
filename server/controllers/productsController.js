@@ -26,19 +26,116 @@ function randomString() {
     return randomstring;
 }
 var cirToLat = {"Ё":"YO","Й":"I","Ц":"TS","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu"};
-var latToCyr = {'a':'а','b':'б','v':'в','w':'в','g':'г','d':'д','e':'е','j':'ж','z':'з','i':'и','k':'к','l':'л','m':'м','n':'н','o':'о','p':'п','r':'р','s':'с','t':'т','u':'у','f':'ф','h':'х','A':'А','B':'Б','V':'В','W':'В','G':'Г','D':'Д','E':'Е','J':'Ж','Z':'З','I':'И','K':'К','L':'Л','M':'М','N':'Н','O':'О','P':'П','R':'Р','S':'С','T':'Т','U':'У','F':'Ф','H':'Х'};
+var latToCyr = {'y':'ъ','Y':'Ъ','c':'ц','C':'Ц','q':'я','Q':'Я','a':'а','b':'б','v':'в','w':'в','g':'г','d':'д','e':'е','j':'ж','z':'з','i':'и','k':'к','l':'л','m':'м','n':'н','o':'о','p':'п','r':'р','s':'с','t':'т','u':'у','f':'ф','h':'х','A':'А','B':'Б','V':'В','W':'В','G':'Г','D':'Д','E':'Е','J':'Ж','Z':'З','I':'И','K':'К','L':'Л','M':'М','N':'Н','O':'О','P':'П','R':'Р','S':'С','T':'Т','U':'У','F':'Ф','H':'Х'};
 function transliterate(word) {
     var arr = word.split('');
     var newWord=[];
+    var origin=[];
+    var oringPlusU=[];
+    var variants=[];
     for(i= 0;i<arr.length;i++){
         if (arr[i].charCodeAt(0)>1039 && arr[i].charCodeAt(0)<1104){
-            newWord.push(transFromCyrToLat(arr[i]));
+            //newWord.push(transFromCyrToLat(arr[i]));
         }
+
         else{
+            if (arr[i]=='i') {
+                if (arr[i + 1] == 'u') {
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push('у');
+                    newWord.push('ю');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='i') {
+                if (arr[i + 1] == 'o') {
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push('о');
+                    newWord.push('йо');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='o') {
+                if (arr[i + 1] == 'i') {
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push('и');
+                    newWord.push('ой');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='t') {
+                if (arr[i + 1] == 's') {
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push(transFromLatToCyr(arr[i+1]));
+                    newWord.push('ц');
+                    i++;
+                    continue;
+                }
+                if (arr[i + 1] == 'c') {
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push(transFromLatToCyr(arr[i+1]));
+                    newWord.push('ц');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='c') {
+                if (arr[i + 1] == 'h') {
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push(transFromLatToCyr(arr[i+1]));
+                    newWord.push('ч');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='i') {
+                if (arr[i + 1] == 'a') {
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push(transFromLatToCyr(arr[i+1]));
+                    newWord.push('я');
+                    i++;
+                    continue;
+                }
+            }
+            if (arr[i]=='s') {
+                if (arr[i + 1] == 'h') {
+                    if(arr[i+2] == 't'){
+                        origin.push(transFromLatToCyr(arr[i]));
+                        origin.push(transFromLatToCyr(arr[i+1]));
+                        origin.push(transFromLatToCyr(arr[i+2]));
+                        newWord.push('щ');
+                        i++;
+                        i++;
+                        continue;
+                    }else{
+                        origin.push(transFromLatToCyr(arr[i]));
+                        origin.push(transFromLatToCyr(arr[i+1]));
+                        newWord.push('ш');
+                        i++;
+                        continue;
+                    }
+                }
+                if (arr[i + 1] == 't'){
+                    origin.push(transFromLatToCyr(arr[i]));
+                    origin.push(transFromLatToCyr(arr[i+1]));
+                    newWord.push('щ');
+                    i++;
+                    continue;
+                }
+            }
+            origin.push(transFromLatToCyr(arr[i]));
             newWord.push(transFromLatToCyr(arr[i]));
+
         }
     }
-    return newWord.join('');
+    variants.push(newWord.join(''));
+    variants.push(origin.join(''));
+    variants.push(newWord.join('').replace(/у/g, 'ъ'));
+    variants.push(origin.join('').replace(/у/g, 'ъ'));
+    return variants;//newWord.join('');
 }
 function transFromCyrToLat(letler) {
     return letler.split('').map(function (char) {
@@ -53,7 +150,9 @@ function transFromLatToCyr(letler) {
 
 
 
-
+function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "щщ");
+}
 module.exports = {
     convertImage: function (req, res, next) {
                //console.time("dbsave");
@@ -349,7 +448,16 @@ module.exports = {
     },
 
     getAllProducts: function(req, res, next) {
+
+        req.query.search = escapeRegExp(req.query.search);
         var p = transliterate(req.query.search);
+        p[0] = p[0]!='' ? p[0] : 'щщщщщщ';
+        p[1] = p[1]!='' ? p[1] : 'щщщщщщ';
+        p[2] = p[2]!='' ? p[2] : 'щщщщщщ';
+        p[3] = p[3]!='' ? p[3] : 'щщщщщщ';
+
+
+
         //console.log(p);
         //console.log('---'+req.query.search);
         //res.clearCookie('home');
@@ -371,7 +479,7 @@ module.exports = {
                 var findOptions = {
                     flagIsNew: false,
                     //name: { $regex: req.query.search, $options: "i" }
-                    $or : [{name: { $regex: req.query.search, $options: "i" }},{name: { $regex: p, $options: "i" }} ]
+                    $or : [{name: { $regex: req.query.search, $options: "i" }},{name: { $regex: p[0], $options: "i" }},{name: { $regex: p[1], $options: "i" }},{name: { $regex: p[2], $options: "i" }},{name: { $regex: p[3], $options: "i" }} ]
                 };
                 Products.find(findOptions).sort({ prosCount: -1 }).limit(req.query.l).skip(req.query.s)
                     .exec(function (err, collection) {
