@@ -69,8 +69,6 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 //        console.log($cookies.home);
 
     function load(skip, limit, search) {
-
-        //console.log($cookies.home);
         var res = $resource('/api');
         return res.query({s: skip ,l: limit, search: search});
     }
@@ -134,13 +132,23 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
 //deals with the search box typeahead
     $scope.getProd = function(val) {
-        console.log();
+
         return $http.post('/api/search', {
             search: val
         }).then(function(response){
+
+            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+            var length = width<400 ? 30 : 55;
+            var result = response.data;
+            if (result !== undefined) {
+                for (i = 0; i < result.length; i++) {
+                    if (result[i].length > length) {
+                        result[i] = result[i].substr(0, length);
+                    }
+                }
+            }
             return response.data;
-
-
             });
     };
 
@@ -161,7 +169,6 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
         $scope.nothing = false;
         $scope.search = $scope.search.trim();
 
-
 //        //TODO 1st way
 //        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {
 //            $scope.products = res.data;
@@ -175,13 +182,11 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
             .success(function (data, status, error, config) { // .success(data,status,header,config)
                 if (data.length > 0) {
 
-
-
                     //TODO replace search content with name of the selected choise
                     //$scope.search = $scope.products[0].name;
                     return $scope.products = data;
                 }
-                //TODO show message No such topic
+
                 $scope.nothing = true;
                 $scope.products='';
             })
@@ -208,6 +213,10 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 //            console.log('Resource reading failed: ' + error);
 //        });
 
+        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        if (width<400) {
+            $scope.search = $scope.search.substr(0, 20);
+        }
     };
 
 

@@ -181,11 +181,11 @@ function transliterate(word) {
     variants.push(origin.join('').replace(/у/g, 'ъ'));
     return variants;//newWord.join('');
 }
-function transFromCyrToLat(letler) {
-        return letler.split('').map(function (char) {
-        return cirToLat[char] || char;
-    });
-}
+//function transFromCyrToLat(letler) {
+//        return letler.split('').map(function (char) {
+//        return cirToLat[char] || char;
+//    });
+//}
 function transFromLatToCyr(letler) {
         return letler.split('').map(function (char) {
         return latToCyr[char] || char;
@@ -198,22 +198,19 @@ function escapeRegExp(string) {
 module.exports = {
 
     searchSuggestions: function(req, res, next) {
-        req.body.search = escapeRegExp(req.body.search);
-//        req.body.search = req.body.search.replace('/', '');
-//        req.body.search = req.body.search.replace('\\', '');
-        var p = transliterate(req.body.search);
 
+
+        // remove not allowed symbols
+        req.body.search = escapeRegExp(req.body.search);
+
+        //replace latin letter with cyrillic
+        var p = transliterate(req.body.search);
         p[0] = p[0]!='' ? p[0] : 'щщщщщщ';
         p[1] = p[1]!='' ? p[1] : 'щщщщщщ';
         p[2] = p[2]!='' ? p[2] : 'щщщщщщ';
         p[3] = p[3]!='' ? p[3] : 'щщщщщщ';
 //        console.log(p);
 //        console.log(req.body.search);
-
-        //str1 =  '/^'+req.query.search+'/';
-        //console.log(str1);
-        //var re = new RegExp(str1);
-
 
         var findOptions = {
             flagIsNew: false,
@@ -230,34 +227,9 @@ module.exports = {
                     arr.push(collection[i].name);
                     if (i==3){break;}
                 }
-               // console.log(collection);
                     res.send(arr);
                 }
             res.end();
-
         });
-
-
-
-
-//        Search.find().exec(function (err, collection) {
-//                if (err) {
-//                    console.log('SearchBuffer can not be loaded: ' + err);
-//                }
-//            var arr = collection[0].buffer;
-//            var str = req.query.search;
-//            //console.log(collection[0].buffer);
-//            var newArr=[];
-//            for (var j=0; j<arr.length; j++) {
-//                if (arr[j].match(str))
-//                {
-//                    //TODO do not repeat elements in newArr
-//                    newArr.push(arr[j])
-//                };
-//            }
-//
-//
-//                res.send(newArr.slice(0,4));
-//            })
-        }
+    }
 };

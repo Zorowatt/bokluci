@@ -10,7 +10,7 @@
     .well.center-block.nothing(ng-show='nothing')
         p.text-center {{info}}
     ul.list-inline.aaa
-        li.biggi(ng-repeat='item in products')
+        li(ng-repeat='item in products')
             a.thumbnail.home(href='/topic/{{item._id}}')
                 label(tooltip="{{item.name}}") {{name(item.name)}}
                     // {{item.name | limitTo: 20 }}

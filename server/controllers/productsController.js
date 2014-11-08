@@ -470,7 +470,7 @@ module.exports = {
                     }
                 });
             }),
-            //TODO before add to DB check if object contains any commands of mongodb. PREVENTING FROM INJECTION ATTACK
+            //TODO before add to DB check if object contains any commands against mongodb. PREVENTING FROM INJECTION ATTACK
 
 
 //            if (!pictureExists){
@@ -516,7 +516,10 @@ module.exports = {
 
     getAllProducts: function(req, res, next) {
 
+        //remove not allowed symbols
         req.query.search = escapeRegExp(req.query.search);
+
+        //replace latin letter with cyrillic
         var p = transliterate(req.query.search);
         p[0] = p[0]!='' ? p[0] : 'щщщщщщ';
         p[1] = p[1]!='' ? p[1] : 'щщщщщщ';

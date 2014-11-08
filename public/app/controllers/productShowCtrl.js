@@ -1,6 +1,6 @@
 app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource','$location','$modal','$http'
     ,function($scope, $routeParams, $resource, $location,$modal,$http) {
-
+    window.scrollTo(0, 0);
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
     var p = $resource('/api/topic/:id',{id: $routeParams.id});
