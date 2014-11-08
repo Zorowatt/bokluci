@@ -9,6 +9,23 @@ body {
 }
 
 /*--------------------------------------- for Home page-----------------------------------------*/
+.thumbnail .newTopic {
+    font-size: .9em;
+    position: absolute;
+    margin-top: -15px;
+    margin-left: -10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.thumbnail .newComent {
+    /*font-size: 22px;*/
+    position: absolute;
+    margin-top: -15px;
+    margin-left: 64px;
+
+}
+
+
 @media (max-width: 768px) {
     select:focus,
     textarea:focus,

@@ -164,6 +164,18 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 //    });
 
 
+//check if the topic is new(published less than a week)
+   $scope.checkIsNew = function (date) {
+       var f = new Date(date).getTime();
+       var d = new Date().getTime();
+        if (d<f+7*86400000){
+            return true;
+        }
+       return false;
+   };
+
+
+
     //Search filter of the products
     $scope.goSearch = function(){
         $scope.nothing = false;
@@ -185,6 +197,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
                     //TODO replace search content with name of the selected choise
                     //$scope.search = $scope.products[0].name;
                     return $scope.products = data;
+
                 }
 
                 $scope.nothing = true;
