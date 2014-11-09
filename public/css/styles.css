@@ -1,5 +1,5 @@
 body {
-    padding-top: 20px;
+    padding-top: 100px;
 }
 .navbar {
     background-color: white;
@@ -17,12 +17,27 @@ body {
     padding-left: 5px;
     padding-right: 5px;
 }
-.thumbnail .newComent {
+/*.thumbnail .newComent {*/
     /*font-size: 22px;*/
-    position: absolute;
-    margin-top: -15px;
-    margin-left: 64px;
+    /*position: absolute;*/
+    /*margin-top: -15px;*/
+    /*margin-left: 64px;*/
 
+/*}*/
+.navbar{
+    /*background-color: rgb(236, 231, 231);*/
+    box-shadow: 0px 10px 20px  #fff;
+}
+.thumbnail {
+    box-shadow: 5px 5px 10px #888888;
+
+}
+.zzz {
+    padding: 5px 5px 2px 5px;
+    box-shadow: 5px 5px 10px #888888;
+}
+.zz {
+    box-shadow: 5px 5px 10px #888888;
 }
 
 
@@ -34,17 +49,42 @@ body {
     }
 }
 .topone{
-    max-width: 500px;
+    max-width: 550px;
 }
 /*for addProd button*/
 .addProdBut{
-    margin-top: 10px;
-    margin-bottom: 20px;
-    min-width: 150px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    /*min-width: 150px;*/
 }
 .addProdSearch{
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-width:500px ;
 }
+.col{
+    color: rgb(34, 122, 178);
+    font-weight: 900;
+}
+@media (max-width: 550px) {
+    .addProdBut{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: .9em;
+    }
+    .addProdSearch{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+}
+
+
+
+
+
+
 .mes{
     background-color: white;
 }
@@ -59,20 +99,28 @@ body {
     display: inline-block; /* the key bit */
     *display: inline; /* IE7 hack */
     *zoom: 1; /* IE7 hack */
+    padding-right: 15px;
 }
 #bellow{
+    text-decoration: none;
     text-align: left;
     margin-left: 5px;
     margin-right: 5px;
     font-size: .9em;
     color: #000000;
 }
-.thumbnail .home{
+label.yy  {
+    font-weight: 100;
+}
+.thumbnail.home{
     display: block;
     min-width: 150px;
     min-height: 250px;
+    text-decoration: none;
+    width: 170px;
 }
 #imgShow{
+    padding-top: 10px;
    max-width: 150px;
    max-height: 150px;
 }
@@ -240,6 +288,8 @@ hr.seen{
 }
 .seen{
     font-size: .9em;
+    text-decoration: none;
+    font-weight: bold;
 }
 .badge{
     background-color: cornflowerblue;
@@ -251,7 +301,8 @@ hr.seen{
     margin-right: -6px;
 }
 span.data{
-    padding-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 5px;
     font-size: .8em;
     color: grey;
 }

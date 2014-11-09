@@ -19,7 +19,7 @@
                 .panel-body.pross
                     ul.list-unstyled
                         li.panel.panel-success(ng-repeat='item in Product.pros', ng-show='!item.flagIsNew')
-                            .panel-body
+                            .panel-body.zzz
                                 textarea.form-control(msd-elastic, ng-model="item.content", ng-disabled='true')
                                 span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo : 10}}
         .col-md-6
@@ -31,7 +31,7 @@
                 .panel-body.pross
                     ul.list-unstyled
                         li.panel.panel-danger(ng-repeat='item in Product.cons', ng-show='!item.flagIsNew')
-                            .panel-body
+                            .panel-body.zzz
                                 textarea.form-control(msd-elastic, ng-model="item.content", ng-disabled='true')
                                 span.data.pull-right добавен на: &nbsp{{item.dateAdded | limitTo:10}}
 

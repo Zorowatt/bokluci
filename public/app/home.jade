@@ -1,10 +1,27 @@
-.container
-    .topone.center-block
-        button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Кажете и Вие
-        .input-group.addProdSearch
-            input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
-            span.input-group-btn
-                button.btn.btn-default(type="button", ng-click='goSearch()') Намери
+.navbar.navbar-fixed-top.navbar-default(role='navigation')
+    .navbar-inner
+        .container
+            //label Показвай:
+            .col-md-6
+                p.addProdBut
+                    a.btn.btn-default.col.btn-sm(href='', ng-click='addProduct()') Кажете и Вие
+                    |  ,за да чуем и ние ...
+               // button.addProdBut.btn.btn-primary(ng-click='addProduct()') Кажете и Вие
+            .col-md-6
+                .input-group.addProdSearch
+                    input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
+                    span.input-group-btn
+                        button.btn.btn-default(type="button", ng-click='goSearch()') Намери
+
+
+//.container
+//    .topone.center-block
+        //button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Кажете и Вие
+
+        //.input-group.addProdSearch
+        //    input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
+        //    span.input-group-btn
+        //        button.btn.btn-default(type="button", ng-click='goSearch()') Намери
 
 .container
     .well.center-block.nothing(ng-show='nothing')
@@ -18,15 +35,18 @@
                 #imgsize
                     img.img-rounded.home-image(ng-src='/thumb/{{item.thumbnail}}')
                 #bellow
-                    p Мнения:
-                        span.pull-right.badge {{getNumber(item.pros)}}
-                    p Препоръки:
-                        span.pull-right.badge {{getNumber(item.cons)}}
+                    label.yy Мнения:
+                    span.pull-right.badge {{getNumber(item.pros)}}
+                    br
+                    label.yy Препоръки:
+                    span.pull-right.badge {{getNumber(item.cons)}}
                     hr.seen
-                    p.seen Видяно:
-                        span.pull-right.badge.seen {{item.visited}}
+                    label.seen Видяно:
+                    span.pull-right.badge.seen {{item.visited}}
 ul.pager(ng-hide='nothing')
+    //li
+    //    a.btn.btn-default(href="", ng-click="prev()") &larr; Назад
+    //li
+    //    a.btn.btn-default(href="", ng-click="next()") Напред &rarr;
     li
-        a.btn.btn-default(href="", ng-click="prev()") &larr; Назад
-    li
-        a.btn.btn-default(href="", ng-click="next()") Напред &rarr;
+           a.btn.btn-default(href="", ng-click="next()") Повече

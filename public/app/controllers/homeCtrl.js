@@ -1,5 +1,5 @@
-app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal'
-    , function($scope, $resource, $http, $q, $location,$modal) {
+app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal','$timeout'
+    , function($scope, $resource, $http, $q, $location,$modal,$timeout) {
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
     $scope.name = function (name) {
         if (name.length<=17) return name;
@@ -99,6 +99,17 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
         }
     };
+
+//
+//        $scope.$watch('product.name', function(newValue, oldValue) {
+//            if (newValue!==undefined && newValue.length>100){
+//                $scope.product.name=oldValue;
+//                return popAlert(0,'Моля темата да не е по-дълга от 100 символа!');
+//            }
+//        });
+
+
+
     $scope.next = function(){
 
 //        var res = $resource('/next');
@@ -122,8 +133,18 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
                 pos = pos - $scope.step;
             }
             else {
-                window.scrollTo(0, 0);
-                $scope.products = result;
+               //window.scrollTo(0, 0);
+                //$scope.products = result;
+
+                for(i=0;i<result.length;i++){
+                    $scope.products.push(result[i]);
+                }
+                //console.log(document.body.scrollHeight);
+//                $timeout(function () {
+//                    window.scrollTo(0,document.body.scrollHeight);
+//                },1000);
+
+
             }
         });
        // },10000);
@@ -180,6 +201,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
     $scope.goSearch = function(){
         $scope.nothing = false;
         $scope.search = $scope.search.trim();
+        pos=0;
 
 //        //TODO 1st way
 //        $http.get('/api',{params: {s: pos, l: $scope.step, search: $scope.search}}).then(function(res) {
