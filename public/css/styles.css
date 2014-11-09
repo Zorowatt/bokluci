@@ -1,6 +1,8 @@
-body {
-    padding-top: 100px;
-}
+
+    .mmm {
+        padding-top: 100px;
+    }
+
 .navbar {
     background-color: white;
 }
@@ -41,11 +43,14 @@ body {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 990px) {
     select:focus,
     textarea:focus,
     input:focus {
         font-size: 16px!important;
+    }
+    .mmm {
+        padding-top: 140px;
     }
 }
 .topone{
@@ -99,7 +104,8 @@ body {
     display: inline-block; /* the key bit */
     *display: inline; /* IE7 hack */
     *zoom: 1; /* IE7 hack */
-    padding-right: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 #bellow{
     text-decoration: none;
