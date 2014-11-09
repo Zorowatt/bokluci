@@ -1,8 +1,10 @@
 
-    .mmm {
-        padding-top: 100px;
-    }
-
+.mmm {
+    padding-top: 100px;
+}
+.mm{
+    padding-top: 20px;
+}
 .navbar {
     background-color: white;
 }
@@ -52,6 +54,7 @@
     .mmm {
         padding-top: 140px;
     }
+
 }
 .topone{
     max-width: 550px;
