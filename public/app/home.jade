@@ -16,7 +16,7 @@
     ul.list-inline.aaa
         li(ng-repeat='item in products')
             a.thumbnail.home(href='/topic/{{item._id}}')
-                span.center-block.label.label-danger.newTopic(ng-show='checkIsNew(item.dateAdded)') Ново
+                span.center-block.label.newTopic(ng-show='checkIsNew(item.dateAdded)') Ново
                 label(tooltip="{{item.name}}") {{name(item.name)}}
                 #imgsize
                     img.img-rounded.home-image(ng-src='/thumb/{{item.thumbnail}}')
