@@ -5,7 +5,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
         if (name.length<=17) return name;
         return name.substr(0,17)+' ...';
     };
-
+        $scope.more = 'ОЩЕ';
 
 
      $scope.nothing = false;
@@ -123,6 +123,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
         //$timeout(function () {
         load(pos,$scope.step,$scope.search).$promise.then(function(result){
             if (result.length === 0) {
+                $scope.more = 'КРАЙ';
                 pos = pos - $scope.step;
             }
             else {
@@ -131,6 +132,9 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
                 for(i=0;i<result.length;i++){
                     $scope.products.push(result[i]);
+                }
+                if (i<6){
+                    $scope.more = 'КРАЙ';
                 }
                 //console.log(document.body.scrollHeight);
 //                $timeout(function () {

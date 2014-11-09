@@ -3,6 +3,9 @@ app.controller('ProductShowCtrl',['$scope', '$routeParams', '$resource','$locati
     window.scrollTo(0, 0);
     //$scope.identity = identity; //this is only to show Add Product button if logged user exists
 
+
+
+
     var p = $resource('/api/topic/:id',{id: $routeParams.id});
     p.get().$promise.then(function(product) {
         if(product.missing){

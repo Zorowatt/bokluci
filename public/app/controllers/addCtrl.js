@@ -16,6 +16,12 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
             }, 3000);
         }
 
+        //before page scape checks for is update made
+        $scope.$on('$routeChangeStart', function(next, current) {
+            $modalInstance.dismiss('close');
+
+        });
+
         //validation for the topic
         $scope.$watch('product.name', function(newValue, oldValue) {
             if (newValue!==undefined && newValue.length>100){

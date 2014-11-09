@@ -159,6 +159,14 @@ app.controller('ShowMeCtrl',['$scope','$modalInstance','message'
         $scope.closeMe = function () {
             $modalInstance.dismiss('close');
         };
+
+        //before page scape checks for is update made
+        $scope.$on('$routeChangeStart', function(next, current) {
+            $modalInstance.dismiss('close');
+
+        });
+
+
     }]);
 app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout','$activityIndicator'
     , function ($scope,$modalInstance,$modal,$upload, $timeout,$activityIndicator) {
@@ -170,6 +178,13 @@ app.controller('AddCtrl',['$scope','$modalInstance','$modal','$upload','$timeout
         $scope.imageExistGet=true;
         $scope.alert=[];
         $scope.imageMessage='Няма Снимка';
+
+
+        //before page scape checks for is update made
+        $scope.$on('$routeChangeStart', function(next, current) {
+            $modalInstance.dismiss('close');
+
+        });
 
         function popAlert(alertNumber,message) {
             $scope.alert[alertNumber] = message;
