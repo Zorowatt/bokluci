@@ -18,7 +18,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
     //When Enter keyboard button been pressed
     $scope.ent= function () {
-    $scope.goSearch();
+        $scope.goSearch();
     };
 
     $scope.addProduct = function () {
@@ -100,13 +100,6 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
         }
     };
 
-//
-//        $scope.$watch('product.name', function(newValue, oldValue) {
-//            if (newValue!==undefined && newValue.length>100){
-//                $scope.product.name=oldValue;
-//                return popAlert(0,'Моля темата да не е по-дълга от 100 символа!');
-//            }
-//        });
 
 
 
@@ -199,6 +192,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
     //Search filter of the products
     $scope.goSearch = function(){
+        window.scrollTo(0,0);
         $scope.nothing = false;
         $scope.search = $scope.search.trim();
         pos=0;
@@ -218,6 +212,7 @@ app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal
 
                     //TODO replace search content with name of the selected choise
                     //$scope.search = $scope.products[0].name;
+
                     return $scope.products = data;
 
                 }
