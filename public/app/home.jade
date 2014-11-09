@@ -1,28 +1,15 @@
 .navbar.navbar-fixed-top.navbar-default(role='navigation')
     .navbar-inner
         .container
-            //label Показвай:
             .col-md-6
                 p.addProdBut
                     a.btn.btn-default.col.btn-sm(href='', ng-click='addProduct()') Кажете и Вие
-                    |  ,за да чуем и ние ...
-               // button.addProdBut.btn.btn-primary(ng-click='addProduct()') Кажете и Вие
+                    |  ,за да ви чуят всички ...
             .col-md-6
                 .input-group.addProdSearch
                     input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
                     span.input-group-btn
                         button.btn.btn-default(type="button", ng-click='goSearch()') Намери
-
-
-//.container
-//    .topone.center-block
-        //button.addProdBut.center-block.btn.btn-primary(ng-click='addProduct()') Кажете и Вие
-
-        //.input-group.addProdSearch
-        //    input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
-        //    span.input-group-btn
-        //        button.btn.btn-default(type="button", ng-click='goSearch()') Намери
-
 .container.mmm
     .well.center-block.nothing(ng-show='nothing')
         p.text-center {{info}}
@@ -31,7 +18,6 @@
             a.thumbnail.home(href='/topic/{{item._id}}')
                 span.center-block.label.label-danger.newTopic(ng-show='checkIsNew(item.dateAdded)') Ново
                 label(tooltip="{{item.name}}") {{name(item.name)}}
-                    // {{item.name | limitTo: 20 }}
                 #imgsize
                     img.img-rounded.home-image(ng-src='/thumb/{{item.thumbnail}}')
                 #bellow
