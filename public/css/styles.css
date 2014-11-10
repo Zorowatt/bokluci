@@ -233,10 +233,24 @@ input.upload{
     width: 136px;
     height: 34px;
 }
-.thumbnail.preview{
+.well.ask{
+    /*padding: 0 0 0 0;*/
+    margin-bottom: 0;
+}
+.jj{
+    margin-bottom: 0;
+}
+.sss{
     max-width: 130px;
-    height: 110px;
-
+    max-height: 130px;
+    box-shadow: 5px 5px 10px #888888;
+    margin-bottom: 10px;
+}
+.thumbnail.preview{
+    /*max-width: 130px;*/
+    /*height: 150px;*/
+    width: 130px;
+    height: 130px;
     margin-bottom: 10px;
 }
 #asda{

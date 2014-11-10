@@ -1,6 +1,6 @@
 .modal-header
     button.close(ng-click='closeMe()') &times
-    label Моля въведете:
+    label.jj Моля въведете:
 
 .modal-body
     .well.ask
@@ -20,23 +20,24 @@
                 .form-group
                     label.control-label(ng-show='titles') Имате ли препоръки:
                     textarea.zz.form-control(msd-elastic="'\n'", ng-model="conscon")
-                .form-group
-                    .media
-                        .pull-left
-                            img(ng-show='imageExist', ng-src='{{img}}')
+                //.form-group
+            .media
+                .pull-left
+                    .thumbnail.preview(ng-hide='imageExist')
+                        p.text-center(ng-show='imageSpin') {{imageMessage}}
+                        #spin.center(ng-activity-indicator='',ng-show='imageSpin')
+                    img.sss(ng-show='imageExist', ng-src='{{img}}')
 
-                        .media-body
-                            h5.media-heading(ng-show='imageExistGet') Вземете снимка, ако желаете
+                .media-body
+                    h5.media-heading(ng-show='imageExistGet') Вземете снимка, ако желаете
 
-                            p.alerting {{alert[1]}}
-                            .fileUpload.btn.btn-success(ng-show='imageExistGet') Вземи
-                                 input.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
-                            p(ng-show='imageExist && !imageSpin') Откажете снимката, ако желаете
-                            button.btn.btn-default(ng-enter='ent()', ng-show='imageExist && !imageSpin' ,ng-click="removeImage()") Откажи
+                    p.alerting {{alert[1]}}
+                    .fileUpload.btn.btn-success(ng-show='imageExistGet') Вземи
+                         input.upload(type="file" ng-file-select="addImage($files)" accept="image/*")
+                    p(ng-show='imageExist && !imageSpin') Откажете снимката, ако желаете
+                    button.btn.btn-default(ng-enter='ent()', ng-show='imageExist && !imageSpin' ,ng-click="removeImage()") Откажи
 
-                            .thumbnail.preview(ng-show='imageSpin')
-                                p.text-center {{imageMessage}}
-                                #spin.center(ng-activity-indicator='')
+
 
                     //  p.alerting {{alert[1]}}
                     //    //label(ng-show='imageExist') Премахнете снимката, ако не е необходима
