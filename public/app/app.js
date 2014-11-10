@@ -76,7 +76,7 @@ app.config(['$activityIndicatorProvider', function ($activityIndicatorProvider) 
 }]);
 
 
-//Deal with the Enter press into the modals
+//Deal with the Enter press
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {

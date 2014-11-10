@@ -34,12 +34,7 @@ function transliterate(word) {
     var oringPlusU=[];
     var variants=[];
     for(i= 0;i<arr.length;i++){
-        if (arr[i].charCodeAt(0)>1039 && arr[i].charCodeAt(0)<1104){
-            //newWord.push(transFromCyrToLat(arr[i]));
-        }
-
-        else{
-
+        if (arr[i].charCodeAt(0)>64 && arr[i].charCodeAt(0)<91 || arr[i].charCodeAt(0)>96 && arr[i].charCodeAt(0)<123) {
             //slavei,haimana,slavej
             if (arr[i]=='e') {
                 if (arr[i + 1] == 'j') {
@@ -525,25 +520,15 @@ module.exports = {
         p[1] = p[1]!='' ? p[1] : 'щщщщщщ';
         p[2] = p[2]!='' ? p[2] : 'щщщщщщ';
         p[3] = p[3]!='' ? p[3] : 'щщщщщщ';
-
-
-
         //console.log(p);
-        //console.log('---'+req.query.search);
-        //res.clearCookie('home');
+        var limit = req.query.l;
+        var skip = req.query.s;
 
-//        var l,s,search;
-//        if (req.cookies.home!==undefined){
-//            l = parseInt(req.cookies.home.l);
-//            s = parseInt(req.cookies.home.s);
-//            search = req.cookies.home.search;
-//        }else{
-//            l = req.query.l;
-//            s = req.query.s;
-//            search = req.query.search;
-//        }
-        //console.log(req);
-        //console.log(l+'--'+s+'--'+search);
+        //Validate skip and limit
+        if (skip < 0) {skip = 0}
+        if (limit <1) {limit = 1}
+        if (limit > 20) {limit = 20}
+
         if (req.query.l && req.query.s) {
             //if (req.query.search.length == 0) {
                 var findOptions = {
@@ -551,7 +536,7 @@ module.exports = {
                     //name: { $regex: req.query.search, $options: "i" }
                     $or : [{name: { $regex: req.query.search, $options: "i" }},{name: { $regex: p[0], $options: "i" }},{name: { $regex: p[1], $options: "i" }},{name: { $regex: p[2], $options: "i" }},{name: { $regex: p[3], $options: "i" }} ]
                 };
-                Products.find(findOptions).sort({ prosCount: -1 }).limit(req.query.l).skip(req.query.s)
+                Products.find(findOptions).sort({ prosCount: -1 }).limit(limit).skip(skip)
                     .exec(function (err, collection) {
                     if (err) {
                         console.log('Products can not be loaded: ' + err);

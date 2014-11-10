@@ -9,7 +9,8 @@
                 .input-group.addProdSearch
                     input.form-control.search(ng-enter='ent()', type="text" ng-model="search" typeahead="a for a in getProd($viewValue)",typeahead-min-length=2, typeahead-on-select='sel()')
                     span.input-group-btn
-                        button.btn.btn-default(type="button", ng-click='goSearch()') Намери
+                        button.btn.btn-default(type="button", ng-click='goSearch()')
+                            span.glyphicon.glyphicon-search
 .container.mmm
     .well.center-block.nothing(ng-show='nothing')
         p.text-center {{info}}

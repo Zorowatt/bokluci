@@ -1,20 +1,21 @@
 app.controller('HomeCtrl',['$scope','$resource','$http','$q','$location','$modal','$timeout'
     , function($scope, $resource, $http, $q, $location,$modal,$timeout) {
-    //$scope.identity = identity; //this is only to show Add Product button if logged user exists
+
+    //check if the topic name inside thumbnail is too long
     $scope.name = function (name) {
         if (name.length<=17) return name;
         return name.substr(0,17)+' ...';
     };
-        $scope.more = 'ОЩЕ';
+    $scope.more = 'ОЩЕ';
 
 
-     $scope.nothing = false;
-     $scope.info = 'Засега няма информация за това което търсите!';
+    $scope.nothing = false;
+    $scope.info = 'Засега няма информация за това което търсите!';
 
      //after selecting an item from typeahead
-     $scope.sel = function () {
-         $scope.goSearch();
-     };
+    $scope.sel = function () {
+        $scope.goSearch();
+    };
 
     //When Enter keyboard button been pressed
     $scope.ent= function () {

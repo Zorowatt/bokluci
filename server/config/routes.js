@@ -32,7 +32,7 @@ module.exports = function(app){
         //, auth.isAuthenticated
         , controllers.products.convertImage);
 
-    //TODO hints during search
+
     app.post('/api/search', controllers.search.searchSuggestions);
 
 

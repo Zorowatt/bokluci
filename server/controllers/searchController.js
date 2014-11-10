@@ -11,12 +11,7 @@ function transliterate(word) {
     var oringPlusU=[];
     var variants=[];
     for(i= 0;i<arr.length;i++){
-        if (arr[i].charCodeAt(0)>1039 && arr[i].charCodeAt(0)<1104){
-            //newWord.push(transFromCyrToLat(arr[i]));
-        }
-
-        else{
-
+        if (arr[i].charCodeAt(0)>64 && arr[i].charCodeAt(0)<91 || arr[i].charCodeAt(0)>96 && arr[i].charCodeAt(0)<123) {
             //slavei,haimana,slavej
             if (arr[i]=='e') {
                 if (arr[i + 1] == 'j') {
