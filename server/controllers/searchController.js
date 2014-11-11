@@ -8,9 +8,12 @@ function transliterate(word) {
     var arr = word.split('');
     var newWord=[];
     var origin=[];
-    var oringPlusU=[];
+    var english=[];
     var variants=[];
     for(i= 0;i<arr.length;i++){
+        if(arr[i].charCodeAt(0)>1039 && arr[i].charCodeAt(0)<1104){
+            english.push(transFromCyrToLat(arr[i]));
+        }
         if (arr[i].charCodeAt(0)>64 && arr[i].charCodeAt(0)<91 || arr[i].charCodeAt(0)>96 && arr[i].charCodeAt(0)<123) {
             //slavei,haimana,slavej
             if (arr[i]=='e') {
@@ -174,13 +177,14 @@ function transliterate(word) {
     variants.push(origin.join(''));
     variants.push(newWord.join('').replace(/у/g, 'ъ'));
     variants.push(origin.join('').replace(/у/g, 'ъ'));
+    variants.push(english.join(''));
     return variants;//newWord.join('');
 }
-//function transFromCyrToLat(letler) {
-//        return letler.split('').map(function (char) {
-//        return cirToLat[char] || char;
-//    });
-//}
+function transFromCyrToLat(letler) {
+        return letler.split('').map(function (char) {
+        return cirToLat[char] || char;
+    });
+}
 function transFromLatToCyr(letler) {
         return letler.split('').map(function (char) {
         return latToCyr[char] || char;
@@ -204,12 +208,19 @@ module.exports = {
         p[1] = p[1]!='' ? p[1] : 'щщщщщщ';
         p[2] = p[2]!='' ? p[2] : 'щщщщщщ';
         p[3] = p[3]!='' ? p[3] : 'щщщщщщ';
+        p[4] = p[4]!='' ? p[4] : 'щщщщщщ';
 //        console.log(p);
 //        console.log(req.body.search);
 
         var findOptions = {
             flagIsNew: false,
-            $or : [{name: { $regex: req.body.search, $options: "i" }},{name: { $regex: p[0], $options: "i" }},{name: { $regex: p[1], $options: "i" }},{name: { $regex: p[2], $options: "i" }},{name: { $regex: p[3], $options: "i" }} ]
+            $or : [
+                {name: { $regex: req.body.search, $options: "i" }}
+                ,{name: { $regex: p[0], $options: "i" }}
+                ,{name: { $regex: p[1], $options: "i" }}
+                ,{name: { $regex: p[2], $options: "i" }}
+                ,{name: { $regex: p[3], $options: "i" }}
+                ,{name: { $regex: p[4], $options: "i" }} ]
         };
 
         Products.find(findOptions).sort({ pros: -1 }).exec(function (err, collection) {
